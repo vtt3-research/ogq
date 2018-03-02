@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.amazonaws:aws-java-sdk-devicefarm:1.11.66">
+    <CLASSES>
+      <root url="jar://D:/intellij/maven3/repository/com/amazonaws/aws-java-sdk-devicefarm/1.11.66/aws-java-sdk-devicefarm-1.11.66.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/intellij/maven3/repository/com/amazonaws/aws-java-sdk-devicefarm/1.11.66/aws-java-sdk-devicefarm-1.11.66-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/intellij/maven3/repository/com/amazonaws/aws-java-sdk-devicefarm/1.11.66/aws-java-sdk-devicefarm-1.11.66-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

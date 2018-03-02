@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map">
+	<select id="ddd" parameterType="hashmap" resultType="String">
+		SELECT count(0) ddd FROM accounts
+	</select>
+
+
+	<select id="maxContentId" parameterType="hashmap" resultType="String">
+		SELECT max(content_id)+1 maxContentId  FROM vtt.contents
+	</select>
+
+
+
+
+	<select id="allList" parameterType="hashmap" resultType="metavideo.vo.ContentVO">
+		SELECT *, (select account_name from accounts where contents.account_id=accounts.account_id) as account_name
+		FROM vtt.contents
+		where 1=1
+		<if test="keyword != null and keyword!=''">and (content_title like concat('%',#{keyword},'%') or explanation like concat('%',#{keyword},'%'))</if>
+		order by registered_dt desc
+		limit #{offset},10
+</select>
+
+
+	<select id="allListTotalCount" parameterType="hashmap" resultType="int">
+		SELECT count(*) c
+		FROM vtt.contents
+		where 1=1
+		<if test="keyword != null and keyword!=''">and (content_title like concat('%',#{keyword},'%') or explanation like concat('%',#{keyword},'%'))</if>
+
+	</select>
+
+
+
+
+	<select id="allDetail" parameterType="hashmap" resultType="metavideo.vo.ContentVO">
+		SELECT *
+		, account_name
+		, organ
+		FROM vtt.contents
+		left outer join accounts on contents.account_id=accounts.account_id
+		where 1=1
+		<if test="content_id != null and content_id!=''">and content_id=#{content_id}</if>
+
+	</select>
+
+
+	<select id="myDetail" parameterType="hashmap" resultType="metavideo.vo.ContentVO">
+		SELECT *
+		, account_name
+		, organ
+		FROM vtt.contents
+		left outer join accounts on contents.account_id=accounts.account_id
+		where 1=1
+		<if test="content_id != null and content_id!=''">and contents.content_id=#{content_id}</if>
+
+	</select>
+
+
+	<select id="shotVOList" parameterType="hashmap" resultType="metavideo.vo.ShotVO">
+		SELECT * FROM vtt.shots
+		where 1=1
+		and content_id=#{content_id}
+		order by shot_time
+
+	</select>
+
+
+
+
+	<select id="myList" parameterType="hashmap" resultType="metavideo.vo.ContentVO">
+		SELECT *, (select account_name from accounts where contents.account_id=accounts.account_id) as account_name
+		FROM vtt.contents
+		where 1=1
+		and account_id =#{account_id}
+		<if test="keyword != null and keyword!=''">and (content_title like concat('%',#{keyword},'%') or explanation like concat('%',#{keyword},'%'))</if>
+		order by registered_dt desc
+		limit #{offset},10
+
+	</select>
+
+
+	<select id="myListTotalCount" parameterType="hashmap" resultType="int">
+		SELECT count(*) c
+		FROM vtt.contents
+		where 1=1
+		and account_id =#{account_id}
+		<if test="keyword != null and keyword!=''">and (content_title like concat('%',#{keyword},'%') or explanation like concat('%',#{keyword},'%'))</if>
+	</select>
+
+
+
+
+
+
+	<select id="selectOneAccount" parameterType="hashmap" resultType="metavideo.vo.AccountVO">
+		SELECT *
+		FROM vtt.accounts
+		where 1=1
+		and account_id = #{account_id}
+	</select>
+
+
+
+	<select id="checkLoginIDPW" parameterType="hashmap" resultType="metavideo.vo.AccountVO">
+		SELECT *
+		FROM vtt.accounts
+		where 1=1
+		and account_id = #{account_id}
+		and account_pw = #{account_pw}
+	</select>
+
+
+
+	<insert id="insertAccountMap" parameterType="java.util.HashMap">
+
+		INSERT INTO vtt.accounts(
+			account_id,account_pw,organ,account_name,email,registered_dt,last_update_dt,certify
+		)VALUES(
+			#{account_id},
+			#{account_pw},
+			#{organ},
+			#{account_name},
+			#{email},
+			replace(replace(sysdate(), '-',''),':',''),
+			replace(replace(sysdate(), '-',''),':',''),
+			#{certify}
+		)
+
+	</insert>
+
+
+
+	<insert id="insertAccount" parameterType="metavideo.vo.AccountVO">
+
+		INSERT INTO vtt.accounts(
+		account_id,account_pw,organ,account_name,email,registered_dt,last_update_dt
+		)VALUES(
+		#{account_id},
+		#{account_pw},
+		#{organ},
+		#{account_name},
+		#{email},
+		#{registered_dt},
+		#{last_update_dt}
+		)
+
+	</insert>
+
+
+	<delete id="deleteContent" parameterType="hashmap">
+		delete from contents
+		where content_id in (${delIDs})
+	</delete>
+
+
+
+	<insert id="insertContent" parameterType="hashmap">
+INSERT INTO vtt.contents(
+content_id,account_id,content_title,explanation,registered_dt,last_update_dt,preview_image_path,agree_yn,entire_tags,video_running_time,video_file_size,video_file_url,meta_file_url
+)VALUES(
+#{content_id},
+#{account_id},
+#{content_title},
+#{explanation},
+replace(replace(sysdate(), '-',''),':',''),
+replace(replace(sysdate(), '-',''),':',''),
+#{preview_image_path},
+#{agree_yn},
+'',
+#{video_running_time},
+#{video_file_size},
+#{video_file_url},
+#{meta_file_url}
+)
+
+	</insert>
+
+
+
+	<update id="updateAccountCertification" parameterType="hashmap">
+		UPDATE accounts
+		SET certify='CERTIFIED'
+		WHERE account_id=#{account_id}
+	</update>
+
+
+	<update id="updateAccount" parameterType="hashmap">
+		UPDATE accounts
+		SET organ=#{organ}
+		, account_name=#{account_name}
+		WHERE account_id=#{account_id}
+
+	</update>
+
+	<update id="changePW" parameterType="hashmap">
+		UPDATE accounts
+		SET account_pw=#{account_pw}
+		WHERE 1=1
+		and account_id=#{account_id}
+	</update>
+
+
+	<update id="updateContent" parameterType="hashmap">
+		UPDATE contents
+		SET content_title=#{content_title}
+		, explanation=#{explanation}
+		WHERE 1=1
+		and content_id=#{content_id}
+		and account_id=#{account_id}
+
+	</update>
+
+
+	<update id="updateRunningTime" parameterType="hashmap">
+		UPDATE contents
+		SET video_running_time=#{video_running_time}
+		WHERE 1=1
+		and content_id=#{content_id}
+	</update>
+
+
+
+	<update id="updateEntireTags" parameterType="hashmap">
+		UPDATE contents
+		SET entire_tags=#{entire_tags}
+		WHERE 1=1
+		and content_id=#{content_id}
+	</update>
+
+
+
+	<insert id="insertShot" parameterType="hashmap">
+		INSERT INTO vtt.shots(
+		content_id,shot_time,seek_pos,scene_tags
+		)VALUES(
+		#{content_id},
+		#{shot_time},
+		#{seek_pos},
+		#{scene_tags}
+		)
+	</insert>
+
+
+
+</mapper>

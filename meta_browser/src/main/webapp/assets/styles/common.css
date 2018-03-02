@@ -1,0 +1,549 @@
+@charset "utf-8";
+/* BlueWaves Web Standard Team Author KKS, Co-Author LSJ */
+
+/* Common (공통적용 태그)*/
+
+/*
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+ */
+
+@import url(SpoqaHanSans-kr.css);
+
+
+html, body {-webkit-font-smoothing:antialiased;-webkit-font-smoothing:antialiased;}
+body,div,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,a,button,select{margin:0;padding:0}
+body,input,textarea,select,button,table{
+  font-family:SpoqaHanSans;
+  line-height:1.6em;
+  color:#000000;
+  font-size:14px;
+}
+body{word-break:break-all}
+img,fieldset,iframe{border:0}
+img{max-width:100%;vertical-align:top}
+li{list-style:none}
+em,address{font-style:normal}
+address{color:#777;line-height:19px}
+input,select,button{vertical-align:middle}
+button{cursor:pointer}
+button:active span,button:focus span{position:relative;top:0;left:0}
+caption,legend,.blind{overflow:hidden;position:absolute;top:0;left:-999em;line-height:0}
+caption{position:static}
+input[type=text],input[type=password]{
+  border:1px solid #dddddd;
+  vertical-align:middle;
+  line-height:27px;
+  -webkit-appearance:none;
+  box-shadow:none;
+
+  height: 25px;
+  margin: 10px 0px;
+  padding:5px;
+  width: 90%;
+}
+
+
+
+
+input[type=file]{width:99.5%;height:28px;border:1px solid #ccc;background-color:#fff}
+input[type=text]::-ms-clear{display:none}
+input[type=checkbox]{
+  width: 18px;
+  height: 18px;
+  border: solid 1px #979797;
+}
+select{height:30px;padding:4px 0 4px 7px;border:1px solid #ccc;vertical-align:middle}
+:root select{padding:0 0 0 7px}
+textarea{width:96.4%;padding:5px 10px;border:1px solid #ccc}
+
+/*
+hr{display:none}
+ */
+
+hr{
+  height: 1px;
+  border: none;
+}
+
+/*기본설정 튜닝*/
+html{
+  width: 100%;
+  height: 100%;
+}
+
+body{
+  width: 100%;
+  height: 100%;
+  background-color: #f7f6f5;
+}
+
+header{
+/*
+  width: 1920px;
+   */
+  width: 100%;
+  height: 64px;
+  background-color: #2f2f37;
+}
+
+main{
+  max-width: 940px;
+/*
+  height: calc(100% - 64px);
+*/
+  margin: auto;
+  background-color: white;
+  padding:80px;
+}
+
+div{
+  height:auto;
+  width:auto;
+}
+
+
+
+
+.h2{
+  font-size: 24px;
+}
+
+
+
+
+
+/* Aline */
+.fl{float:left}
+.fr{float:right}
+.of_h{overflow:hidden}
+.pr{position:relative}
+.db{display:block}
+.di_b{display:inline-block!important;}
+.di_tc{display:table-cell}
+.ls1{letter-spacing:-1px}
+.vt{vertical-align:top}
+.vm{vertical-align:middle!important;}
+.vb{vertical-align:bottom}
+.tc{text-align:center}
+.tr{text-align:right}
+.tl{text-align:left}
+.cb{clear:both}
+.dis_n{display:none;}
+
+/* height */
+.hgt6 {height:6px;}
+.hgt44 {height:44px;}
+
+/* padding */
+.pd_r_29{padding-right:79px;}
+.pd_l_29{padding-left:29px;}
+.pd_l_10{padding-left:10px!important;}
+.pd_l_20{padding-left:20px!important;}
+.pd_l_30{padding-left:30px!important;}
+.pd_l_40{padding-left:40px!important;}
+.pd_t_75{padding-top:75px!important;}
+.pd_t_10{padding-top:10px!important;}
+.pd_t_15{padding-top:15px!important;}
+.pd_t_20{padding-top:20px!important;}
+.pd_t_30{padding-top:30px!important;}
+.pd60 {padding:60px!important;}
+.pd10 {padding:10px!important;}
+.pd_lr_10 {padding:0 10px;}
+.pd_lr_6 {padding:0 6px;}
+.pd0 {padding:0px!important;}
+
+/* margin */
+.ml_minus1 {margin-left:-1px!important;}
+.mt_minus1 {margin-top:-1px!important;}
+.m0 {margin:0!important;}
+.mb100 {margin-bottom:100px;}
+.mb75 {margin-bottom:75px;}
+.mb60 {margin-bottom:60px;}
+.mb50 {margin-bottom:50px;}
+.mb35 {margin-bottom:35px;}
+.mb25 {margin-bottom:25px;}
+.mb22 {margin-bottom:22px;}
+.mb20 {margin-bottom:20px;}
+.mb15 {margin-bottom:15px;}
+.mb18 {margin-bottom:18px;}
+.mb9 {margin-bottom:9px;}
+.mb10 {margin-bottom:10px;}
+.mb8 {margin-bottom:8px;}
+.mb6 {margin-bottom:6px;}
+.mt8 {margin-top:8px;}
+.mtm10 {margin-top:-10px!important;}
+.mt8 {margin-top:8px!important;}
+.mt10 {margin-top:10px;}
+.mt15 {margin-top:15px;}
+.mt20 {margin-top:20px;}
+.mt25 {margin-top:25px;}
+.mt28 {margin-top:28px;}
+.mt30 {margin-top:30px;}
+.mt36 {margin-top:36px;}
+.mt40 {margin-top:40px;}
+.mt60 {margin-top:60px;}
+.mt50 {margin-top:50px;}
+.mt55 {margin-top:57px;}
+.mt70 {margin-top:70px;}
+.mr10 {margin-right:10px;}
+.mr5 {margin-right:5px;}
+.mr8 {margin-right:8px;}
+.mr9 {margin-right:9px;}
+.mr37 {margin-right:37px;}
+.mr40 {margin-right:40px;}
+.mlm1 {margin-left:-1px!important;}
+.ml5 {margin-left:5px;}
+.ml10 {margin-left:10px;}
+.ml22 {margin-left:22px;}
+
+
+/* button */
+.btn_wrap {position:relative;}
+.btn {display:inline-block; background-color:#fff; color:#333; text-align:center; vertical-align:middle; cursor:pointer;  margin:0 5px;}
+.in_btn {display:inline-block; text-align:center; vertical-align:middle; cursor:pointer; }
+.in_btn.v1 {background-color:#d5dcf5; color:#404c76; border:1px solid #8c9bd3; padding:7px 10px; }
+.btn.org {background:#db661f; color:#fff; border:1px solid #db661f;}
+.btn.blue {background:#304bb8; color:#fff; border:1px solid #304bb8;}
+.btn.red {background:#d5395a; color:#fff;border:1px solid #d5395a;}
+.btn.gray {background:#555c79; color:#fff;border:1px solid #555c79;}
+.btn.gray2 {background:#d5d5d5; color:#747474; border:1px solid #d5d5d5;}
+.btn.white {color:#555c78; border:1px solid #555c78; background:#fff;}
+.btn.line {color:#304bb8; border:1px solid #304bb8; background:#fff;}
+.btn.v1 {font-size:18px; display:block; padding:15px 0;}
+.btn.v2 {display:inline-block; padding:17px 35px ; font-size:18px;}
+.btn.v3 {display:inline-block; padding:20px 0; font-size:18px; width:270px;}
+.btn.v4 {display:inline-block; padding:15px 0; font-size:16px; width:128px;}
+.btn.v5 {display:inline-block; padding:10px 0; font-size:16px; width:119px;}
+.btn.v6 {display:inline-block; padding:10px 15px; font-size:16px; }
+.btn.v7 {display:inline-block; padding:15px 0; font-size:18px; width:320px;}
+.btn.v8 {display:inline-block; padding:20px 0; font-size:22px; width:280px;}
+.btn.v9 {display:inline-block; height:38px; line-height:40px; padding:0 35px; font-size:16px;}
+
+.sbtn {display:inline-block; margin:0 8px; padding:0 10px; background-color:#bcc5e3; color:#586388!important; text-align:center; line-height:38px; vertical-align:middle; cursor:pointer; border:1px solid #9da6c6}
+
+/* color */
+.white_v1 {color:#fff!important;}
+.org_v1 {color:#ff9d35!important;}
+.org_v2 {color:#d94e18!important;}
+.black_v1	{color:#393b40!important;}
+.purple_v1 {color:#304bb8!important;}
+.gray_v1 {color:#6b6b6b!important;}
+.red_v1 {color:#d42f22!important; }
+
+/* font size */
+.fw_b {font-weight:bold;}
+.fw_n {font-weight:300!important;}
+.ft24 {font-size:24px!important;}
+.ft10 {font-size:10px!important;}
+.ft14 {font-size:14px!important;}
+.ft16 {font-size:16px!important;}
+.ft18 {font-size:18px!important;}
+.ft20 {font-size:20px!important;}
+.ft28 {font-size:28px!important;}
+.ft40 {font-size:40px!important;}
+.won {font-family:dotum, '돋음';}
+
+/* Link */
+a:link,a:visited{color:#333;text-decoration:none}
+a:active,a:hover,a:focus{color:#333;text-decoration:none}
+
+/* Skip Navigation */
+#u_skip{position:absolute;top:0;left:0;z-index:200;width:100%}
+#u_skip a{display:block;position:absolute;top:-50px;left:0;z-index:200;width:100%;padding:10px 0;background:#007dc6;color:#fff;text-align:center;font-weight:bold;text-decoration:none}
+#u_skip a:active,#u_skip a:focus{top:0;text-decoration:none}
+#u_skip a{-moz-transition:all .3s;-webkit-transition:all .3s;transition:all .3s}
+
+
+
+
+
+
+
+/*****************모달박스************************/
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 460px;
+  /*
+  height: 216px;
+   */
+
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.6s;
+  animation-name: animatetop;
+  animation-duration: 0.6s;
+
+  background-color: #ffffff;
+  border: 1px solid #888;
+  border-radius: 4px;
+  padding: 0;
+  box-shadow: 0 24px 24px 0 rgba(0, 0, 0, 0.3);
+
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-10px; opacity:0.5}
+  to {top:50%; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+  width: auto;
+}
+
+.modal-body {
+/*
+  height: 130px;
+   */
+  padding: 40px 30px 30px 30px;
+  text-align: center;
+}
+
+
+
+.modal-footer {
+  width: 100%;
+  height: 48px;
+  background-color: #2f2f37;
+  color: #ffffff;
+  border-radius: 0 0 4px 4px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.modal-footer p, .modal-footer50 p{
+  padding-top: 10px;
+}
+
+
+
+.modal-footer50 {
+  display: inline-block;
+  width: 50%;
+  height: 48px;
+  background-color: #2f2f37;
+  color: #ffffff;
+  border-radius: 0 0 4px 4px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+
+/* 프로그래스바 */
+
+#myProgress {
+  width: 98%;
+  background-color: #ddd;
+  margin: 10px 0;
+}
+
+#myBar {
+  width: 10%;
+  height: 30px;
+  background-color: #ff6602;
+  transition: width 0.1s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* wide edit modal */
+
+/* Modal Content */
+.wide-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 700px;
+  /*
+  height: 216px;
+   */
+
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.6s;
+  animation-name: animatetop;
+  animation-duration: 0.6s;
+
+  background-color: #ffffff;
+  border: 1px solid #888;
+  border-radius: 4px;
+  padding: 0;
+  box-shadow: 0 24px 24px 0 rgba(0, 0, 0, 0.3);
+
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-10px; opacity:0.5}
+  to {top:50%; opacity:1}
+}
+
+.modal-body {
+  /*
+    height: 130px;
+     */
+  padding: 40px 30px 30px 30px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+/* The snackbar - position it at the top and in the middle of the screen */
+.toast {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #ff6500; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  top: 30px; /* 30px from the top */
+}
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+.toast.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}
+
+
+
+
+
+/* The snackbar - position it at the top and in the middle of the screen */
+.snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #222; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+.snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein2 0.5s, fadeout2 0.5s 2.5s;
+  animation: fadein2 0.5s, fadeout2 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein2 {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein2 {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout2 {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout2 {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}

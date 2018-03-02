@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:task="http://www.springframework.org/schema/task"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!--어노테이션 사용-->
+    <mvc:annotation-driven/>
+
+    <!--컴포넌트를 여기서 뒤진다. 어노테이션 같은 것도.-->
+    <context:component-scan base-package="metavideo" />
+
+    <!--정적 파일 사용한다.-->
+    <mvc:resources mapping="/assets/**" location="/assets/" />
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/content/**" />
+            <mvc:mapping path="/account/**" />
+
+            <mvc:exclude-mapping path="/account/login" />
+            <mvc:exclude-mapping path="/account/loginOK" />
+
+            <mvc:exclude-mapping path="/account/signin" />
+            <mvc:exclude-mapping path="/account/signinOK" />
+
+            <mvc:exclude-mapping path="/account/findIDOK" />
+            <mvc:exclude-mapping path="/account/resetPassword" />
+
+            <bean class="metavideo.common.LoginInterceptor"></bean>
+
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <task:annotation-driven executor="myExecutor" />
+    <task:executor id="myExecutor" pool-size="5"/>
+
+</beans>
