@@ -1,15 +1,26 @@
-# ogq
-VTT3세부 OGQ 저장소
-메타데이터 브라우저 접속 주소
+# OGQ
+
+VTT3세부 메타데이터 브라우저 개발
+
+VTT3세부 사업화 모델 개발 (B2B & B2C 시장 조사)
+
+VTT3세부 무료 라이선스 동영상 확보 (50시간)
+
+ 
+
+# 구조
+
+VTT 메타데이터 브라우저 개발 소스 코드
+
+ogq/meta_browser
+
+VTT 비디오 메타데이터 브라우저 웹 사이트
+
 http://ec2-13-125-78-13.ap-northeast-2.compute.amazonaws.com:8080/metavideo
 
-# ogq/meta_browser
-  메타데이터 브라우저 소스 코드
-  
-# ogq/docs
-  이미지 및 비디오 태깅 시장 조사 내용 문서
-  - 스톡이미지 업체 태깅 기술 확보 여부 파악 문서 보관
-  - 동영상 컨텐츠 자동 태깅에 대한 수요 조사
+문서
 
-# ogq/video_datas
-  비디오 학습 데이터 (CC0 Licence)
+ogq/docs
+
+VTT3_Metadata
+License(라이선스는 추후 국민대학교 에서 전체 기관 수정 바랍니다.)
