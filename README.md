@@ -10,17 +10,17 @@
 
 # 구조
 
->### VTT 메타데이터 브라우저 개발 소스 코드
+VTT 메타데이터 브라우저 개발 소스 코드
 
->>ogq/meta_browser
+>ogq/meta_browser
 
->### VTT 비디오 메타데이터 브라우저 웹 사이트
+VTT 비디오 메타데이터 브라우저 웹 사이트
 
->>http://ec2-13-125-78-13.ap-northeast-2.compute.amazonaws.com:8080/metavideo
+>http://ec2-13-125-78-13.ap-northeast-2.compute.amazonaws.com:8080/metavideo
 
->### 문서
+문서
 
->>ogq/docs
+>ogq/docs
 
->### VTT3_Metadata
->>License(라이선스는 추후 국민대학교 에서 전체 기관 수정 바랍니다.)
+VTT3_Metadata
+>License(라이선스는 추후 국민대학교 에서 전체 기관 수정 바랍니다.)
