@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/default">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 정보</title>
+</head>
+<body>
+<div  layout:fragment="content" class="div-left">
+    <br/>
+    <div class="container">
+        <p>
+            <span class="p-h2">내정보</span>&nbsp;&nbsp;
+            <button class="white-button" onclick="showModal('myInfoUpdateModal');">정보 변경</button>&nbsp;&nbsp;
+            <button class="white-button" onclick="showModal('passwordUpdateModal');">비밀번호 변경</button>&nbsp;&nbsp;
+        </p>
+
+    </div>
+    <br/>
+    <div class="container">
+        <div>
+            <p>
+                <b>소속</b> : <span id="displayInstitution" th:if="${user.institution} != ''" th:text="${user.institution}"></span>
+                <b>이름</b> : <span id="displayUserName" th:text="${user.userName}"></span>
+                <b>이메일</b> : <span th:text="${user.email}"></span>
+                <!--<b>소속</b> : <%=myAccountVO.getOrgan().length() == 0 ? "-" : myAccountVO.getOrgan()%> &nbsp; &nbsp;
+                &nbsp; &nbsp;
+                <b>이름</b> : <%=myAccountVO.getAccountName()%>&nbsp; &nbsp; &nbsp; &nbsp;
+                <b>이메일</b> : <%=myAccountVO.getEmail()%>&nbsp; &nbsp; &nbsp; &nbsp;-->
+            </p>
+        </div>
+    </div>
+    <br/>
+
+    <div class="container">
+        <button class="white-button" id="removeCheckBox">선택 삭제</button>&nbsp;&nbsp;
+        <!--<section th:replace="fragments/board/common :: title"></section>-->
+        <div th:replace="fragments/board/list :: video"></div>x
+        <div th:replace="fragments/board/pagination :: basic"></div>
+    </div>
+
+
+
+    <div id="myInfoUpdateModal" class="modal">
+        <!-- Modal content -->
+        <div class="wide-modal-content">
+            <div class="modal-body">
+                <p class="p-h3">정보 변경</p>
+                <br>
+                <form id="updateMyAccountForm">
+                    <input type="hidden" name="id" id="id" th:value="${user.id}">
+                    <dl class="item-dl">
+                        <dt><label class="lab_info">소속</label></dt>
+                        <dd>
+                            <div class="wrap_inp">
+                                <input class="input-general" type="text" id="institution" name="institution"
+                                       th:value="${user.institution}"
+                                       placeholder="소속 기관 또는 회사명(선택입력)" maxlength="64"
+                                       onkeyup='valChecker($(this),64, $("#byteString1"));'>
+
+                                <br/><span id="byteString1"
+                                           class="small-bytes-font"></span>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="item-dl">
+                        <dt><label class="lab_info">이름</label></dt>
+                        <dd>
+                            <div class="wrap_inp">
+                                <input class="input-general" type="text" id="userName" name="userName"
+                                       th:value="${user.userName}" placeholder="홍길동" maxlength="32"
+                                       onkeyup='valChecker($(this),32, $("#byteString2"));'>
+                                <p ID="caution1" class="txt_message3">* 미 입력시 이메일 주소의 일부가 이름으로 사용됩니다.</p>
+                                <br/><span id="byteString2"
+                                           class="small-bytes-font"></span>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="item-dl">
+                        <dt><label class="lab_info">이메일</label></dt>
+                        <dd>
+                            <div class="wrap_inp">
+                                <p class="p-left" th:text="${user.email}">
+                                </p>
+                            </div>
+                        </dd>
+                    </dl>
+                    <div style="margin: 10px;">
+                        <!--
+                        <button class="large-button" onclick="goUpdateMyAccount()">변경하기</button>
+                        -->
+                        <input type="submit" class="large-button" value="변경하기">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="passwordUpdateModal" class="modal">
+        <!-- Modal content -->
+        <div class="wide-modal-content">
+            <div class="modal-body">
+                <p class="p-h3">비밀번호 변경</p>
+                <br>
+
+
+                <form id="updatePWForm">
+                    <!--
+                    //todo: /account/updatePWOK
+                    //TODO: 비번 변경
+
+                    -->
+                    <dl class="item_info">
+                        <dt><label class="lab_info">현재 비밀번호</label></dt>
+                        <dd>
+                            <div class="wrap_inp">
+                                <input class="input-general" type="password" id="oldPassword" name="oldPassword"
+                                       placeholder="현재 비밀번호를 입력해주세요.">
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="item_info info_password">
+                        <dt><label for="password1" class="lab_info">새 비밀번호</label></dt>
+                        <dd>
+                            <div class="wrap_inp">
+                                <input class="input-general" type="password" id="password1" name="password1" minlength="8"
+                                       onchange="form.password2.pattern = this.value;"
+                                       placeholder="변경할 비밀번호를 입력해주세요.">
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="item_info info_password" style="margin-top: 0">
+                        <dt><label for="password2" class="lab_info">새 비밀번호 확인</label></dt>
+                        <dd>
+                            <div class="wrap_inp">
+                                <input class="input-general" type="password" id="password2" name="password2" minlength="8"
+                                       title="비밀번호가 일치하지 않습니다."
+                                       placeholder="확인을 위해 동일한 비밀번호를 다시 한번 입력해주세요.">
+                            </div>
+                        </dd>
+                    </dl>
+                    <p id="caution2" class="txt_message"></p>
+                    <div style="margin: 10px;">
+                        <input type="submit" class="large-button" value="변경하기"/>
+                        <input type="button" class="large-button" onclick="hideModal()" value="취소하기"/>
+                        <!-- 서브밋액션이 자동으로 발생해서 인풋버튼으로.
+                        <button class="large-button">등록하기</button>
+                        -->
+                    </div>
+                </form>
+
+                <script>
+                    function goUpdatePassword() {
+                        if (checkPWForm()) $('#updatePWForm').submit();
+                    }
+
+
+                    function checkPWForm() {
+                        str0 = "";
+
+                        str4 = "* 비밀번호를 입력해주세요.";
+                        str5 = "* 비밀번호가 일치하지 않습니다.";
+                        str6 = "* 최소 8자리 이상 입력해주세요.";
+
+                        var reg = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
+
+
+                        var oldPassword = $("#oldPassword").val();
+                        var password1 = $("#password1").val();
+                        var password2 = $("#password2").val();
+
+                        if (oldPassword == null || oldPassword.length == 0) str0 = str4;//
+                        else if (password1 == null || password1.length < 8 || password2 == null || password2.length < 8) str0 = str6;//
+                        else if (password1 != password2) str0 = str5;//
+                        else return true;
+
+                        $("#caution2").text(str0);
+                        return false;
+
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 삭제알림팝업 -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-body download-complete">
+                <p class="p-h3">삭제</p>
+                <p>&nbsp;</p>
+                <p class="">선택한 <span id="delCount">1</span>개의 파일을 삭제하시겠습니까?</p>
+            </div>
+            <div class="close-div modal-footer50" style="float:left;" id="removeConfirm">
+                <p>확인</p>
+            </div>
+            <div class="close-div modal-footer50" style="float:right;" onclick="hideModal()">
+                <p>취소</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="css">
+    <style th:inline="text">
+
+    </style>
+</th:block>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+
+
+
+
+            $('#byteString1').text($('#institution').val().length+' / 64');
+            $('#byteString2').text($('#userName').val().length+' / 32')
+
+
+            var $videoTableHeadTr = $('#videoTable thead tr');
+            $videoTableHeadTr.prepend("<th><input id='removeAll' type='checkbox'></th>");
+            $videoTableHeadTr.append("<th>삭제</th>");
+            var $videoTableBodyTr = $('#videoTable tbody tr');
+            $videoTableBodyTr.prepend("<td><input class='removeCheck' type='checkbox' name='contentId'></td>");
+            $videoTableBodyTr.append("<td><button class='white-button removeButton' type='button' value='삭제'>삭제</button></td>");
+
+            updateVideoDuration($videoTableBodyTr);
+
+            var $removeCheck = $videoTableBodyTr.find('input:checkbox');
+            for(var i = 0; i < $removeCheck.length; i++){
+                //console.log($($removeCheck[i]).parent());
+                var contentId = $($removeCheck[i]).parent().parent().data('id');
+                $($removeCheck[i]).prop('value',contentId);
+
+            }
+            $('#updateMyAccountForm').on('submit',onSubmitMyAccount);
+            $('#updatePWForm').on('submit',onSubmitChangePassword);
+
+
+            $('#removeAll').on("click", function() {
+                CheckBoxUtils.checkAll(this, '#videoTable tbody tr');
+
+            });
+
+            $removeCheck.on('click',function () {
+                CheckBoxUtils.checkItem(this,'#videoTable', '#removeAll');
+
+            });
+
+            $('.removeButton').on('click',function (){
+                $('#delCount').text(1);
+                showModal('deleteModal');
+                $('#removeAll').prop('checked',false);
+                $removeCheck.prop('checked', false);
+                $('#removeConfirm').off('click').on('click',confirmRemoveItem(getSelectItem,this));
+
+            });
+
+            $('#removeCheckBox').on('click',function(){
+                $('#delCount').text($('.removeCheck:checked').length);
+                showModal('deleteModal');
+                $('#removeConfirm').off('click').on('click',confirmRemoveItem(getCheckBoxItems));
+
+            });
+
+
+
+
+        });
+
+
+        function onSubmitMyAccount() {
+            if ($('#userName') == null || $('#userName').val() == null || $('#userName').val().length == 0) {
+                $('#userName').val("");
+            } else {
+                var formData = $("#updateMyAccountForm").serializeObject();
+                $.ajax({
+                    url: '/account/users/detail',
+                    data: formData,
+                    type: 'POST',
+                    dataType: 'json',
+
+                    beforeSend: function (x) {
+                    },
+                    success: function (data) {
+                        $('#displayUserName').text(formData.userName);
+                        $('#displayInstitution').text(formData.institution);
+                        alert('정보 변경에 성공하였습니다.');
+
+                    },
+                    error: function(resp){
+                    }
+                });
+            }
+            return false;
+        }
+
+        function onSubmitChangePassword(){
+
+            //alert('submit');
+            var oldPassword = $("#oldPassword").val();
+            var password1 = $("#password1").val();
+            var formData = {userOldPassword:oldPassword,
+                id:$('#id').val(),
+                userPassword:password1};
+            $.ajax({
+                url: '/account/users/detail/password',
+                data: formData,
+                type: 'POST',
+                dataType: 'json',
+
+                beforeSend: function (x) {
+                },
+                success: function (data) {
+                    alert('비밀번호 변경에 성공하였습니다.');
+                    $("#oldPassword").val('');
+                    $("#password1").val('');
+                    $("#password2").val('');
+                    hideModal();
+
+
+                },
+                error: function(resp){
+                    alert('사용자 정보가 일치하지 않습니다.');
+                }
+            });
+/*
+
+            var oldPassword = $("#oldPassword").val();
+            var password1 = $("#password1").val();
+            var password2 = $("#password2").val();
+            if(checkPWForm(oldPassword, password1, password2)){
+                var formData = {userOldPassword:oldPassword,
+                                userId:$('#userId').val(),
+                                userPassword:password1};
+                $.ajax({
+                    url: '/account/users/detail/password',
+                    data: formData,
+                    type: 'POST',
+                    dataType: 'json',
+
+                    beforeSend: function (x) {
+                    },
+                    success: function (data) {
+                        $('#displayUserName').text(formData.userName);
+                        $('#displayInstitution').text(formData.institution);
+                        alert('정보 변경에 성공하였습니다.');
+
+                    },
+                    error: function(resp){
+                    }
+                });
+            };
+*/
+
+            return false;
+        }
+
+
+        function checkPWForm(oldPassword, password1, password2) {
+            var str0 = "";
+
+            var str4 = "* 비밀번호를 입력해주세요.";
+            var str5 = "* 비밀번호가 일치하지 않습니다.";
+            var str6 = "* 최소 8자리 이상 입력해주세요.";
+
+            var reg = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
+
+
+            if (oldPassword == null || oldPassword.length == 0) str0 = str4;//
+            else if (password1 == null || password1.length < 8 || password2 == null || password2.length < 8) str0 = str6;//
+            else if (password1 != password2) str0 = str5;//
+            else return true;
+
+            $("#caution2").text(str0);
+            return false;
+
+        }
+
+
+        function confirmRemoveItem(getItem, evtContainer){
+
+            return function(){
+                var contentIds = getItem(evtContainer);
+
+                ajaxRemoveItems(contentIds);
+            }
+        }
+
+        function getCheckBoxItems(){
+            var removeItems = [];
+            $('.removeCheck:checked').each(function(){
+                removeItems.push($(this).val());
+            });
+
+            return removeItems.join(',');
+
+        }
+
+        function getSelectItem(context){
+            var contentId = $(context).parent().parent().data('id');
+            return contentId;
+        }
+
+        function ajaxRemoveItems(items){
+            $.ajax({
+                url: '/content/videos/'+items,
+                type: 'DELETE',
+
+                beforeSend: function (x) {
+                },
+                success: function (data) {
+                    alert('콘텐츠 삭제에 성공하였습니다.');
+                    document.location.reload();
+
+                },
+                error: function(resp){
+                }
+            });
+        }
+    </script>
+</th:block>
+</body>
+</html>

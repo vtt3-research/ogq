@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+   
+ 
+<head>
+<meta name="description" content="" layout:fragment="meta-desc" />
+<meta property="og:title" th:content="'['+${board.category+'] '+board.title}"/>
+<meta property="og:url" th:content="${#httpServletRequest.requestURL}"/>
+<meta property="og:description" th:content="${board.summary}"/>
+<meta property="og:image" th:content="${board.thumbnailUri}"/>
+
+  <title>Spring Boot and Thymeleaf - Thymeleaf Layout Dialect</title>
+  <th:block th:include="fragments/headerInc :: headerInc"></th:block> 
+  <th:block layout:fragment="css"></th:block> 
+  <style type="text/css">
+  
+
+  </style>
+
+</head>
+<body>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "5b76801dad222c";
+wcs_do();
+</script>
+<header th:replace="fragments/navbar :: navbar"></header>
+<div class="main-container"> 
+	<div class="container">
+		<section th:replace="fragments/board/common :: readTitle"></section>
+		<section th:replace="fragments/board/read :: basic"></section>
+		<section th:replace="fragments/board/read :: bottom"></section>
+	</div>
+</div>
+<div layout:fragment="content">
+</div>
+		
+<footer th:replace="fragments/footer :: footer"></footer>
+<th:block layout:fragment="script"></th:block>
+
+	<script type="text/javascript">
+$(document).ready(function(){
+
+	  initNavbar();
+	  ready();
+	  changeFileIcon();
+	 /*    $('.show-modal').on('click', function(e){
+
+	        e.preventDefault();
+
+	        var url = $(this).attr('href');
+	        var dialog = $('#readModal');
+
+
+	        $.get(url).done(function(response, status, jqxhr) {
+	        	if(response != null){
+	        		if($('#readModalLabel').exists()){
+	        			$('#readModalLabel').text(response.title);
+	        		}
+	        		if($('#readModalContent').exists()){
+	        			$('#readModalContent').html(response.content);
+	        		}
+	        	}
+	        	console.log(response);
+
+	        });
+	    
+
+	    }); */
+	    
+
+
+	});
+	
+	
+
+</script>
+</body>
+</html>

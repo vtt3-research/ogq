@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<head>
+</head>
+
+
+<section th:fragment="basic">
+
+	<form class="container" id="needs-validation" th:action="@{./write}" enctype="multipart/form-data" method="post" novalidate>
+		<div class="form-group has-feedback row">				
+			<label for="name" class="col-sm-1 col-form-label">제목</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="title" name="title" placeholder="이름" value="" required>
+			</div>
+		</div>
+		<div class="form-group has-feedback row">				
+			<label for="name" class="col-sm-1 col-form-label">범주</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="category" name="category" placeholder="범주" value="">
+			</div>
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="content" class="col-sm-1 col-form-label">요약</label> 
+			<div class="col-sm-11">
+				<textarea class="form-control" id="summary" name="summary" placeholder="요약" rows="8" ></textarea>
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="content" class="col-sm-1 col-form-label">내용</label> 
+			<div class="col-sm-11">
+				<textarea class="form-control" id="content" name="content" placeholder="내용" rows="10" required ></textarea>
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="writer" class="col-sm-1 col-form-label">작성자</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자" th:value="${session.user.name}" required>
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="file" class="col-sm-1 col-form-label">파일</label> 
+			<div class="col-sm-11">
+				<input type="file" id="file" name="file" class="form-control-file">
+			</div>
+
+		</div>
+		<div class="text-center">
+			<button class="btn btn-outline-success" id="submit" type="submit">등록</button> 
+			<a class="btn btn-outline-success" th:href="@{./list}" role="button">목록</a>
+		</div>
+	</form>
+	
+</section>
+
+
+
+<section th:fragment="video">
+
+	<form class="container" id="needs-validation" th:action="@{./write}" enctype="multipart/form-data" method="post">
+		<div class="form-group has-feedback row">
+			<label for="title" class="col-sm-1 col-form-label">제목</label>
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="" required>
+			</div>
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="description" class="col-sm-1 col-form-label">설명</label>
+			<div class="col-sm-11">
+				<textarea class="form-control" id="description" name="description" placeholder="설명을 입력해 주세요.(선택입력)" rows="10" ></textarea>
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="file" class="col-sm-1 col-form-label">동영상</label>
+			<div class="col-sm-11">
+				<input type="file" id="videoFile" name="videoFile" class="form-control-file" placeholder="등록할 비디오 파일을 선택해주세요." required>
+			</div>
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="file" class="col-sm-1 col-form-label">메타파일</label>
+			<div class="col-sm-11">
+				<input type="file" id="metaFile" name="metaFile" class="form-control-file" placeholder="비디오와 같이 등록할 메타데이터 파일을 선택해주세요.(선택입력)">
+			</div>
+		</div>
+		<hr/>
+		<div class="cco-link-div" style="margin: 20px 0">
+			<span>해당 비디오는 CC0 라이선스 규칙을 준수합니다.</span> <a
+				href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" target="_blank">자세히 보기</a>
+			<span style="text-align: right">
+				<label><input type="checkbox" id="agreeYn" name="agreeYn" value="Y">동의합니다.</label>
+			</span>
+		</div>
+		<div class="text-center">
+			<button class="btn btn-outline-success" id="submit" type="submit">등록하기</button>
+			<!--<a class="btn btn-outline-success" th:href="@{./list}" role="button">목록</a>-->
+		</div>
+	</form>
+
+</section>
+
+<section th:fragment="schedule">
+
+	<form class="container" id="needs-validation" th:action="@{./write}" enctype="multipart/form-data" method="post" novalidate>
+		<div class="form-group has-feedback row">				
+			<label for="name" class="col-sm-1 col-form-label">제목</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="title" name="title" placeholder="이름" value="" required>
+			</div>
+		</div>
+		<div class="form-group has-feedback row">				
+			<label for="name" class="col-sm-1 col-form-label">범주</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="category" name="category" placeholder="범주" value="">
+			</div>
+		</div>
+		<div class="form-group has-feedback row">				
+			<label for="name" class="col-sm-1 col-form-label">스케쥴 편성</label> 
+			<div class="col-sm-11">
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  					<label class="btn btn-secondary active">
+  						<input type="radio" name="useSchedule" id="useScheduleY" autocomplete="off" value="Y" checked> 편성
+  					</label>
+  					<label class="btn btn-secondary">
+    					<input type="radio" name="useSchedule" id="useScheduleN" autocomplete="off" value="N"> 미편성
+  					</label>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="dateFr" name="dateFr">
+		<input type="hidden" id="dateTo" name="dateTo">
+		<div id="calendarRow" class="form-group has-feedback row">
+			<label for="content" class="col-sm-1 col-form-label">날짜</label>
+			<div class='col-sm-5 input-group date' id='frDatetimeContainer'>
+				<input type='text' class="form-control" id='frDatetime'/>
+				<span class="input-group-addon">
+	                  <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+	            </span>
+            </div>
+            <div class="col-sm-1 text-center">~</div>
+            <div class='col-sm-5 input-group date' id='toDatetimeContainer'>
+				<input type='text' class="form-control" id='toDatetime'/>
+				<span class="input-group-addon">
+	                  <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+	            </span>
+            </div>
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="content" class="col-sm-1 col-form-label">요약</label> 
+			<div class="col-sm-11">
+				<textarea class="form-control" id="summary" name="summary" placeholder="요약" rows="8" ></textarea>
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="content" class="col-sm-1 col-form-label">내용</label> 
+			<div class="col-sm-11">
+				<div class="summernote" id="summernote"></div>
+				<input type="hidden" id="content" name="content" value="">
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="writer" class="col-sm-1 col-form-label">작성자</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자" th:value="${session.user.name}" required>
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="file" class="col-sm-1 col-form-label">썸네일</label> 
+			<div class="col-sm-11">
+				<input type="file" id="thumbnail" name="thumbnail" class="form-control-file">
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="file" class="col-sm-1 col-form-label">파일</label> 
+			<div class="col-sm-11">
+				<input type="file" id="file" name="file" class="form-control-file">
+			</div>
+
+		</div>
+		<div class="text-center">
+			<button class="btn btn-outline-success" id="submit" type="submit">등록</button> 
+			<a class="btn btn-outline-success" th:href="@{./?sort=regDate,desc}" role="button">목록</a>
+		</div>
+	</form>
+	
+</section>
+<section th:fragment="wysiwyg-summernote">
+
+	<form class="container" id="needs-validation" th:action="@{./write}" enctype="multipart/form-data" method="post" novalidate>
+		<div class="form-group has-feedback row">				
+			<label for="name" class="col-sm-1 col-form-label">제목</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="title" name="title" placeholder="이름" value="" required>
+			</div>
+		</div>
+		<div class="form-group has-feedback row">				
+			<label for="name" class="col-sm-1 col-form-label">범주</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="category" name="category" placeholder="범주" value="">
+			</div>
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="content" class="col-sm-1 col-form-label">요약</label> 
+			<div class="col-sm-11">
+				<textarea class="form-control" id="summary" name="summary" placeholder="요약" rows="8" ></textarea>
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="content" class="col-sm-1 col-form-label">내용</label> 
+			<div class="col-sm-11">
+				<div class="summernote" id="summernote"></div>
+				<input type="hidden" id="content" name="content" value="">
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="writer" class="col-sm-1 col-form-label">작성자</label> 
+			<div class="col-sm-11">
+				<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자" th:value="${session.user.name}" required>
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="file" class="col-sm-1 col-form-label">썸네일</label> 
+			<div class="col-sm-11">
+				<input type="file" id="thumbnail" name="thumbnail" class="form-control-file">
+			</div>
+
+		</div>
+		<div class="form-group has-feedback row">
+			<label for="file" class="col-sm-1 col-form-label">파일</label> 
+			<div class="col-sm-11">
+				<input type="file" id="file" name="file" class="form-control-file">
+			</div>
+
+		</div>
+		<div class="text-center">
+			<button class="btn btn-outline-success" id="submit" type="submit">등록</button> 
+			<a class="btn btn-outline-success" th:href="@{./?sort=regDate,desc}" role="button">목록</a>
+		</div>
+	</form>
+	
+</section>
+ </body>
+</html>

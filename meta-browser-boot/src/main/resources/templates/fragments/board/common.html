@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<head>
+</head>
+
+<section th:fragment="title">
+<br>
+<h4><a th:href="${#httpServletRequest.contextPath}" th:text="${title}"></a></h4>
+<hr class="top">
+</section>
+<section th:fragment="readTitle">
+<br>
+<h4><a th:href="@{../?sort=regDate,desc}" th:text="${title}"></a></h4>
+<hr class="top">
+</section>
+ </body>
+</html>

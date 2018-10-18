@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <header th:fragment="header">
+        <p class="Video-Tagging-Servic" onclick="location.href='/content/videos'">Video
+            Tagging Service</p>
+        <div></div>
+        <div sec:authorize="isAuthenticated()" class="header-right-container">
+            <div class="round_button1" onclick="location.href='/account/users/detail'"><p>
+                마이페이지</p></div>
+            <div class="round_button1"
+                 onclick="alert('로그아웃 되었습니다.');setTimeout(function() {location.href='/logout';}, 1000);">
+                <p>로그아웃</p></div>
+        </div>
+
+        <!-- 일반모달 -->
+        <div id="generalModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-body download-complete">
+                    <p class="p-h3">업로드 완료</p>
+                    <p>&nbsp;</p>
+                    <p class="p-content">업로드된 동영상은 수분 후 목록에 보여집니다.</p>
+                </div>
+                <div class="close-div modal-footer ">
+                    <p>확인</p>
+                </div>
+            </div>
+        </div>
+
+    </header>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+   
+ 
+<head>
+<meta name="description" content="" layout:fragment="meta-desc" />
+  <title>Spring Boot and Thymeleaf - Thymeleaf Layout Dialect</title>
+  <th:block th:include="fragments/headInc :: headInc"></th:block>
+  <th:block layout:fragment="css"></th:block> 
+  <style type="text/css">
+  
+/*   body .modal-dialog { 
+    max-width: 100%;
+    width: auto !important;
+    display: inline-block;
+	} */
+	.modal-dialog{
+		width:auto;
+		height:auto;
+		max-height:100%;
+	}
+  </style>
+
+</head>
+<body>
+<script type="text/javascript">
+</script>
+<header th:replace="fragments/header :: header"></header>
+<div class="main-container"> 
+	<div class="container">
+		<!--<section th:replace="fragments/board/common :: title"></section>-->
+
+		<div th:replace="fragments/board/write :: video"></div>
+	</div>
+</div>
+<div layout:fragment="content">
+</div>
+		
+<footer th:replace="fragments/footer :: footer"></footer>
+<th:block layout:fragment="script"></th:block> 
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('form').on('submit',onSubmitForm);
+  });
+
+  function onSubmitForm(){
+      var formSelector = document.querySelector("form");
+
+      var formData = new FormData(formSelector);
+      console.log(formData);
+      $.ajax({
+          url: './',
+          data: formData,
+          type: 'POST',
+          dataType: 'json',
+          contentType:false,
+          processData:false,
+          beforeSend: function (x) {
+          },
+          success: function (data) {
+              $('#displayUserName').text(formData.userName);
+              $('#displayInstitution').text(formData.institution);
+              alert('정보 변경에 성공하였습니다.');
+
+          },
+          error: function(resp){
+          }
+      });
+
+      return false;
+  }
+</script>
+</body>
+</html>

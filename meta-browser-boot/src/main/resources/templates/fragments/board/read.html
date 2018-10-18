@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<head>
+</head>
+
+
+<section th:fragment="basic">
+
+	<div class="read-row" th:utext="${board.content}"></div>
+	<div class="row read-row">
+		<input type="hidden" id="snsShareTitle" name="snsShareTitle" th:value="'['+${board.category+'] '+board.title}">
+		<div class="col-lg-9 col-md-9 col-sm-9 read-title" th:text="'['+${board.category+'] '+board.title}"></div>
+		<div class="col-lg-3 col-md-3 col-sm-3 read-date" style="text-align:right;"  th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}"></div>
+	</div>
+	<hr>
+	<div class="row read-row" th:if="${board.filePath != null and board.filePath != ''}"><div class="col-lg-12 col-md-12 col-sm-12" style="text-align:right;"><a class="read-files" th:href="${board.filePath}" th:utext="${board.fileName}" th:download="${board.fileName}"></a></div></div>
+	<br>
+
+
+</section>
+
+<section th:fragment="video">
+
+	<br/>
+	<br/>
+	<div style="height: 400px">
+		<div class="video-frame">
+			<video preload="metadata" width="700" height="394" id="video1" controls>
+				// Replace these with your own video files.
+				<source th:src="${board.videoFileUrl}"
+						type="video/mp4"/>
+				HTML5 Video is required for this example.
+				<a th:href="${board.videoFileUrl}"
+				   download="${board.videoFileUrl}">Download the video</a> file.
+			</video>
+
+		</div>
+		<div class="scene-tags-frame">
+			<p class="p-h3">Scene Tags</p>
+			<hr>
+			<p class="p-tag-button">
+			<div id="sceneTagFrame"></div>
+			</p>
+		</div>
+	</div>
+
+	<hr>
+	<div>
+		<div style="float: right;">
+			<!--<button th:if="${sessionInfo.getUserId == board.getUserId}" class="white36-button" onclick="showModal('editModal');">정보수정</button>-->
+			<a th:href="${board.videoFileUrl}"
+			   target="_blank" download="${board.title}">
+				<button class="colored36-button"><i class="ic_download"></i>다운로드</button>
+			</a>
+		</div>
+		<p class="p-h2" th:text="${board.title}">
+		</p>
+<!--		<p class="p-grey">등록일: <%=ETCLib.obtainDatetimeString(contentVO.getRegisteredDt())%> /
+			수정일: <%=ETCLib.obtainDatetimeString(contentVO.getLastUpdateDt())%>
+		</p>-->
+	</div>
+
+	<div class="explanation-content-div" th:text="${board.explanation}">
+	</div>
+	<br/>
+	<hr>
+	<br/>
+
+	<div>
+		<p>
+			<b>등록자</b> : <span th:text="${board.userDTO.userName}"></span>  <span th:text="@{'('+${board.userDTO.institution}+')'}"></span>&nbsp; &nbsp; | &nbsp; &nbsp;
+			<b>파일명</b> : <span th:text="${board.videoFileName}"></span>&nbsp; &nbsp; | &nbsp; &nbsp;
+			<b>파일크기</b> : <span th:text="${board.videoFileDisplaySize}"></span>&nbsp; &nbsp; | &nbsp; &nbsp;
+			<b>재생시간</b> : <span id="runtime" th:text="${board.videoDuration}"></span>
+		</p>
+	</div>
+
+</section>
+
+<section th:fragment="admin">
+	<div class="form-group has-feedback row">				
+		<label for="name" class="col-sm-1 col-form-label">제목</label> 
+		<div class="col-sm-11">
+			<input type="text" class="form-control" id="title" name="title" placeholder="이름" th:value="${board.title}" readonly>
+		</div>
+	</div>
+	<div class="form-group has-feedback row">				
+		<label for="name" class="col-sm-1 col-form-label">범주</label> 
+		<div class="col-sm-11">
+			<input type="text" class="form-control" id="category" name="category" placeholder="이름" th:value="${board.category}" readonly>
+		</div>
+	</div>
+	<div class="form-group has-feedback row">
+		<label for="name" class="col-sm-1 col-form-label">내용</label> 
+		<div class="col-sm-11">
+			<div th:utext="${board.content}"></div>
+		</div>
+
+	</div>
+	<div class="form-group has-feedback row">
+		<label for="name" class="col-sm-1 col-form-label">작성자</label> 
+		<div class="col-sm-11">
+			<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자" th:value="${board.writer}" readonly>
+		</div>
+
+	</div>
+	<div class="form-group has-feedback row">
+		<label for="name" class="col-sm-1 col-form-label">작성일</label> 
+		<div class="col-sm-11">
+			<input type="text" class="form-control" id="regDate" name="regDate" placeholder="작성일" th:value="${board.regDate}" readonly>
+		</div>
+
+	</div>
+	<div class="form-group has-feedback row">
+		<label for="name" class="col-sm-1 col-form-label">첨부파일</label> 
+		<div class="col-sm-11">
+			<div class="row read-row" th:if="${board.filePath != null and board.filePath != ''}"><div class="col-lg-9 col-md-9 col-sm-9"><a class="read-files" th:href="${board.filePath}" th:utext="${board.fileName}" th:download="${board.fileName}"></a></div></div>
+		</div>
+
+	</div>
+	
+	<div class="text-center">
+		<a class="btn btn-outline-success" role="button" th:href="@{'../edit/' + ${board.id.boardSeq}}">수정</a> 
+		<a class="btn btn-outline-success" role="button" th:href="@{'../delete/' + ${board.id.boardSeq}}">삭제</a> 
+		<a class="btn btn-outline-success" role="button" th:href="@{../}">목록</a>
+
+	</div>
+</section>
+<section th:fragment="bottom">
+	<hr class="bottom">
+	<div class="row read-row">
+		<div class="col-lg-9 col-md-9 col-sm-9 sns-container">
+		<a id="kakao-link-btn" href="javascript:shareFacebook()"> <img src="/images/sns/b_sns_fb.png" ></a>
+		<a id="kakao-link-btn" href="javascript:shareTwitter('#snsShareTitle')"> <img src="/images/sns/b_sns_tw.png" ></a>
+		<a id="kakao-link-btn" href="javascript:shareKakao('#snsShareTitle')"> <img src="/images/sns/b_sns_kt.png" ></a>
+		<!-- <a id="kakao-link-btn" href="javascript:sendLink('#snsShareTitle')"> <img src="/images/sns/b_sns_bn.png" ></a> --> 
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-3" style="text-align:right;"><a th:href="@{../}">목록</a></div>
+	</div>
+
+	<hr class="bottom">
+	<div class="row" style="padding-left:15px; padding-right:15px;" th:if="${prev}">
+		<div class="col-lg-1 col-md-1 col-sm-1"><a th:href="@{'../read/' + ${prev.id.boardSeq}}">이전글</a></div>
+		<div class="col-lg-11 col-md-11 col-sm-11"><a th:href="@{'../read/' + ${prev.id.boardSeq}}" th:text="${prev.title}"></a></div>
+	</div>
+	<hr>
+	<div class="row" style="padding-left:15px; padding-right:15px;" th:if="${next}">
+		<div class="col-lg-1 col-md-1 col-sm-1"><a th:href="@{'../read/' + ${next.id.boardSeq}}">다음글</a></div>
+		<div class="col-lg-11 col-md-11 col-sm-11"><a th:href="@{'../read/' + ${next.id.boardSeq}}" th:text="${next.title}"></a></div>
+	</div>
+	<hr>
+</section>
+
+<section th:fragment="bottom-gallery">
+	<hr class="bottom">
+	<div class="row read-row">
+		<div class="col-lg-9 col-md-9 col-sm-9 sns-container">
+		<a id="kakao-link-btn" href="javascript:shareFacebook()"> <img src="/images/sns/b_sns_fb.png" ></a>
+		<a id="kakao-link-btn" href="javascript:shareTwitter('#snsShareTitle')"> <img src="/images/sns/b_sns_tw.png" ></a>
+		<a id="kakao-link-btn" href="javascript:shareKakao('#snsShareTitle')"> <img src="/images/sns/b_sns_kt.png" ></a>
+		<!-- <a id="kakao-link-btn" href="javascript:sendLink('#snsShareTitle')"> <img src="/images/sns/b_sns_bn.png" ></a> --> 
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-3" style="text-align:right;"><a th:href="@{../}">목록</a></div>
+	</div>
+
+	<hr class="bottom">
+	<div class="row" style="padding-left:15px; padding-right:15px;" th:if="${prev}">
+		<div class="col-lg-1 col-md-1 col-sm-1"><a th:href="@{'../read/' + ${prev.id.boardSeq}}">이전글</a></div>
+		<div class="col-lg-11 col-md-11 col-sm-11"><a th:href="@{'../read/' + ${prev.id.boardSeq}}" th:text="${prev.title}"></a></div>
+	</div>
+	<hr>
+	<div class="row" style="padding-left:15px; padding-right:15px;" th:if="${next}">
+		<div class="col-lg-1 col-md-1 col-sm-1"><a th:href="@{'../read/' + ${next.id.boardSeq}}">다음글</a></div>
+		<div class="col-lg-11 col-md-11 col-sm-11"><a th:href="@{'../read/' + ${next.id.boardSeq}}" th:text="${next.title}"></a></div>
+	</div>
+	<hr>
+</section>
+ </body>
+</html>

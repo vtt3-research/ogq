@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/default">
+<head>
+    <meta charset="UTF-8">
+    <title>메타브라우저 사용자 인증</title>
+</head>
+<body>
+
+
+<th:block layout:fragment="script">
+<script th:inline="javascript">
+    (function result() {
+        console.log(WebUtils.getParameterByName("status"));
+        if(WebUtils.getParameterByName("status") == 'error'){
+            alert('메타데이터 브라우저 회원가입 인증에 실패하였습니다.');
+            return;
+        }else if(WebUtils.getParameterByName("status") == 'success'){
+            alert('메타데이터 브라우저 회원가입 인증에 성공하였습니다.');
+        }else{
+            alert('만료된 페이지입니다.');
+        }
+        location.replace('/');
+    })();
+</script>
+</th:block>
+</body>
+</html>

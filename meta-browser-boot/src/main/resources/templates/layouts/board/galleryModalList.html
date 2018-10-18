@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+   
+ 
+<head>
+<meta name="description" content="" layout:fragment="meta-desc" />
+<meta property="og:title"content=""/>
+<meta property="og:url" content=""/>
+<meta property="og:description" content=""/>
+<meta property="og:image" content=""/>
+  <title>Spring Boot and Thymeleaf - Thymeleaf Layout Dialect</title>
+  <th:block th:include="fragments/headerInc :: headerInc"></th:block> 
+  <th:block layout:fragment="css"></th:block> 
+  <style type="text/css">
+  
+/*   body .modal-dialog { 
+    max-width: 100%;
+    width: auto !important;
+    display: inline-block;
+	} */
+	
+	.modal-content{
+		max-width:82%;
+		width:100% !important;
+		float:left;
+		padding:15px;
+		margin-right:10px;
+		border:0px;
+		border-radius:10px;
+	}
+	.modal-dialog{
+		max-width: 1320px;
+		width:100% !important;
+		height:auto;
+		max-height:100%;
+	}
+	
+	.modal-right{
+		max-width:16%;
+		width:100% !important;
+		height:auto;
+		max-height:100%;
+		border-radius:10px;
+		background-color:#39bfb1;
+		padding-top:70px;
+		padding-left:30px;
+		/* padding-bottom:140px; */
+		padding-bottom:70px;
+	}
+	.modal-right img{
+		padding-bottom:30px;
+		clear:both;
+	}
+  </style>
+
+</head>
+<body>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "5b76801dad222c";
+wcs_do();
+</script>
+<header th:replace="fragments/navbar :: navbar"></header> 
+<div class="main-container">
+	<div class="container">
+		<section th:replace="fragments/board/common :: title"></section>
+		<div th:replace="fragments/board/list :: galleryModal"></div>
+		<div th:replace="fragments/board/pagination :: gallery"></div>
+	</div>
+	
+	
+		<div class="modal hide fade" id="readModal" aria-labelledby="readModalLabel" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style=" -ms-user-select: none; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; user-select: none;">
+			      <div class="modal-body">
+			      	<hr class="top">
+			      	<div class="row read-row" style="padding-bottom:10px;">
+						<input type="hidden" id="snsShareTitle" name="snsShareTitle">
+						<div class="col-lg-9 col-md-9 col-sm-9 read-title" id="readTitle"></div>
+						<div class="col-lg-3 col-md-3 col-sm-3 read-date" id="readDate" style="text-align:right;"></div>
+					</div>
+					<hr>
+					
+					<br>
+					<div class="read-row" id="readContent"></div>
+			      </div>
+				</div>
+				<div class="modal-content modal-right" style="float:left">
+					<input type="hidden" id="snsLinkUrl">
+					<div><a id="kakao-link-btn" href="javascript:shareFacebook('#snsLinkUrl')"> <img src="/images/sns/read_sns_fb.png"></a></div>
+					<div><a id="kakao-link-btn" href="javascript:shareTwitter('#readTitle','#snsLinkUrl')"><img src="/images/sns/read_sns_tw.png"></a></div>
+					<div><a id="kakao-link-btn" href="javascript:shareKakao('#readTitle','#snsLinkUrl')"><img src="/images/sns/read_sns_kt.png"></a></div>
+					
+				</div>
+			</div>
+	</div>
+</div>
+<div layout:fragment="content">
+</div>
+		
+<footer th:replace="fragments/footer :: footer"></footer>
+<th:block layout:fragment="script"></th:block> 
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+	  initNavbar();
+	  ready();
+	  
+	  $('.read-modal').on("click",function(e){
+		    var href =  $(this).attr("href");
+		    var currentUrl = location.href;
+
+
+		    currentUrl = currentUrl.replace(/\&.*|\?.*/ig,'');
+		    
+			 $.ajax({
+		            url:href,
+		            method:'post',
+		            success:function(obj){
+		            	$('#readTitle').text('['+obj.data.category+'] '+obj.data.title);
+		            	$('#readTitle').val('['+obj.data.category+'] '+obj.data.title);
+		            	$('#readContent').html(obj.data.content);
+		            	
+		            	$('#snsLinkUrl').val(currentUrl+'read/'+obj.data.id.boardSeq);
+		            	$('#readDate').html(moment(obj.data.regDate).format('YYYY.MM.DD'));
+		            	$('#readModal').modal('show');
+		            	
+		            	$("meta[property='og\\:title']").attr("content", '['+obj.data.category+'] '+obj.data.title);
+		            	$("meta[property='og\\:url']").attr("content", $('#snsLinkUrl').val());
+		            	$("meta[property='og\\:description']").attr("content", obj.data.summary);
+		            	$("meta[property='og\\:image']").attr("content", obj.data.thumbnailUri);
+		            }
+		        }); 
+			  
+			 
+		    //history.pushState(null, null, $('#snsLinkUrl').val());
+		    
+		    
+		    return false;
+
+		});
+	  
+	 /*    $('.show-modal').on('click', function(e){
+
+	        e.preventDefault();
+
+	        var url = $(this).attr('href');
+	        var dialog = $('#readModal');
+
+
+	        $.get(url).done(function(response, status, jqxhr) {
+	        	if(response != null){
+	        		if($('#readModalLabel').exists()){
+	        			$('#readModalLabel').text(response.title);
+	        		}
+	        		if($('#readModalContent').exists()){
+	        			$('#readModalContent').html(response.content);
+	        		}
+	        	}
+	        	console.log(response);
+
+	        });
+	    
+
+	    }); */
+  });
+  
+  
+  function initNavbar(){
+	  /**
+	   * This object controls the nav bar. Implement the add and remove
+	   * action over the elements of the nav bar that we want to change.
+	   *
+	   * @type {{flagAdd: boolean, elements: string[], add: Function, remove: Function}}
+	   */
+	  var myNavBar = {
+
+	      flagAdd: true,
+
+	      elements: [],
+
+	      init: function (elements) {
+	          this.elements = elements;
+	      },
+
+	      add : function() {
+	          if(this.flagAdd) {
+	              for(var i=0; i < this.elements.length; i++) {
+	                  document.getElementById(this.elements[i]).className += " fixed-theme";
+	              }
+	              this.flagAdd = false;
+	          }
+	      },
+
+	      remove: function() {
+	    	  
+	          for(var i=0; i < this.elements.length; i++) {
+	              document.getElementById(this.elements[i]).className =
+	                      document.getElementById(this.elements[i]).className.replace( /(?:^|\s)fixed-theme(?!\S)/g , '' );
+	          }
+	          this.flagAdd = true;
+	      }
+
+	  };
+
+	  /**
+	   * Init the object. Pass the object the array of elements
+	   * that we want to change when the scroll goes down
+	   */
+	  myNavBar.init(  [
+	      "header",
+	      "headerContainer",
+	      "brand",
+	      "navbar"
+	  ]);
+
+	  /**
+	   * Function that manage the direction
+	   * of the scroll
+	   */
+	  function offSetManager(){
+
+	      var yOffset = 0;
+	      var currYOffSet = window.pageYOffset;
+
+	      if(yOffset < currYOffSet) {
+	          myNavBar.add();
+	      }
+	      else if(currYOffSet == yOffset){
+	          myNavBar.remove();
+	      }
+
+	  }
+
+	  /**
+	   * bind to the document scroll detection
+	   */
+	  window.onscroll = function(e) {
+	      offSetManager();
+	  }
+	  
+	    $('#navContainer').hover(            
+	            function() {
+	            	if($( window ).width()>=768){
+	            		$("#navToggleMenu",this).stop(true,true).slideDown(400);	
+	            	}else{
+	            		$("#navToggleMenu",this).stop(true,true).slideUp(400);
+	            	}
+	            	
+	            },
+	            function() { 
+	            	if($( window ).width()>=768){
+	                	$("#navToggleMenu",this).stop(true,true).slideUp(400);
+	            	}
+	            }
+	        );
+	  /* 
+	  $('a').on('hover',function(e){
+		  console.log('test');
+		   if (e.type == "mouseenter") {
+			   $('.nav-link', this).slideDown("400");
+		       console.log("one");   
+		       $('##navToggleMenu');
+		    }
+		    else { // mouseleave
+		    	$('.nav-link', this).slideUp("400");
+		        console.log("two");   
+		    }
+	  }); */
+
+	  /**
+	   * We have to do a first detectation of offset because the page
+	   * could be load with scroll down set.
+	   */
+  }
+  
+</script>
+</body>
+</html>
