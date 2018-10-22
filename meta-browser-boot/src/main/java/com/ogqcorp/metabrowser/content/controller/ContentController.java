@@ -7,6 +7,7 @@ import com.ogqcorp.metabrowser.content.dto.VideoDTO;
 import com.ogqcorp.metabrowser.content.service.ContentService;
 import com.ogqcorp.metabrowser.storage.AWSS3Service;
 import com.ogqcorp.metabrowser.storage.StorageService;
+import com.ogqcorp.metabrowser.utils.Base62;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -138,9 +139,11 @@ public class ContentController {
 
         videoFilePath = storageService.store(videoFile);
         String videoDir = "movie_attach/"+formattedDate;
-        videoDTO.setVideoFileUrl(videoDir+"/"+videoFilePath.getFileName());
+        String videoFileName = ""+videoFilePath.getFileName();
+        videoDTO.setVideoFileUrl(videoDir+"/"+videoFileName);
         videoDTO.setVideoFileSize(videoFile.getSize());
 
+        String videoKey = Base62.encode(videoFileName.getBytes());
         Thread videoUploadThread = new Thread(() -> {
             awsS3Service.store(videoFilePath,videoDTO.getVideoFileUrl(), path -> {contentService.save(videoDTO); return storageService.delete(path);});
 
