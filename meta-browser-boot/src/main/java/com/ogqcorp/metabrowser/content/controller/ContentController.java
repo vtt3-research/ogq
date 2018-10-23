@@ -1,6 +1,9 @@
 package com.ogqcorp.metabrowser.content.controller;
 
 import com.amazonaws.util.Base32;
+import com.ogqcorp.metabrowser.StorageConstants;
+import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
+import com.ogqcorp.metabrowser.analysis.service.VideoAnalysisService;
 import com.ogqcorp.metabrowser.common.ResponseResult;
 import com.ogqcorp.metabrowser.content.dto.ContentDTO;
 import com.ogqcorp.metabrowser.content.dto.VideoDTO;
@@ -48,6 +51,9 @@ public class ContentController {
 
     @Autowired
     private AWSS3Service awsS3Service;
+
+    @Autowired
+    private VideoAnalysisService videoAnalysisService;
 
    @GetMapping("/content/videos")
     public String getVideos(Model model, @PageableDefault(sort = "contentId",direction = Sort.Direction.DESC) Pageable pageable){
@@ -144,8 +150,19 @@ public class ContentController {
         videoDTO.setVideoFileSize(videoFile.getSize());
 
         String videoKey = Base62.encode(videoFileName.getBytes());
+        KonanVideoRequestDTO konanVideoRequestDTO = new KonanVideoRequestDTO();
+        konanVideoRequestDTO.setCallbackUrl("/vtt/analysys/callback/"+"");
+        konanVideoRequestDTO.setRequestId("");
+        konanVideoRequestDTO.setVideoUrl(StorageConstants.FILE_PATH+videoDTO.getVideoFileUrl());
+
         Thread videoUploadThread = new Thread(() -> {
-            awsS3Service.store(videoFilePath,videoDTO.getVideoFileUrl(), path -> {contentService.save(videoDTO); return storageService.delete(path);});
+            awsS3Service.store(videoFilePath,videoDTO.getVideoFileUrl(), path ->
+            {
+                contentService.save(videoDTO);
+
+                videoAnalysisService.analyzeVideo(konanVideoRequestDTO);
+                return storageService.delete(path);
+            });
 
         });
         videoUploadThread.start();
