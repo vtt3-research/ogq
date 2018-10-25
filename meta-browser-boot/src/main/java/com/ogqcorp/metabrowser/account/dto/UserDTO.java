@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class UserDTO {
     private Integer id;
-    private String userId;
     private String userName;
     private String institution;
     @Email(message = "*Please provide a valid Email")
@@ -25,17 +24,15 @@ public class UserDTO {
 
     public UserDTO(User accounts){
         this.id = accounts.getId();
-        this.userId = accounts.getAccountId();
-        this.userName = accounts.getAccountName();
-        this.institution = accounts.getOrgan();
+        this.userName = accounts.getUserName();
+        this.institution = accounts.getInstitution();
         this.email = accounts.getEmail();
         this.certify = accounts.getCertify();
 
     }
 
-    public UserDTO(Integer id, String userId, String userName){
+    public UserDTO(Integer id, String userName){
         this.id = id;
-        this.userId = userId;
         this.userName = userName;
     }
 

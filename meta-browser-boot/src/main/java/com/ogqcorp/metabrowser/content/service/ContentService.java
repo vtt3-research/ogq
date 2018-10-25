@@ -2,16 +2,16 @@ package com.ogqcorp.metabrowser.content.service;
 
 import com.ogqcorp.metabrowser.account.dto.UserDTO;
 import com.ogqcorp.metabrowser.account.service.UserService;
-import com.ogqcorp.metabrowser.content.dto.ContentDTO;
 import com.ogqcorp.metabrowser.content.dto.VideoDTO;
 import com.ogqcorp.metabrowser.content.repository.ContentRepository;
-import com.ogqcorp.metabrowser.domain.Contents;
+import com.ogqcorp.metabrowser.domain.Content;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,8 +28,8 @@ public class ContentService {
 
     public Page<VideoDTO> findAll(Pageable pageable) {
         //List<Contents> contents = contentRepository.findAll(pageable).getContent();
-        Page<Contents> page = contentRepository.findAll(pageable);
-        List<Contents> contents = page.getContent();
+        Page<Content> page = contentRepository.findAll(pageable);
+        List<Content> contents = page.getContent();
         int totalElements = (int) page.getTotalElements();
         Map<String, UserDTO> usersMap = userService.getUsersMap();
         //List<VideoDTO> videoDTOs = page.stream().map(s -> new VideoDTO(s)).collect(Page<Contents>);
@@ -38,9 +38,9 @@ public class ContentService {
 
     public Page<VideoDTO> findAllByUserId(Pageable pageable, String userId) {
         //List<Contents> contents = contentRepository.findAll(pageable).getContent();
-        Page<Contents> page = contentRepository.findAllByAccountId(pageable, userId);
+        Page<Content> page = contentRepository.findAllByAccountId(pageable, userId);
 
-        List<Contents> contents = page.getContent();
+        List<Content> contents = page.getContent();
         int totalElements = (int) page.getTotalElements();
         Map<String, UserDTO> usersMap = userService.getUsersMap();
         //List<VideoDTO> videoDTOs = page.stream().map(s -> new VideoDTO(s)).collect(Page<Contents>);
@@ -50,7 +50,7 @@ public class ContentService {
     public VideoDTO findById(Long id) {
         //List<Contents> contents = contentRepository.findAll(pageable).getContent();
 
-        Optional<Contents> optional = contentRepository.findById(id);
+        Optional<Content> optional = contentRepository.findById(id);
 
         Map<String, UserDTO> usersMap = userService.getUsersMap();
         VideoDTO videoDTO = optional.map(s -> new VideoDTO(s,usersMap)).orElse(new VideoDTO());
@@ -65,25 +65,26 @@ public class ContentService {
 
     public void save(VideoDTO videoDTO){
 
-        Contents contents = new Contents();
-        contents.setAccountId(videoDTO.getUserId());
-        contents.setAgreeYn(videoDTO.getAgreeYn());
-        contents.setContentTitle(videoDTO.getTitle());
-        contents.setExplanation(videoDTO.getDescription());
-        contents.setMetaFileUrl(videoDTO.getMetaFileUrl());
-        contents.setVideoFileUrl(videoDTO.getVideoFileUrl());
-        contents.setVideoFileSize(videoDTO.getVideoFileSize());
-        contents.setVideoRunningTime(videoDTO.getVideoDuration());
+        Content content = new Content();
+        content.setUserId(videoDTO.getUserId());
+        content.setAgreeYn(videoDTO.getAgreeYn());
+        content.setTitle(videoDTO.getTitle());
+        content.setExplanation(videoDTO.getDescription());
+        content.setMetaFileUrl(videoDTO.getMetaFileUrl());
+        content.setVideoFileUrl(videoDTO.getVideoFileUrl());
+        content.setVideoFileSize(videoDTO.getVideoFileSize());
+        content.setVideoRunningTime(videoDTO.getVideoDuration());
+        content.setLastUpdateDate(new Date());
 
-        contentRepository.save(contents);
+        contentRepository.save(content);
 
     }
 
     public void saveDuration(Long id, String duration){
-        Contents contents = contentRepository.findById(id).get();
+        Content content = contentRepository.findById(id).get();
 
-        contents.setVideoRunningTime(duration);
-        contentRepository.save(contents);
+        content.setVideoRunningTime(duration);
+        contentRepository.save(content);
 
     }
 

@@ -56,7 +56,7 @@ public class UserInfoController {
     public String viewUserInfo(Model model, @PageableDefault(sort = "contentId",direction = Sort.Direction.DESC) Pageable pageable){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user",userService.findById(auth.getName()));
+        //model.addAttribute("user",userService.findById(auth.getName()));
         model.addAttribute("page",contentService.findAllByUserId(pageable,auth.getName()));
 
         return "users/profile";

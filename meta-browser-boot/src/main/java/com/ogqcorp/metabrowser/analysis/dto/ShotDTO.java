@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class ShotDTO {
     private Long contentId;
 
-    private String time;
+    private Double shotTime;
     private String seekPos;
     private List<String> tags;
 
@@ -27,7 +27,7 @@ public class ShotDTO {
 
     public ShotDTO(Shot shot){
         this.contentId = shot.getContentId();
-        this.time = shot.getTime();
+        this.shotTime = shot.getShotTime();
         this.seekPos = shot.getSeekPos();
         if(shot.getTags() != null && shot.getTags().length() > 0) {
             this.tags = Arrays.stream(shot.getTags().split("\\|")).collect(Collectors.toList());

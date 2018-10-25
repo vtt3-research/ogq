@@ -77,23 +77,24 @@ public class UserService {
 
 
         //List<UserDTO> userDTOs = Stream.of(iterable).map(account -> new UserDTO(account.iterator().next())).collect(Collectors.toList());
-        List<UserDTO> userDTOs = StreamSupport.stream(iterable.spliterator(),false).map(accounts -> new UserDTO(accounts)).collect(Collectors.toList());
+        List<UserDTO> userDTOs = StreamSupport.stream(iterable.spliterator(),false).map(user -> new UserDTO(user)).collect(Collectors.toList());
         return userDTOs;
     }
 
+/*
 
     public UserDTO findById(String id){
 
-        return userRepository.findByAccountId(id).map(s -> new UserDTO(s)).orElse(new UserDTO());
+        return userRepository.findById(id).map(s -> new UserDTO(s)).orElse(new UserDTO());
     }
+*/
 
 
     public UserDTO findById(Integer id){
 
         return userRepository.findById(id).map(s -> {
             UserDTO userDTO = new UserDTO(s);
-            userDTO.setPassword(s.getAccountPw());
-            System.out.println(userDTO.getPassword());
+            userDTO.setPassword(s.getPassword());
             return userDTO;
         }).orElse(new UserDTO());
     }
@@ -104,10 +105,10 @@ public class UserService {
     }
 
 
-    public User findEntityById(String id){
-        Optional<User> optionalAccounts = userRepository.findByAccountId(id);
+    public User findByEntityId(Integer id){
+        Optional<User> optionalUser = userRepository.findById(id);
 
-        return optionalAccounts.orElse(new User());
+        return optionalUser.orElse(new User());
     }
 
 
@@ -115,13 +116,13 @@ public class UserService {
 
         Iterable<User> iterable = userRepository.findAll();
 
-        Map<String, UserDTO> userDTOmap = StreamSupport.stream(iterable.spliterator(),false).map(accounts -> new UserDTO(accounts)).collect(Collectors.toMap(UserDTO::getUserId, u->u));
+        Map<String, UserDTO> userDTOmap = StreamSupport.stream(iterable.spliterator(),false).map(user -> new UserDTO(user)).collect(Collectors.toMap(user -> String.valueOf(user.getId()), u->u));
 
         return userDTOmap;
     }
 
-    public User saveAccount(User accounts){
-        User res = userRepository.save(accounts);
+    public User saveAccount(User user){
+        User res = userRepository.save(user);
         return res;
     }
 
@@ -176,12 +177,12 @@ public class UserService {
 
     public void save(UserDTO userDTO, Integer roleId){
         User user = new User();
-        user.setAccountId(userDTO.getEmail());
-        user.setAccountPw(bCryptPasswordEncoder.encode(userDTO.getPassword()));
-        user.setCertify(userDTO.getCertify());
-        user.setOrgan(userDTO.getInstitution());
         user.setEmail(userDTO.getEmail());
-        user.setAccountName(userDTO.getUserName());
+        user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+        user.setCertify(userDTO.getCertify());
+        user.setInstitution(userDTO.getInstitution());
+        user.setEmail(userDTO.getEmail());
+        user.setUserName(userDTO.getUserName());
         Role userRole = roleRepository.findById(roleId).get();
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
@@ -194,15 +195,15 @@ public class UserService {
     }
 
     public void save(Integer id, String userName, String institution) {
-        User accounts = userRepository.findById(id).get();
-        accounts.setAccountName(userName);
-        accounts.setOrgan(institution);
-        userRepository.save(accounts);
+        User user = userRepository.findById(id).get();
+        user.setUserName(userName);
+        user.setInstitution(institution);
+        userRepository.save(user);
     }
 
     public void savePassword(Integer id, String userPassword) {
-        User accounts = userRepository.findById(id).get();
-        accounts.setAccountPw(bCryptPasswordEncoder.encode(userPassword));
-        userRepository.save(accounts);
+        User user = userRepository.findById(id).get();
+        user.setPassword(bCryptPasswordEncoder.encode(userPassword));
+        userRepository.save(user);
     }
 }

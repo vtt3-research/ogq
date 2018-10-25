@@ -35,7 +35,7 @@ public class VideoAnalysisService {
 
         shot.setContentId(shotDTO.getContentId());
         shot.setSeekPos(shotDTO.getSeekPos());
-        shot.setTime(shotDTO.getTime());
+        shot.setShotTime(shotDTO.getShotTime());
         shot.setTags(String.join(",",shotDTO.getTags()));
 
         videoAnalysisRepository.save(shot);

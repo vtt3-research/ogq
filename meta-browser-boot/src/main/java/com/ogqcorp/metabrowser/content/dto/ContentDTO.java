@@ -8,14 +8,14 @@ import lombok.Setter;
 @Setter
 public class ContentDTO {
     private Long id;
-    private String userId;
+    private Integer userId;
     private String description;
     private String title;
     private UserDTO userDTO;
 
     protected ContentDTO(){}
 
-    protected ContentDTO(Long id, String userId, String title, String description, UserDTO userDTO){
+    protected ContentDTO(Long id, Integer userId, String title, String description, UserDTO userDTO){
         this.id = id;
         this.title = title;
         this.description = description;

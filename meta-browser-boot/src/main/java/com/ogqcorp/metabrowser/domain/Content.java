@@ -6,22 +6,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Data
 @Entity
-public class Contents {
+public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long contentId;
-    private String accountId;
+    private Long id;
+    private Integer userId;
     private String agreeYn;
-    private String contentTitle;
+    private String title;
     private String entireTags;
     private String explanation;
-    private String lastUpdateDt;
+    private Date lastUpdateDate;
     private String metaFileUrl;
     private String previewImagePath;
-    private String registeredDt;
+    private Date registeredDate;
     private Long videoFileSize;
     private String videoFileUrl;
     private String videoRunningTime;

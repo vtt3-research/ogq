@@ -2,7 +2,7 @@ package com.ogqcorp.metabrowser.content.dto;
 
 import com.ogqcorp.metabrowser.account.dto.UserDTO;
 import com.ogqcorp.metabrowser.StorageConstants;
-import com.ogqcorp.metabrowser.domain.Contents;
+import com.ogqcorp.metabrowser.domain.Content;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.io.FileUtils;
@@ -19,24 +19,24 @@ public class VideoDTO extends ContentDTO{
     }
 
 
-    public VideoDTO(Contents contents, Map<String, UserDTO> usersMap){
+    public VideoDTO(Content content, Map<String, UserDTO> usersMap){
 
-        super(contents.getContentId(),contents.getAccountId(), contents.getContentTitle(), contents.getExplanation(), usersMap.get(contents.getAccountId()) );
+        super(content.getId(),content.getUserId(), content.getTitle(), content.getExplanation(), usersMap.get(String.valueOf(content.getId())) );
 
-        this.videoFileSize = contents.getVideoFileSize();
+        this.videoFileSize = content.getVideoFileSize();
 
-        String videoFileUrl = contents.getVideoFileUrl();
+        String videoFileUrl = content.getVideoFileUrl();
         if(!videoFileUrl.matches("movie_attach\\/.*")){
-            videoFileUrl = "movie_attach/"+contents.getContentId()+"_"+videoFileUrl;
+            videoFileUrl = "movie_attach/"+content.getId()+"_"+videoFileUrl;
         }
 
-        this.videoFileUrl = contents.getVideoFileUrl();
-        this.videoDuration = contents.getVideoRunningTime();
-        this.thumbnailUri = contents.getPreviewImagePath();
-        this.videoFileName = contents.getVideoFileUrl();
+        this.videoFileUrl = content.getVideoFileUrl();
+        this.videoDuration = content.getVideoRunningTime();
+        this.thumbnailUri = content.getPreviewImagePath();
+        this.videoFileName = content.getVideoFileUrl();
         this.videoFileUrl = StorageConstants.FILE_PATH + videoFileUrl;
-        this.videoFileDisplaySize = FileUtils.byteCountToDisplaySize(contents.getVideoFileSize());
-        this.explanation = contents.getExplanation();
+        this.videoFileDisplaySize = FileUtils.byteCountToDisplaySize(content.getVideoFileSize());
+        this.explanation = content.getExplanation();
     }
 
 
