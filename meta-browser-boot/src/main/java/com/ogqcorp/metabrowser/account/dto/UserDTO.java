@@ -22,12 +22,12 @@ public class UserDTO {
     public UserDTO(){
     }
 
-    public UserDTO(User accounts){
-        this.id = accounts.getId();
-        this.userName = accounts.getUserName();
-        this.institution = accounts.getInstitution();
-        this.email = accounts.getEmail();
-        this.certify = accounts.getCertify();
+    public UserDTO(User user){
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.institution = user.getInstitution();
+        this.email = user.getEmail();
+        this.certify = user.getCertify();
 
     }
 

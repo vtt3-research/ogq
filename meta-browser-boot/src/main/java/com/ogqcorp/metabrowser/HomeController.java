@@ -27,6 +27,7 @@ public class HomeController {
     @GetMapping("/login")
     public String login(HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth.getName());
         if(auth.getName().equals("anonymousUser")){
             return "login";
         }
@@ -44,6 +45,8 @@ public class HomeController {
         if(userDTO.getCertify().equals(authCode)){
             userService.saveAuth(userDTO.getId(),"CERTIFIED");
             return "redirect:/authentications?status=success";
+        }else if(userDTO.getCertify().equals("CERTIFIED")){
+            return "redirect:/authentications?status=expired";
         }
 
         return "redirect:/authentications?status=error";

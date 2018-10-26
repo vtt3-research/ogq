@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContentRepository extends PagingAndSortingRepository<Content, Long> {
 
-    Page<Content> findAllByAccountId(Pageable pageable, String accountId);
+    Page<Content> findAllByUserId(Pageable pageable, Integer userId);
 }

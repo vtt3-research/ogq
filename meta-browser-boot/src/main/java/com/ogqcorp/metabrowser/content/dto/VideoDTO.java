@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.io.FileUtils;
 
+import java.util.Date;
 import java.util.Map;
 
 @Getter
@@ -21,7 +22,7 @@ public class VideoDTO extends ContentDTO{
 
     public VideoDTO(Content content, Map<String, UserDTO> usersMap){
 
-        super(content.getId(),content.getUserId(), content.getTitle(), content.getExplanation(), usersMap.get(String.valueOf(content.getId())) );
+        super(content.getId(),content.getUserId(), content.getTitle(), content.getExplanation(), usersMap.get(String.valueOf(content.getUserId())) );
 
         this.videoFileSize = content.getVideoFileSize();
 
@@ -43,14 +44,15 @@ public class VideoDTO extends ContentDTO{
     private String agreeYn;
     private String entireTags;
     private String explanation;
-    private String lastUpdateDt;
+    private Date lastUpdateDate;
     private String metaFileUrl;
     private String thumbnailUri;
-    private String registeredDt;
+    private Date registeredDate;
     private Long videoFileSize;
     private String videoFileDisplaySize;
     private String videoFileName;
     private String videoFileUrl;
     private String videoDuration;
+    private Integer status;
 
 }

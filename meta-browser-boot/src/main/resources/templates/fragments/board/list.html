@@ -13,7 +13,7 @@
 					<a
 						href=""
 						th:href="@{'./read/' + ${board.id}}"
-						th:text="' '+${board.contentTitle}"></a>
+						th:text="' '+${board.title}"></a>
 					</div>
 					<!--<div class="list-title-date col-lg-2 col-md-2 col-sm-2 text-right"  th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
 					</div>
@@ -60,7 +60,7 @@
 			</a></td>
 			<td><span class="runningTime" th:text="${board.videoDuration}">0:0:0</span></td>
 			<td th:text="${board.videoFileDisplaySize}">파일크기</td>
-			<td th:text="${board.registeredDt}">등록일</td>
+			<td th:text="${board.registeredDate}">등록일</td>
 			<td>
 				<a th:id="@{'download_'+${board.id}}"
 				   th:href="${board.videoFileUrl}"

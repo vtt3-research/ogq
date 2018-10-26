@@ -116,7 +116,7 @@ public class UserService {
 
         Iterable<User> iterable = userRepository.findAll();
 
-        Map<String, UserDTO> userDTOmap = StreamSupport.stream(iterable.spliterator(),false).map(user -> new UserDTO(user)).collect(Collectors.toMap(user -> String.valueOf(user.getId()), u->u));
+        Map<String, UserDTO> userDTOmap = StreamSupport.stream(iterable.spliterator(),false).map(user -> new UserDTO(user)).collect(Collectors.toMap(user -> String.valueOf(user.getId()), user->user));
 
         return userDTOmap;
     }
@@ -185,7 +185,8 @@ public class UserService {
         user.setUserName(userDTO.getUserName());
         Role userRole = roleRepository.findById(roleId).get();
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        userRepository.save(user);
+        User userInfo = userRepository.save(user);
+        System.out.println(userInfo.getId());
     }
 
     public void saveAuth(Integer id,  String certify){

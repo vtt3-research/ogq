@@ -5,7 +5,6 @@ import com.ogqcorp.metabrowser.account.service.UserService;
 import com.ogqcorp.metabrowser.common.EmailService;
 import com.ogqcorp.metabrowser.common.ResponseResult;
 import com.ogqcorp.metabrowser.content.service.ContentService;
-import com.ogqcorp.metabrowser.domain.User;
 import com.ogqcorp.metabrowser.utils.Base62;
 import com.ogqcorp.metabrowser.utils.EncryptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
-import java.util.UUID;
 
 @Controller
 public class UserInfoController {
@@ -57,7 +55,7 @@ public class UserInfoController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         //model.addAttribute("user",userService.findById(auth.getName()));
-        model.addAttribute("page",contentService.findAllByUserId(pageable,auth.getName()));
+        model.addAttribute("page",contentService.findAllByUserId(pageable,Integer.parseInt(auth.getName())));
 
         return "users/profile";
 

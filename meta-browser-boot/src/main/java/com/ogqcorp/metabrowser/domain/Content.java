@@ -2,11 +2,10 @@ package com.ogqcorp.metabrowser.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -26,4 +25,5 @@ public class Content {
     private Long videoFileSize;
     private String videoFileUrl;
     private String videoRunningTime;
+    private Integer status;
 }

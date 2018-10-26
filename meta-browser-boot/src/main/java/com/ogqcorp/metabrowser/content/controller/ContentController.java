@@ -1,11 +1,14 @@
 package com.ogqcorp.metabrowser.content.controller;
 
 import com.ogqcorp.metabrowser.StorageConstants;
+import com.ogqcorp.metabrowser.account.dto.UserDTO;
+import com.ogqcorp.metabrowser.account.service.UserService;
 import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
 import com.ogqcorp.metabrowser.analysis.service.VideoAnalysisService;
 import com.ogqcorp.metabrowser.common.ResponseResult;
 import com.ogqcorp.metabrowser.content.dto.VideoDTO;
 import com.ogqcorp.metabrowser.content.service.ContentService;
+import com.ogqcorp.metabrowser.domain.User;
 import com.ogqcorp.metabrowser.storage.AWSS3Service;
 import com.ogqcorp.metabrowser.storage.StorageService;
 import com.ogqcorp.metabrowser.utils.Base62;
@@ -37,6 +40,9 @@ public class ContentController {
     private ContentService contentService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private StorageService storageService;
 
     @Autowired
@@ -46,7 +52,7 @@ public class ContentController {
     private VideoAnalysisService videoAnalysisService;
 
    @GetMapping("/content/videos")
-    public String getVideos(Model model, @PageableDefault(sort = "contentId",direction = Sort.Direction.DESC) Pageable pageable){
+    public String getVideos(Model model, @PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
         Page<VideoDTO> videoDTOs= contentService.findAll(pageable);
 
         model.addAttribute("page",videoDTOs);
@@ -101,8 +107,8 @@ public class ContentController {
         Path metaFilePath;
         Path videoFilePath;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Integer userId = Integer.parseInt(auth.getName());
-        videoDTO.setUserId(userId);
+        UserDTO userDTO = userService.findByEmail(auth.getName());
+        videoDTO.setUserId(userDTO.getId());
 
 
 
@@ -138,19 +144,26 @@ public class ContentController {
         String videoFileName = ""+videoFilePath.getFileName();
         videoDTO.setVideoFileUrl(videoDir+"/"+videoFileName);
         videoDTO.setVideoFileSize(videoFile.getSize());
+        videoDTO.setStatus(100);
 
         String videoKey = Base62.encode(videoFileName.getBytes());
+
+        VideoDTO resultVideoDTO = contentService.save(videoDTO);
+        String callbackId = Base62.encode(String.format("%018d",resultVideoDTO.getId()).getBytes());
+        System.out.println(resultVideoDTO.getId() + "  " +callbackId + " " + (new String(Base62.decode(callbackId))));
+
         KonanVideoRequestDTO konanVideoRequestDTO = new KonanVideoRequestDTO();
-        konanVideoRequestDTO.setCallbackUrl("/vtt/analysys/callback/"+"");
-        konanVideoRequestDTO.setRequestId("");
+        konanVideoRequestDTO.setCallbackUrl("/vtt/analysys/callback/"+callbackId);
+        konanVideoRequestDTO.setRequestId(callbackId);
         konanVideoRequestDTO.setVideoUrl(StorageConstants.FILE_PATH+videoDTO.getVideoFileUrl());
 
         Thread videoUploadThread = new Thread(() -> {
             awsS3Service.store(videoFilePath,videoDTO.getVideoFileUrl(), path ->
             {
-                contentService.save(videoDTO);
-
-                videoAnalysisService.analyzeVideo(konanVideoRequestDTO);
+                resultVideoDTO.setStatus(200);
+                contentService.save(resultVideoDTO);
+                videoAnalysisService.analyzeVideoTest(konanVideoRequestDTO);
+                //videoAnalysisService.analyzeVideo(konanVideoRequestDTO);
                 return storageService.delete(path);
             });
 

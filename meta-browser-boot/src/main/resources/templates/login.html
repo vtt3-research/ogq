@@ -12,9 +12,10 @@
             <div>
                 <p class="p-h2">환영합니다!</p><br/>
                 <input class="input-general3" type="email" id="email" name="email" placeholder="아이디(이메일)"/><br/>
-                <input class="input-general3" type="password" id="userPassword" name="userPassword" placeholder="비밀번호"/><br/>
+                <input class="input-general3" type="password" id="password" name="password" placeholder="비밀번호"/><br/>
                 <button class="large-button" name="Submit" value="Login" type="Submit" text="Login">Login</button>
             </div>
+
         </form>
         <b><a href="/registration">회원가입</a></b> |
         <!--<a onclick="showModal('findID');">아이디 찾기</a> |-->
@@ -23,9 +24,21 @@
 </section>
 
 
+<th:block layout:fragment="css">
+    <style th:inline="text">
 
+    </style>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+    </script>
+</th:block>
 
 <script>
+
+
     function goLoginOK() {
         checkLoginForm();
         if ($(".txt_message").text().length == 0) {
@@ -141,15 +154,5 @@
 </script>
 
 
-<th:block layout:fragment="css">
-    <style th:inline="text">
-
-    </style>
-</th:block>
-<th:block layout:fragment="script">
-    <script th:inline="javascript">
-
-    </script>
-</th:block>
 </body>
 </html>

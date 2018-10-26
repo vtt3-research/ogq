@@ -5,16 +5,14 @@ import com.ogqcorp.metabrowser.account.service.UserService;
 import com.ogqcorp.metabrowser.content.dto.VideoDTO;
 import com.ogqcorp.metabrowser.content.repository.ContentRepository;
 import com.ogqcorp.metabrowser.domain.Content;
+import com.ogqcorp.metabrowser.domain.Shot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,9 +34,9 @@ public class ContentService {
         return new PageImpl<VideoDTO>(contents.stream().map(s -> new VideoDTO(s, usersMap)).collect(Collectors.toList()), pageable, totalElements);
     }
 
-    public Page<VideoDTO> findAllByUserId(Pageable pageable, String userId) {
+    public Page<VideoDTO> findAllByUserId(Pageable pageable, Integer userId) {
         //List<Contents> contents = contentRepository.findAll(pageable).getContent();
-        Page<Content> page = contentRepository.findAllByAccountId(pageable, userId);
+        Page<Content> page = contentRepository.findAllByUserId(pageable, userId);
 
         List<Content> contents = page.getContent();
         int totalElements = (int) page.getTotalElements();
@@ -63,7 +61,7 @@ public class ContentService {
     }
 
 
-    public void save(VideoDTO videoDTO){
+    public VideoDTO save(VideoDTO videoDTO){
 
         Content content = new Content();
         content.setUserId(videoDTO.getUserId());
@@ -74,9 +72,16 @@ public class ContentService {
         content.setVideoFileUrl(videoDTO.getVideoFileUrl());
         content.setVideoFileSize(videoDTO.getVideoFileSize());
         content.setVideoRunningTime(videoDTO.getVideoDuration());
+        content.setStatus(videoDTO.getStatus());
         content.setLastUpdateDate(new Date());
 
-        contentRepository.save(content);
+
+        content = contentRepository.save(content);
+
+        videoDTO.setRegisteredDate(content.getRegisteredDate());
+        videoDTO.setId(content.getId());
+        return videoDTO;
+
 
     }
 
