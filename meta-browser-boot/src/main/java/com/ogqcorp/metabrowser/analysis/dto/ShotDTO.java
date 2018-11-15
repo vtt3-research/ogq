@@ -1,5 +1,6 @@
 package com.ogqcorp.metabrowser.analysis.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ogqcorp.metabrowser.domain.Shot;
 import lombok.Data;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class ShotDTO {
     private Long contentId;
 
     private Double time;
+    @JsonProperty("seek_pos")
     private Long seekPos;
     private List<String> tags;
 

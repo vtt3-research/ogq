@@ -3,6 +3,7 @@ package com.ogqcorp.metabrowser.content.controller;
 import com.ogqcorp.metabrowser.StorageConstants;
 import com.ogqcorp.metabrowser.account.dto.UserDTO;
 import com.ogqcorp.metabrowser.account.service.UserService;
+import com.ogqcorp.metabrowser.analysis.dto.AssetsRequest;
 import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
 import com.ogqcorp.metabrowser.analysis.service.VideoAnalysisService;
 import com.ogqcorp.metabrowser.common.ResponseResult;
@@ -13,6 +14,7 @@ import com.ogqcorp.metabrowser.storage.AWSS3Service;
 import com.ogqcorp.metabrowser.storage.StorageService;
 import com.ogqcorp.metabrowser.utils.Base62;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -50,6 +52,9 @@ public class ContentController {
 
     @Autowired
     private VideoAnalysisService videoAnalysisService;
+
+    @Value("${vtt.ogq.server.api}")
+    private String _OGQ_SERVER_API;
 
    @GetMapping("/content/videos")
     public String getVideos(Model model, @PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
@@ -152,10 +157,14 @@ public class ContentController {
         String callbackId = Base62.encode(String.format("%018d",resultVideoDTO.getId()).getBytes());
         System.out.println(resultVideoDTO.getId() + "  " +callbackId + " " + (new String(Base62.decode(callbackId))));
 
-        KonanVideoRequestDTO konanVideoRequestDTO = new KonanVideoRequestDTO();
-        konanVideoRequestDTO.setCallbackUrl("/vtt/analysys/callback/"+callbackId);
+        AssetsRequest assetsRequest = new AssetsRequest();
+        assetsRequest.setCallback_url(_OGQ_SERVER_API+"/vtt/analysis/callback/"+callbackId);
+        assetsRequest.setRequest_id(callbackId);
+        assetsRequest.setVideo_url(StorageConstants.FILE_PATH+videoDTO.getVideoFileUrl());
+        /*KonanVideoRequestDTO konanVideoRequestDTO = new KonanVideoRequestDTO();
+        konanVideoRequestDTO.setCallbackUrl(_OGQ_SERVER_API+"/vtt/analysis/callback/"+callbackId);
         konanVideoRequestDTO.setRequestId(callbackId);
-        konanVideoRequestDTO.setVideoUrl(StorageConstants.FILE_PATH+videoDTO.getVideoFileUrl());
+        konanVideoRequestDTO.setVideoUrl(StorageConstants.FILE_PATH+videoDTO.getVideoFileUrl());*/
 
         Thread videoUploadThread = new Thread(() -> {
             awsS3Service.store(videoFilePath,videoDTO.getVideoFileUrl(), path ->
@@ -163,7 +172,8 @@ public class ContentController {
                 resultVideoDTO.setStatus(200);
                 contentService.save(resultVideoDTO);
                 //videoAnalysisService.analyzeVideoTest(konanVideoRequestDTO);
-                videoAnalysisService.analyzeVideo(konanVideoRequestDTO);
+                //videoAnalysisService.analyzeVideo(konanVideoRequestDTO);
+                videoAnalysisService.analyzeVideo(assetsRequest);
                 return storageService.delete(path);
             });
 

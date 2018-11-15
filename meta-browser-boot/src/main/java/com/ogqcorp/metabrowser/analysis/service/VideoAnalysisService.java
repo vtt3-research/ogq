@@ -1,5 +1,6 @@
 package com.ogqcorp.metabrowser.analysis.service;
 
+import com.ogqcorp.metabrowser.analysis.dto.AssetsRequest;
 import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
 import com.ogqcorp.metabrowser.analysis.dto.ShotDTO;
 import com.ogqcorp.metabrowser.analysis.repository.VideoAnalysisRepository;
@@ -41,6 +42,25 @@ public class VideoAnalysisService {
         shot.setTags(String.join(",",shotDTO.getTags()));
 
         videoAnalysisRepository.save(shot);
+    }
+
+
+    public void analyzeVideo(AssetsRequest assetsRequest){
+        RestTemplate restTemplate = new RestTemplate();
+
+
+
+
+        URI uri = URI.create(_VIDEO_TAGGING_URL);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<KonanVideoRequestDTO> entity = new HttpEntity(assetsRequest,headers);
+        ResponseEntity responseEntity = restTemplate.exchange(uri, HttpMethod.PUT, entity, AssetsRequest.class);
+        System.out.println(responseEntity.getStatusCode());
+
+        //restTemplate.put(_VIDEO_TAGGING_URL, konanVideoRequestDTO);
+
+
     }
 
     public void analyzeVideo(KonanVideoRequestDTO konanVideoRequestDTO){
