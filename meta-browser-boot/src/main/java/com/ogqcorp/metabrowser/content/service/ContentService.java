@@ -64,6 +64,9 @@ public class ContentService {
     public VideoDTO save(VideoDTO videoDTO){
 
         Content content = new Content();
+        if(videoDTO.getId() != null){
+            content.setId(videoDTO.getId());
+        }
         content.setUserId(videoDTO.getUserId());
         content.setAgreeYn(videoDTO.getAgreeYn());
         content.setTitle(videoDTO.getTitle());
