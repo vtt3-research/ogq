@@ -47,7 +47,16 @@ public class VideoAnalysisService {
         RestTemplate restTemplate = new RestTemplate();
 
 
-        restTemplate.put(_VIDEO_TAGGING_URL, konanVideoRequestDTO);
+
+
+        URI uri = URI.create(_VIDEO_TAGGING_URL);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<KonanVideoRequestDTO> entity = new HttpEntity(konanVideoRequestDTO,headers);
+        ResponseEntity responseEntity = restTemplate.exchange(uri, HttpMethod.PUT, entity, KonanVideoRequestDTO.class);
+        System.out.println(responseEntity.getStatusCode());
+
+        //restTemplate.put(_VIDEO_TAGGING_URL, konanVideoRequestDTO);
 
 
     }

@@ -162,8 +162,8 @@ public class ContentController {
             {
                 resultVideoDTO.setStatus(200);
                 contentService.save(resultVideoDTO);
-                videoAnalysisService.analyzeVideoTest(konanVideoRequestDTO);
-                //videoAnalysisService.analyzeVideo(konanVideoRequestDTO);
+                //videoAnalysisService.analyzeVideoTest(konanVideoRequestDTO);
+                videoAnalysisService.analyzeVideo(konanVideoRequestDTO);
                 return storageService.delete(path);
             });
 
