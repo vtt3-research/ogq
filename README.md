@@ -10,8 +10,14 @@
 ### VTT 메타데이터 브라우저 개발 소스 코드
 >ogq/meta_browser
 
+### VTT 메타데이터 브라우저 신규 개발 소스 코드(기존 개발 소스 대체)
+>ogq/meta-browser-boot
+
 ### VTT 비디오 메타데이터 브라우저 웹 사이트
 >http://ec2-13-125-78-13.ap-northeast-2.compute.amazonaws.com:8080/metavideo
+
+11월 이내에 아래 주소로 교체 예정
+>http://ec2-13-125-78-13.ap-northeast-2.compute.amazonaws.com:8080
 
 ### 문서
 >ogq/docs
