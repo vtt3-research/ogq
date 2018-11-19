@@ -24,9 +24,9 @@
 
 	<br/>
 	<br/>
-	<div style="height: 400px">
-		<div class="video-frame">
-			<video preload="metadata" width="700" height="394" id="video1" controls>
+	<div class="container detail">
+		<div class="video-area row">
+			<video preload="metadata" width="100%" height="100%" id="video1" controls>
 				// Replace these with your own video files.
 				<source th:src="${board.videoFileUrl}"
 						type="video/mp4"/>
@@ -36,45 +36,38 @@
 			</video>
 
 		</div>
-		<div class="scene-tags-frame">
-			<p class="p-h3">Scene Tags</p>
-			<hr>
-			<p class="p-tag-button">
-			<div id="sceneTagFrame"></div>
-			</p>
+		<div class="row">
+			<div class="description col-lg-9 col-md-12 col-sm-12">
+				<div class="title"><p th:text="${board.title}"></p></div>
+				<div class="date-info">
+					<p  th:text="${'등록일 : '+#dates.format(board.registeredDate, 'yyyy.MM.dd HH:mm:ss') + ' / 수정일 : '+#dates.format(board.lastUpdateDate, 'yyyy.MM.dd HH:mm:ss')}"></p>
+				</div>
+				<div class="explanation" th:text="${board.explanation}"></div>
+				<div class="button-area"><a class="btn btn-outline-danger"
+											 th:id="@{'download_'+${board.id}}"
+											 th:href="${board.videoFileUrl}"
+											 target="_blank"
+											 th:download="${board.videoFileName}">다운로드</a></div>
+
+
+
+				<div class="info">
+					<div><b>등록자</b> : <span th:text="${board.userDTO.userName}"></span>  <span th:text="@{'('+${board.userDTO.institution}+')'}"></span><span class="sp">&nbsp; &nbsp; | &nbsp; &nbsp;</span></div>
+					<div><b>파일명</b> : <span th:text="${board.videoFileName}"></span><span class="sp">&nbsp; &nbsp; | &nbsp; &nbsp;</span></div>
+					<div><b>파일크기</b> : <span th:text="${board.videoFileDisplaySize}"></span><span class="sp">&nbsp; &nbsp; | &nbsp; &nbsp;</span></div>
+					<div><b>재생시간</b> : <span id="runtime" th:text="${board.videoDuration}"></span></div>
+				</div>
+			</div>
+			<div class="meta-tag-area col-lg-3 col-md-12 col-sm-12">
+				<span class="title"><p>Scene Tags</p></span>
+
+			</div>
 		</div>
+
 	</div>
 
 	<hr>
-	<div>
-		<div style="float: right;">
-			<!--<button th:if="${sessionInfo.getUserId == board.getUserId}" class="white36-button" onclick="showModal('editModal');">정보수정</button>-->
-			<a th:href="${board.videoFileUrl}"
-			   target="_blank" download="${board.title}">
-				<button class="colored36-button"><i class="ic_download"></i>다운로드</button>
-			</a>
-		</div>
-		<p class="p-h2" th:text="${board.title}">
-		</p>
-<!--		<p class="p-grey">등록일: <%=ETCLib.obtainDatetimeString(contentVO.getRegisteredDt())%> /
-			수정일: <%=ETCLib.obtainDatetimeString(contentVO.getLastUpdateDt())%>
-		</p>-->
-	</div>
 
-	<div class="explanation-content-div" th:text="${board.explanation}">
-	</div>
-	<br/>
-	<hr>
-	<br/>
-
-	<div>
-		<p>
-			<b>등록자</b> : <span th:text="${board.userDTO.userName}"></span>  <span th:text="@{'('+${board.userDTO.institution}+')'}"></span>&nbsp; &nbsp; | &nbsp; &nbsp;
-			<b>파일명</b> : <span th:text="${board.videoFileName}"></span>&nbsp; &nbsp; | &nbsp; &nbsp;
-			<b>파일크기</b> : <span th:text="${board.videoFileDisplaySize}"></span>&nbsp; &nbsp; | &nbsp; &nbsp;
-			<b>재생시간</b> : <span id="runtime" th:text="${board.videoDuration}"></span>
-		</p>
-	</div>
 
 </section>
 

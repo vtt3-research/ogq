@@ -28,14 +28,18 @@
 </script>
 <header th:replace="fragments/header :: header"></header>
 <div class="main-container"> 
-	<div class="container">
+	<div class="container" style="width:100%;">
 		<!--<section th:replace="fragments/board/common :: title"></section>-->
-        <div style="float:left;">
-            <a href="./videos/write">
-                <button class="colored-button">업로드</button>
-            </a>
+        <div class="top">
+            <div class="menu-title"><p>전체 비디오</p></div>
+            <div class="upload">
+                <a href="./videos/write">
+                    <button class="btn btn-outline-danger">비디오 업로드</button>
+                </a>
+            </div>
         </div>
-		<div th:replace="fragments/board/list :: video"></div>
+
+		<div th:replace="fragments/board/list :: videoWebzine"></div>
 		<div th:replace="fragments/board/pagination :: basic"></div>
 	</div>
 </div>

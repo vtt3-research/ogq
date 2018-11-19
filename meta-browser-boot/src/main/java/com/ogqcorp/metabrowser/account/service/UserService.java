@@ -35,7 +35,7 @@ public class UserService {
             "<BR>\n" +
             "<BR>\n" +
             "<BR>\n" +
-            "<BR>소속: \"#ORGAN#\"\n" +
+            "<BR>소속: \"#INSTITUTION#\"\n" +
             "<BR>\n" +
             "<BR>이름: \"#USERNAME#\"\n" +
             "<BR>\n" +

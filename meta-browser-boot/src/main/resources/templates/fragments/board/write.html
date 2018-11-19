@@ -60,42 +60,41 @@
 
 <section th:fragment="video">
 
-	<form class="container" id="needs-validation" th:action="@{./write}" enctype="multipart/form-data" method="post">
-		<div class="form-group has-feedback row">
-			<label for="title" class="col-sm-1 col-form-label">제목</label>
-			<div class="col-sm-11">
-				<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="" required>
-			</div>
-		</div>
-		<div class="form-group has-feedback row">
-			<label for="description" class="col-sm-1 col-form-label">설명</label>
-			<div class="col-sm-11">
-				<textarea class="form-control" id="description" name="description" placeholder="설명을 입력해 주세요.(선택입력)" rows="10" ></textarea>
-			</div>
+	<form class="container write" id="needs-validation" th:action="@{./write}" enctype="multipart/form-data" method="post">
+		<div class="row">
 
-		</div>
-		<div class="form-group has-feedback row">
-			<label for="file" class="col-sm-1 col-form-label">동영상</label>
-			<div class="col-sm-11">
+			<div class="col-lg-6 col-md-6  col-sm-12">
+				<label for="file">동영상</label>
 				<input type="file" id="videoFile" name="videoFile" class="form-control-file" placeholder="등록할 비디오 파일을 선택해주세요." required>
 			</div>
-		</div>
-		<div class="form-group has-feedback row">
-			<label for="file" class="col-sm-1 col-form-label">메타파일</label>
-			<div class="col-sm-11">
+
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<label for="file">메타파일</label>
 				<input type="file" id="metaFile" name="metaFile" class="form-control-file" placeholder="비디오와 같이 등록할 메타데이터 파일을 선택해주세요.(선택입력)">
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." value="" required>
+			</div>
+		</div>
+		<div class="form-group has-feedback row">
+			<div class="col-sm-12">
+				<textarea id="description" name="description" placeholder="설명을 입력해 주세요.(선택입력)" rows="10" ></textarea>
+			</div>
+
+		</div>
 		<hr/>
-		<div class="cco-link-div" style="margin: 20px 0">
-			<span>해당 비디오는 CC0 라이선스 규칙을 준수합니다.</span> <a
-				href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" target="_blank">자세히 보기</a>
-			<span style="text-align: right">
+		<div class="row cco-area">
+			<div class="col-lg-9 col-md-9 col-sm-12 cco-desc">해당 비디오는 CC0 라이선스 규칙을 준수합니다. <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" target="_blank">자세히 보기</a></div>
+
+			<div class="col-lg-3 col-md-3 col-sm-12 cco-check">
 				<label><input type="checkbox" id="agreeYn" name="agreeYn" value="Y">동의합니다.</label>
-			</span>
+			</div>
 		</div>
 		<div class="text-center">
-			<button class="btn btn-outline-success" id="submit" type="submit">등록하기</button>
+			<button name="submit" type="submit">등록하기</button>
+
 			<!--<a class="btn btn-outline-success" th:href="@{./list}" role="button">목록</a>-->
 		</div>
 	</form>

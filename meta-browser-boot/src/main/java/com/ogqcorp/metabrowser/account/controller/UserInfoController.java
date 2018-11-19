@@ -51,11 +51,14 @@ public class UserInfoController {
 
 
     @GetMapping("/account/users/detail")
-    public String viewUserInfo(Model model, @PageableDefault(sort = "contentId",direction = Sort.Direction.DESC) Pageable pageable){
+    public String viewUserInfo(Model model, @PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        //model.addAttribute("user",userService.findById(auth.getName()));
-        model.addAttribute("page",contentService.findAllByUserId(pageable,Integer.parseInt(auth.getName())));
+        UserDTO userDTO = userService.findByEmail(auth.getName());
+        model.addAttribute("user",userDTO);
+
+
+        model.addAttribute("page",contentService.findAllByUserId(pageable,userDTO.getId()));
 
         return "users/profile";
 

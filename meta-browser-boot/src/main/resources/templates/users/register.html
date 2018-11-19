@@ -7,72 +7,67 @@
 <body>
 <section layout:fragment="content">
 
-    <div class="div-center600">
+    <div class="register-container">
         <h2>회원가입</h2>
         <div class="dummy-div"></div>
         <div class="box_info">
             <form id="registerForm" action="/registration/users">
+                <div class="item">
+                    <label>소속</label>
+                    <div class="input-container">
+                        <input type="text" id="institution" name="institution"
+                               placeholder="소속 기관 또는 회사명(선택입력)" maxlength="64"
+                               onkeyup='valChecker($(this),64, $("#byteLength1"));'>
+                        <p id="byteLength1" class="input-length">0 / 64</p>
+                    </div>
+                </div>
 
-                <dl class="item_info">
-                    <dt><label class="lab_info">소속</label></dt>
-                    <dd>
-                        <div class="wrap_inp">
-                            <input class="input-general" type="text" id="institution" name="institution"
-                                   placeholder="소속 기관 또는 회사명(선택입력)" maxlength="64"
-                                   onkeyup='valChecker($(this),64, $("#byteLength1"));'>
-                            <br/><span id="byteLength1" class="small-bytes-font">0 / 64</span>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="item_info">
-                    <dt><label class="lab_info">이름</label></dt>
-                    <dd>
-                        <div class="wrap_inp">
-                            <input class="input-general" type="text" id="userName" name="userName"
-                                   placeholder="서비스내에서 표시될 이름(선택입력)" maxlength="32"
-                                   onkeyup='valChecker($(this),32, $("#byteLength2"));'>
-                            <br/><span id="byteLength2" class="small-bytes-font">0 / 32</span>
-                            <p style="margin-left: 8px;" class="txt_message">* 미 입력시 이메일 주소의 일부가 이름으로 사용됩니다.</p>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="item_info">
-                    <dt><label class="lab_info">이메일</label></dt>
-                    <dd>
-                        <div class="wrap_inp">
-                            <input class="input-general" type="email" id="email" name="email"
-                                   placeholder="이메일 주소는 가입인증 및 아이디로 사용됩니다." maxlength="128" title="유효하지 않은 이메일 또는 가입된 이메일입니다."
-                                   onkeyup='valChecker($(this),128, $("#byteLength3"));'
-                                   onblur="checkDuplicateEmail($(this));"
-                                   required>
-                            <br/><span id="byteLength3" class="small-bytes-font">0 / 128</span>
-                            <p id="caution1" class="txt_message"></p>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="item_info info_password">
-                    <dt><label for="password" class="lab_info">비밀번호</label></dt>
-                    <dd>
-                        <div class="wrap_inp">
-                            <input class="input-general" type="password" id="password" name="password"
-                                   placeholder="최소 8자 이상" onchange="form.passwordCheck.pattern = this.value;" minlength="8" required>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="item_info info_password" style="margin-top: 0">
-                    <dt><label for="passwordCheck" class="lab_info">비밀번호 재확인</label></dt>
-                    <dd>
-                        <div class="wrap_inp">
-                            <input class="input-general" type="password" id="passwordCheck" name="passwordCheck" pattern="" title="비밀번호가 일치하지 않습니다."
-                                   placeholder="동일한 비밀번호를 입력해주세요." minlength="8" required>
-                        </div>
+
+                <div class="item">
+                    <label>이름</label>
+                    <div class="input-container">
+                        <input type="text" id="userName" name="userName"
+                               placeholder="서비스내에서 표시될 이름(선택입력)" maxlength="32"
+                               onkeyup='valChecker($(this),32, $("#byteLength2"));'>
+                        <p style="margin-left: 8px;" class="description">* 이름 입력시 이메일 주소의 일부가 이름으로 사용됩니다.</p>
+                        <p id="byteLength2" class="input-length">0 / 32</p>
+
+                    </div>
+                </div>
+                <div class="item">
+                    <label>이메일</label>
+                    <div class="input-container">
+                        <input type="email" id="email" name="email"
+                               placeholder="이메일 주소는 가입인증 및 아이디로 사용됩니다." maxlength="128" title="유효하지 않은 이메일 또는 가입된 이메일입니다."
+                               onkeyup='valChecker($(this),128, $("#byteLength3"));'
+                               onblur="checkDuplicateEmail($(this));"
+                               required>
+                        <p id="byteLength3" class="input-length">0 / 128</p>
+                        <p id="caution1" class="txt_message"></p>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="password">비밀번호</label>
+                    <div class="input-container">
+                        <input type="password" id="password" name="password"
+                               placeholder="최소 8자 이상" onchange="form.passwordCheck.pattern = this.value;" minlength="8" required>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="passwordCheck">비밀번호 재확인</label>
+                    <div class="input-container">
+                        <input type="password" id="passwordCheck" name="passwordCheck" pattern="" title="비밀번호가 일치하지 않습니다."
+                               placeholder="동일한 비밀번호를 입력해주세요." minlength="8" required>
                         <p id="caution2" class="txt_message"></p>
-                    </dd>
-                </dl>
+                    </div>
+                </div>
 
-                <div class="hr-div"></div>
-
-                <input class="large-button" type="submit" value="회원 가입"/>
+                <div class="item">
+                <hr/>
+                </div>
+                <div class="item">
+                    <button name="submit" type="submit">회원 가입</button>
+                </div>
             </form>
         </div>
 

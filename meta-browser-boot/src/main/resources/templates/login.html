@@ -5,15 +5,14 @@
     <title>Login</title>
 </head>
 <body>
-<section layout:fragment="content">
-    <div class="dummy-div"></div>
-    <div class="div-center320">
+<section layout:fragment="content" class="login">
+    <div class="login-container">
         <form th:action="@{/login}" method="post" class="form-signin">
             <div>
                 <p class="p-h2">환영합니다!</p><br/>
-                <input class="input-general3" type="email" id="email" name="email" placeholder="아이디(이메일)"/><br/>
-                <input class="input-general3" type="password" id="password" name="password" placeholder="비밀번호"/><br/>
-                <button class="large-button" name="Submit" value="Login" type="Submit" text="Login">Login</button>
+                <input type="email" id="email" name="email" placeholder="아이디(이메일)"/><br/>
+                <input type="password" id="password" name="password" placeholder="비밀번호"/><br/>
+                <button name="Submit" value="Login" type="Submit" text="Login">Login</button>
             </div>
 
         </form>

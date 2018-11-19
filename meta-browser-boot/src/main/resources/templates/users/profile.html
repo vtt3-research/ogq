@@ -5,28 +5,23 @@
     <title>사용자 정보</title>
 </head>
 <body>
-<div  layout:fragment="content" class="div-left">
+<section  layout:fragment="content">
     <br/>
     <div class="container">
-        <p>
-            <span class="p-h2">내정보</span>&nbsp;&nbsp;
-            <button class="white-button" onclick="showModal('myInfoUpdateModal');">정보 변경</button>&nbsp;&nbsp;
-            <button class="white-button" onclick="showModal('passwordUpdateModal');">비밀번호 변경</button>&nbsp;&nbsp;
-        </p>
-
-    </div>
-    <br/>
-    <div class="container">
-        <div>
-            <p>
-                <b>소속</b> : <span id="displayInstitution" th:if="${user.institution} != ''" th:text="${user.institution}"></span>
-                <b>이름</b> : <span id="displayUserName" th:text="${user.userName}"></span>
-                <b>이메일</b> : <span th:text="${user.email}"></span>
-                <!--<b>소속</b> : <%=myAccountVO.getOrgan().length() == 0 ? "-" : myAccountVO.getOrgan()%> &nbsp; &nbsp;
-                &nbsp; &nbsp;
-                <b>이름</b> : <%=myAccountVO.getAccountName()%>&nbsp; &nbsp; &nbsp; &nbsp;
-                <b>이메일</b> : <%=myAccountVO.getEmail()%>&nbsp; &nbsp; &nbsp; &nbsp;-->
-            </p>
+        <div class="row profile">
+            <div class="col-lg-2 col-md-2 col-sm-12">
+                <p><b>소속</b> : <span id="displayInstitution" th:if="${user.institution} != ''" th:text="${user.institution}"></span></p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-12">
+                <p><b>이름</b> : <span id="displayUserName" th:text="${user.userName}"></span></p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <p><b>이메일</b> : <span th:text="${user.email}"></span></p>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <span><button class="white-button" onclick="showModal('myInfoUpdateModal');">정보 변경</button></span>
+                <span><button class="white-button" onclick="showModal('passwordUpdateModal');">비밀번호 변경</button></span>
+            </div>
         </div>
     </div>
     <br/>
@@ -34,7 +29,7 @@
     <div class="container">
         <button class="white-button" id="removeCheckBox">선택 삭제</button>&nbsp;&nbsp;
         <!--<section th:replace="fragments/board/common :: title"></section>-->
-        <div th:replace="fragments/board/list :: video"></div>x
+        <div th:replace="fragments/board/list :: myProfileWebzine"></div>
         <div th:replace="fragments/board/pagination :: basic"></div>
     </div>
 
@@ -199,7 +194,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <th:block layout:fragment="css">
     <style th:inline="text">
@@ -221,7 +216,7 @@
             $videoTableHeadTr.prepend("<th><input id='removeAll' type='checkbox'></th>");
             $videoTableHeadTr.append("<th>삭제</th>");
             var $videoTableBodyTr = $('#videoTable tbody tr');
-            $videoTableBodyTr.prepend("<td><input class='removeCheck' type='checkbox' name='contentId'></td>");
+            $videoTableBodyTr.prepend("<td><input class='removeCheck' type='checkbox' name='id'></td>");
             $videoTableBodyTr.append("<td><button class='white-button removeButton' type='button' value='삭제'>삭제</button></td>");
 
             updateVideoDuration($videoTableBodyTr);

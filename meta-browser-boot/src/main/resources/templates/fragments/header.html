@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <header th:fragment="header">
-        <p class="Video-Tagging-Servic" onclick="location.href='/content/videos'">Video
-            Tagging Service</p>
+        <p class="Video-Tagging-Servic" onclick="location.href='/content/videos'">VIDEO TAGGING SERVICE</p>
         <div></div>
         <div sec:authorize="isAuthenticated()" class="header-right-container">
-            <div class="round_button1" onclick="location.href='/account/users/detail'"><p>
-                마이페이지</p></div>
-            <div class="round_button1"
+            <button class="header-button" onclick="location.href='/account/users/detail'"><p>
+                마이페이지</p></button>
+            <button class="header-button"
                  onclick="alert('로그아웃 되었습니다.');setTimeout(function() {location.href='/logout';}, 1000);">
-                <p>로그아웃</p></div>
+                <p>로그아웃</p></button>
         </div>
 
         <!-- 일반모달 -->

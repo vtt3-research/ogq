@@ -165,7 +165,6 @@ input::-webkit-input-placeholder {
 }
 
 label {
-    width: 20%;
 }
 
 .div-singleInputItem span {
@@ -188,11 +187,11 @@ label {
 
 .Video-Tagging-Servic {
     float: left;
-    width: 152px;
     height: 20px;
     font-weight: bold;
     text-align: center;
-    color: #ffffff;
+    /*color: #ffffff;*/
+    color:#000000;
     margin-top: 22px;
     margin-left: 40px;
 }
@@ -218,6 +217,8 @@ label {
 .round_button1 > p {
     padding: 5px;
 }
+
+
 
 /* 헤더부분 끝 */
 
@@ -476,25 +477,6 @@ hr {
     color: #8b90a0;
 }
 
-.cco-link-div {
-    text-align: left;
-    text-indent: 20px;
-}
-
-.cco-link-div span {
-    font-weight: bold;
-    color: #2f2f37;
-}
-
-.cco-link-div a {
-    font-weight: bold;
-    color: #4a90e2;
-}
-
-.cco-link-div div {
-    float: right;
-    font-weight: normal;
-}
 
 .large-button {
     width: 300px;

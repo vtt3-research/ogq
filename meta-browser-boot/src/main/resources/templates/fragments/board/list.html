@@ -76,6 +76,85 @@
 	</table>
 </section>
 
+
+<section th:fragment="videoWebzine" class="container">
+	<!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
+	<div class="list" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}">
+		<div class="row list-webzine">
+
+			<div  class="col-lg-2 col-md-2 col-sm-2 item-thumbnail">
+				<a th:href="@{'videos/detail/' + ${board.id}}">
+						<video th:id="@{'v_'+${board.id}}" class="videoView" preload="metadata" height="55px">
+							<source th:src="@{${board.videoFileUrl}+'#=0.1'}"
+									type="video/mp4"/>
+						</video>
+				</a>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-10 item-main">
+				<div class="item-title">
+					<a
+							href=""
+							th:href="@{'videos/detail/' + ${board.id}}"
+							th:text="${board.title}">
+						</a>
+				</div>
+				<div class="item-info" th:text="${board.userDTO.userName +' / ' + board.videoFileDisplaySize +  ' / ' +#dates.format(board.registeredDate, 'yyyy.MM.dd')}">
+
+				</div>
+				<br>
+				<!--<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
+			</div>
+			<div  class="col-lg-2 col-md-2 col-sm-12 item-download">
+				<a
+				   th:id="@{'download_'+${board.id}}"
+				   th:href="${board.videoFileUrl}"
+				   target="_blank"
+				   th:download="${board.videoFileName}"><button class="btn btn-outline-dark">다운로드</button></a>
+			</div>
+		</div>
+		<hr/>
+	</div>
+</section>
+
+
+<section th:fragment="myProfileWebzine" class="container">
+	<!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
+	<div class="list" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}">
+		<div class="row list-webzine">
+			<div class="item-checkbox">
+				<input type="checkbox">
+			</div>
+			<div  class="col-lg-2 col-md-2 col-sm-2 item-thumbnail">
+				<a th:href="@{'videos/detail/' + ${board.id}}">
+					<video th:id="@{'v_'+${board.id}}" class="videoView" preload="metadata" height="55px">
+						<source th:src="@{${board.videoFileUrl}+'#=0.1'}"
+								type="video/mp4"/>
+					</video>
+				</a>
+			</div>
+			<div class="col-lg-7 col-md-7 col-sm-9 item-main">
+				<div class="item-title">
+					<a
+							href=""
+							th:href="@{'videos/detail/' + ${board.id}}"
+							th:text="${board.title}">
+					</a>
+				</div>
+				<div class="item-info" th:text="${board.userDTO.userName +' / ' + board.videoFileDisplaySize +  ' / ' +#dates.format(board.registeredDate, 'yyyy.MM.dd')}">
+
+				</div>
+				<br>
+				<!--<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
+			</div>
+			<div  class="col-lg-2 col-md-2 col-sm-12 item-download">
+				<a  th:id="@{'download_'+${board.id}}"><button class="btn btn-outline-dark">삭제</button></a>
+			</div>
+		</div>
+		<hr/>
+	</div>
+</section>
+
+
 <section th:fragment="webzine">
 <!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
 			<div class="list" th:each="board : ${page.content}">
@@ -92,14 +171,14 @@
 							href="" 
 							th:href="@{'./read/' + ${board.id.boardSeq}}" 
 							th:text="'['+${board.category+'] '+board.title}">
-							미래</a>
+							</a>
 						</div>
 						<div class="list-title-summary">
 							<a
 							href="" 
 							th:href="@{'./read/' + ${board.id.boardSeq}}" 
 							th:utext="${#strings.replace( #strings.escapeXml( board.summary ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}">
-							미래</a>
+							</a>
 						</div>
 						<br>
 						<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>
@@ -121,7 +200,7 @@
 					<a
 						th:href="@{'./read/' + ${board.id.boardSeq}}" 
 						th:text="'['+${board.category+'] '+board.title}">
-						미래</a>
+						</a>
 					</div>
 					<div class="list-title-date-s"  th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}" style="padding-left:10px;">2015-10-30 01:09</div>
 				</div>	
@@ -144,7 +223,7 @@
 					<a class="read-modal"
 						th:href="@{'./read/' + ${board.id.boardSeq}}" 
 						th:text="'['+${board.category+'] '+board.title}">
-						미래</a>
+						</a>
 					</div>
 					<div class="list-title-date-s"  th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}" style="padding-left:10px;">2015-10-30 01:09</div>
 				</div>	
@@ -174,7 +253,7 @@
 						href=""
 						th:href="@{'./read/' + ${board.id.boardSeq}}"
 						th:text="${board.title}">
-						미래</a></td>
+						</a></td>
 					<td th:text="${board.writer}">홍길동</td>
 					<td th:text="${board.regDate}" style="text-align:center">2015-10-30 01:09</td>
 					<td th:text="${board.readCount}" style="text-align:right">10</td>
@@ -203,7 +282,7 @@
 						th:class="show-modal"
 						th:href="@{'./read/' + ${board.id.boardSeq}}" data-toggle="modal" data-target="#readModal" data-container="body"
 						th:text="${board.title}">
-						미래</a></td>
+						</a></td>
 					<td th:text="${board.writer}">홍길동</td>
 					<td th:text="${board.regDate}">2015-10-30 01:09</td>
 					<td th:text="${board.readCount}">10</td>

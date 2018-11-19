@@ -31,10 +31,9 @@ public class VideoDTO extends ContentDTO{
             videoFileUrl = "movie_attach/"+content.getId()+"_"+videoFileUrl;
         }
 
-        this.videoFileUrl = content.getVideoFileUrl();
         this.videoDuration = content.getVideoRunningTime();
         this.thumbnailUri = content.getPreviewImagePath();
-        this.videoFileName = content.getVideoFileUrl();
+        this.videoFileName = content.getVideoFileUrl().replaceAll(".*/","");
         this.videoFileUrl = StorageConstants.FILE_PATH + videoFileUrl;
         this.videoFileDisplaySize = FileUtils.byteCountToDisplaySize(content.getVideoFileSize());
         this.explanation = content.getExplanation();
