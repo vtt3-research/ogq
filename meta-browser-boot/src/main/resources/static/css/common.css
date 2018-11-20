@@ -78,18 +78,6 @@ caption {
     position: static
 }
 
-input[type=text], input[type=password], input[type=email] {
-    border: 1px solid #dddddd;
-    vertical-align: middle;
-    line-height: 27px;
-    -webkit-appearance: none;
-    box-shadow: none;
-
-    height: 25px;
-    margin: 10px 0px;
-    padding: 5px;
-    width: 90%;
-}
 
 input[type=file] {
     width: 99.5%;
@@ -706,7 +694,7 @@ div {
 /* Link */
 a:link, a:visited {
     color: #333;
-    text-decoration: none
+    text-decoration: none;
 }
 
 a:active, a:hover, a:focus {
@@ -843,6 +831,7 @@ a:active, a:hover, a:focus {
     text-align: center;
 }
 
+
 .modal-footer {
     width: 100%;
     height: 48px;
@@ -894,7 +883,8 @@ a:active, a:hover, a:focus {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 700px;
+    width: 50%;
+    min-width:576px;
     /*
     height: 216px;
      */
@@ -1084,7 +1074,18 @@ a:active, a:hover, a:focus {
 }
 
 
-button[type=submit] {
+header{
+    min-width:360px;
+}
+
+
+.header-right-container {
+    float: right;
+    width: 250px;
+    margin: 16px 30px;
+}
+
+.submit, button[type=submit] {
     width:50%;
     height: 60px;
     background-color: #ff6602;
@@ -1095,7 +1096,9 @@ button[type=submit] {
     color: #ffffff;
 }
 
-
+.submit{
+    width:100%;
+}
 .header-button {
     display: inline-block;
     width: 105px;
@@ -1111,6 +1114,7 @@ button[type=submit] {
 
 .login{
     padding:10%;
+    background-color:#f7f6f5;
 }
 
 .login-container{
@@ -1123,17 +1127,30 @@ button[type=submit] {
     background-color:white;
 }
 
+
+.login-container{
+    margin: auto;
+    padding:30px;
+    width:auto;
+    min-width: 280px;
+    text-align: center;
+    background-color:white;
+}
+
 .login-container input{
     border-color: #cccccc;
     height: 45px;
     margin: 0px 0px;
-    padding: 5px;
-    width: 90%;
+    width: 100%;
 }
 
 
+.login-container .row{
+    padding:10px;
+}
+
 .login-container button[type=submit] {
-    width: 90%;
+    width: 100%;
 }
 
 .register-container{
@@ -1187,7 +1204,7 @@ button[type=submit] {
 }
 
 
-.register-container .input-length {
+.input-length {
     float: right;
     width:20%;
     font-size: 12px;
@@ -1222,8 +1239,8 @@ input[type=text], input[type=password], input[type=email], input[type=file] {
     box-shadow: none;
 
     height: 45px;
-    margin: 10px 0px;
-    padding: 5px;
+/*    margin: 10px 0px;
+    padding: 5px;*/
     width: 100%;
 }
 
@@ -1247,11 +1264,34 @@ section{
     font-size:14px;
     padding:10px;
     width:100%;
+    margin-left:0;
 }
 
 
 .profile p{
     padding-top:10px;
+}
+
+.profile .btn-area{
+    text-align:right;
+}
+
+.change-user .item{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.change-user .item .item-label{
+    text-align:right;
+}
+.change-user .item .item-label label{
+    padding-top:10px;
+    font-weight:bold;
+}
+
+.change-user .submit{
+    margin-top:10px;
+    width:40%;
 }
 
 .main-container{
@@ -1277,14 +1317,32 @@ section{
 
 .main-container .top .upload{
     position:absolute;
-    right:70px;
+    right:0;
     top:0;
 
 }
 
 
+.main-container .top .upload .btn{
+    color: #ff6602;
+    background-color: #fff;
+    border-color: #ff6602;
+    font-weight:bold;
+
+
+}
+
+
+.main-container .top .upload .btn:hover{
+    color: #fff;
+    background-color: #ff6602;
+    border-color: #ff6602
+
+
+}
+
+
 .list-webzine .item-main{
-    padding-left:32px;
     padding-top:5px;
 }
 
@@ -1295,22 +1353,24 @@ section{
 
 .list-webzine .item-title{
     font-weight:bold;
-    font-size:17px;
-    padding-top:5px;
-    padding-left:20px;
+    font-size:18px;
+    padding-top:15px;
+    padding-bottom:5px;
 
 }
 .list-webzine .item-info{
-    padding-left:20px;
     font-weight: bold;
     font-size:12px;
     color:#8C8C8C ;
 }
 .list-webzine .item-checkbox{
-    padding-top:15px;
+    padding-top:28px;
     float:right;
 }
 
+.list-webzine .btn{
+    font-weight:bold;
+}
 
 
 
@@ -1437,6 +1497,13 @@ section{
 /*Small devices (landscape phones, 576px and up)*/
 @media (max-width: 576px) {
 
+    header{
+        height:100px;
+    }
+
+    .header-right-container{
+        float:left;
+    }
 
     .detail .description .title{
         width:100%;
@@ -1467,6 +1534,8 @@ section{
         width:100%;
     }
 
+
+
 }
 
 
@@ -1479,7 +1548,11 @@ section{
     .register-container .input-container{
         width:60%;
     }
-
+    .list-webzine .item-thumbnail{
+        width:100%;
+        height:100%;
+    }
+/*
     .list-webzine .item-thumbnail{
         width:auto;
     }
@@ -1489,6 +1562,15 @@ section{
     }
 
     .list-webzine .item-download .btn{
+        width:100%;
+    }*/
+
+
+    .list-webzine .item-download .btn {
+        width: 100%;
+    }
+
+    .list-webzine .item-delete .btn{
         width:100%;
     }
 
@@ -1515,6 +1597,18 @@ section{
     .main-container .top .upload .btn{
         width:100%;
 
+    }
+
+    #removeCheckBox{
+        display:none;
+    }
+    .list-webzine .item-checkbox{
+        display:none;
+    }
+
+
+    .change-user .item .item-label{
+        text-align:center;
     }
 
 
@@ -1549,6 +1643,13 @@ section{
         border-right:0px;
 
         padding-top:20px;
+    }
+
+
+    .profile .btn-area{
+        padding-top:10px;
+        padding-bottom:px;
+        text-align:left;
     }
 }
 

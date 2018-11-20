@@ -6,13 +6,25 @@
 </head>
 <body>
 <section layout:fragment="content" class="login">
-    <div class="login-container">
+    <div class="login-container container">
         <form th:action="@{/login}" method="post" class="form-signin">
-            <div>
-                <p class="p-h2">환영합니다!</p><br/>
-                <input type="email" id="email" name="email" placeholder="아이디(이메일)"/><br/>
-                <input type="password" id="password" name="password" placeholder="비밀번호"/><br/>
-                <button name="Submit" value="Login" type="Submit" text="Login">Login</button>
+            <div class="row">
+                <div class="p-h2">환영합니다!</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="email" id="email" name="email" placeholder="아이디(이메일)"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="password" id="password" name="password" placeholder="비밀번호"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button name="Submit" type="Submit" text="로그인">로그인</button>
+                </div>
             </div>
 
         </form>

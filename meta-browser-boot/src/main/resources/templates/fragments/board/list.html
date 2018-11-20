@@ -77,20 +77,20 @@
 </section>
 
 
-<section th:fragment="videoWebzine" class="container">
+<div th:fragment="videoWebzine" class="container">
 	<!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
 	<div class="list" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}">
 		<div class="row list-webzine">
 
-			<div  class="col-lg-2 col-md-2 col-sm-2 item-thumbnail">
+			<div  class="col-lg-2 col-md-2 col-sm-12 item-thumbnail">
 				<a th:href="@{'videos/detail/' + ${board.id}}">
-						<video th:id="@{'v_'+${board.id}}" class="videoView" preload="metadata" height="55px">
+						<video th:id="@{'v_'+${board.id}}" class="videoView" preload="metadata" width="100%" height="100%">
 							<source th:src="@{${board.videoFileUrl}+'#=0.1'}"
 									type="video/mp4"/>
 						</video>
 				</a>
 			</div>
-			<div class="col-lg-8 col-md-8 col-sm-10 item-main">
+			<div class="col-lg-9 col-md-9 col-sm-12 item-main">
 				<div class="item-title">
 					<a
 							href=""
@@ -104,7 +104,7 @@
 				<br>
 				<!--<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
 			</div>
-			<div  class="col-lg-2 col-md-2 col-sm-12 item-download">
+			<div  class="col-lg-1 col-md-1 col-sm-12 item-download">
 				<a
 				   th:id="@{'download_'+${board.id}}"
 				   th:href="${board.videoFileUrl}"
@@ -114,25 +114,25 @@
 		</div>
 		<hr/>
 	</div>
-</section>
+</div>
 
 
-<section th:fragment="myProfileWebzine" class="container">
+<div th:fragment="myProfileWebzine">
 	<!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
 	<div class="list" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}">
 		<div class="row list-webzine">
 			<div class="item-checkbox">
 				<input type="checkbox">
 			</div>
-			<div  class="col-lg-2 col-md-2 col-sm-2 item-thumbnail">
+			<div  class="col-lg-2 col-md-2 col-sm-12 item-thumbnail">
 				<a th:href="@{'videos/detail/' + ${board.id}}">
-					<video th:id="@{'v_'+${board.id}}" class="videoView" preload="metadata" height="55px">
+					<video th:id="@{'v_'+${board.id}}" class="videoView" preload="metadata" width="100%" height="100%">
 						<source th:src="@{${board.videoFileUrl}+'#=0.1'}"
 								type="video/mp4"/>
 					</video>
 				</a>
 			</div>
-			<div class="col-lg-7 col-md-7 col-sm-9 item-main">
+			<div class="col-lg-8 col-md-8 col-sm-12 item-main">
 				<div class="item-title">
 					<a
 							href=""
@@ -146,13 +146,13 @@
 				<br>
 				<!--<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
 			</div>
-			<div  class="col-lg-2 col-md-2 col-sm-12 item-download">
+			<div  class="col-lg-1 col-md-1 col-sm-12 item-delete">
 				<a  th:id="@{'download_'+${board.id}}"><button class="btn btn-outline-dark">삭제</button></a>
 			</div>
 		</div>
 		<hr/>
 	</div>
-</section>
+</div>
 
 
 <section th:fragment="webzine">

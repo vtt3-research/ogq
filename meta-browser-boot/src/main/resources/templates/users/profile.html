@@ -6,27 +6,27 @@
 </head>
 <body>
 <section  layout:fragment="content">
-    <br/>
+
+
     <div class="container">
+        <br/>
         <div class="row profile">
-            <div class="col-lg-2 col-md-2 col-sm-12">
+            <div class="col-lg-2 col-md-12 col-sm-12">
                 <p><b>소속</b> : <span id="displayInstitution" th:if="${user.institution} != ''" th:text="${user.institution}"></span></p>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-12">
+            <div class="col-lg-2 col-md-12 col-sm-12">
                 <p><b>이름</b> : <span id="displayUserName" th:text="${user.userName}"></span></p>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="col-lg-4 col-md-12 col-sm-12">
                 <p><b>이메일</b> : <span th:text="${user.email}"></span></p>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-12">
+            <div class="col-lg-4 col-md-12 col-sm-12 btn-area">
                 <span><button class="white-button" onclick="showModal('myInfoUpdateModal');">정보 변경</button></span>
                 <span><button class="white-button" onclick="showModal('passwordUpdateModal');">비밀번호 변경</button></span>
             </div>
         </div>
-    </div>
-    <br/>
+        <br/>
 
-    <div class="container">
         <button class="white-button" id="removeCheckBox">선택 삭제</button>&nbsp;&nbsp;
         <!--<section th:replace="fragments/board/common :: title"></section>-->
         <div th:replace="fragments/board/list :: myProfileWebzine"></div>
@@ -38,47 +38,48 @@
     <div id="myInfoUpdateModal" class="modal">
         <!-- Modal content -->
         <div class="wide-modal-content">
-            <div class="modal-body">
+            <div class="modal-body change-user">
                 <p class="p-h3">정보 변경</p>
                 <br>
                 <form id="updateMyAccountForm">
                     <input type="hidden" name="id" id="id" th:value="${user.id}">
-                    <dl class="item-dl">
-                        <dt><label class="lab_info">소속</label></dt>
-                        <dd>
-                            <div class="wrap_inp">
-                                <input class="input-general" type="text" id="institution" name="institution"
-                                       th:value="${user.institution}"
-                                       placeholder="소속 기관 또는 회사명(선택입력)" maxlength="64"
-                                       onkeyup='valChecker($(this),64, $("#byteString1"));'>
+                    <div class="row item">
+                        <div class="col-lg-2 col-md-2 col-sm-12 item-label">
+                            <label>소속</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <input type="text" id="institution" name="institution"
+                                   th:value="${user.institution}"
+                                   placeholder="소속 기관 또는 회사명(선택입력)" maxlength="64"
+                                   onkeyup='valChecker($(this),64, $("#byteString1"));'>
+                            <div id="byteString1" class="input-length"></div>
 
-                                <br/><span id="byteString1"
-                                           class="small-bytes-font"></span>
-                            </div>
-                        </dd>
-                    </dl>
-                    <dl class="item-dl">
-                        <dt><label class="lab_info">이름</label></dt>
-                        <dd>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-lg-2 col-md-2 col-sm-12 item-label">
+                            <label>이름</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12">
                             <div class="wrap_inp">
-                                <input class="input-general" type="text" id="userName" name="userName"
+                                <input type="text" id="userName" name="userName"
                                        th:value="${user.userName}" placeholder="홍길동" maxlength="32"
                                        onkeyup='valChecker($(this),32, $("#byteString2"));'>
                                 <p ID="caution1" class="txt_message3">* 미 입력시 이메일 주소의 일부가 이름으로 사용됩니다.</p>
-                                <br/><span id="byteString2"
-                                           class="small-bytes-font"></span>
+                                <div id="byteString2"
+                                           class="input-length"></div>
                             </div>
-                        </dd>
-                    </dl>
-                    <dl class="item-dl">
-                        <dt><label class="lab_info">이메일</label></dt>
-                        <dd>
-                            <div class="wrap_inp">
-                                <p class="p-left" th:text="${user.email}">
-                                </p>
-                            </div>
-                        </dd>
-                    </dl>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-lg-2 col-md-2 col-sm-12 item-label">
+                            <label>이메일</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <p th:text="${user.email}">
+                            </p>
+                        </div>
+                    </div>
                     <div style="margin: 10px;">
                         <!--
                         <button class="large-button" onclick="goUpdateMyAccount()">변경하기</button>
@@ -93,7 +94,7 @@
     <div id="passwordUpdateModal" class="modal">
         <!-- Modal content -->
         <div class="wide-modal-content">
-            <div class="modal-body">
+            <div class="modal-body change-user">
                 <p class="p-h3">비밀번호 변경</p>
                 <br>
 
@@ -104,42 +105,43 @@
                     //TODO: 비번 변경
 
                     -->
-                    <dl class="item_info">
-                        <dt><label class="lab_info">현재 비밀번호</label></dt>
-                        <dd>
-                            <div class="wrap_inp">
-                                <input class="input-general" type="password" id="oldPassword" name="oldPassword"
-                                       placeholder="현재 비밀번호를 입력해주세요.">
-                            </div>
-                        </dd>
-                    </dl>
-                    <dl class="item_info info_password">
-                        <dt><label for="password1" class="lab_info">새 비밀번호</label></dt>
-                        <dd>
-                            <div class="wrap_inp">
-                                <input class="input-general" type="password" id="password1" name="password1" minlength="8"
-                                       onchange="form.password2.pattern = this.value;"
-                                       placeholder="변경할 비밀번호를 입력해주세요.">
-                            </div>
-                        </dd>
-                    </dl>
-                    <dl class="item_info info_password" style="margin-top: 0">
-                        <dt><label for="password2" class="lab_info">새 비밀번호 확인</label></dt>
-                        <dd>
-                            <div class="wrap_inp">
-                                <input class="input-general" type="password" id="password2" name="password2" minlength="8"
-                                       title="비밀번호가 일치하지 않습니다."
-                                       placeholder="확인을 위해 동일한 비밀번호를 다시 한번 입력해주세요.">
-                            </div>
-                        </dd>
-                    </dl>
+
+                    <div class="row item">
+                        <div class="col-lg-3 col-md-3 col-sm-12 item-label">
+                            <label>현재 비밀번호</label>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12">
+                            <input class="input-general" type="password" id="oldPassword" name="oldPassword"
+                                   placeholder="현재 비밀번호를 입력해주세요.">
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-lg-3 col-md-3 col-sm-12 item-label">
+                            <label>새 비밀번호</label>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12">
+                            <input class="input-general" type="password" id="password1" name="password1" minlength="8"
+                                   onchange="form.password2.pattern = this.value;"
+                                   placeholder="변경할 비밀번호를 입력해주세요.">
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-lg-3 col-md-3 col-sm-12 item-label">
+                            <label>새 비밀번호 확인</label>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12">
+                            <input class="input-general" type="password" id="password2" name="password2" minlength="8"
+                                   title="비밀번호가 일치하지 않습니다."
+                                   placeholder="확인을 위해 동일한 비밀번호를 다시 한번 입력해주세요.">
+                        </div>
+                    </div>
+
                     <p id="caution2" class="txt_message"></p>
-                    <div style="margin: 10px;">
-                        <input type="submit" class="large-button" value="변경하기"/>
-                        <input type="button" class="large-button" onclick="hideModal()" value="취소하기"/>
-                        <!-- 서브밋액션이 자동으로 발생해서 인풋버튼으로.
-                        <button class="large-button">등록하기</button>
-                        -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <input type="submit" class="submit" value="변경하기"/>
+                            <input type="button" class="submit" onclick="hideModal()" value="취소하기"/>
+                        </div>
                     </div>
                 </form>
 
