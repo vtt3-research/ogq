@@ -3,9 +3,7 @@ package com.ogqcorp.metabrowser.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -26,4 +24,13 @@ public class Content {
     private String videoFileUrl;
     private String videoRunningTime;
     private Integer status;
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "content_shot", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "shot_id"))
+    private Collection<Shot> shots = new ArrayList<Shot>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "content_tag", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Collection<Tag> tags = new ArrayList<Tag>();;
 }

@@ -2,11 +2,15 @@ package com.ogqcorp.metabrowser.analysis.service;
 
 import com.ogqcorp.metabrowser.analysis.dto.AssetsRequest;
 import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
-import com.ogqcorp.metabrowser.analysis.dto.ShotDTO;
+import com.ogqcorp.metabrowser.analysis.dto.VideoTagDTO;
+import com.ogqcorp.metabrowser.content.dto.ShotDTO;
 import com.ogqcorp.metabrowser.analysis.dto.ShotInfo;
 import com.ogqcorp.metabrowser.analysis.repository.VideoAnalysisRepository;
+import com.ogqcorp.metabrowser.content.dto.TagDTO;
+import com.ogqcorp.metabrowser.content.service.ContentService;
+import com.ogqcorp.metabrowser.content.service.ShotService;
+import com.ogqcorp.metabrowser.content.service.TagService;
 import com.ogqcorp.metabrowser.domain.Shot;
-import com.ogqcorp.metabrowser.domain.Shot2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -14,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -27,6 +33,16 @@ public class VideoAnalysisService {
     @Autowired
     private VideoAnalysisRepository videoAnalysisRepository;
 
+
+    @Autowired
+    private ShotService shotService;
+
+
+    @Autowired
+    private TagService tagService;
+
+    @Autowired
+    private ContentService contentService;
 
     public List<ShotDTO> findAllByContentId(Long id){
 
@@ -47,22 +63,56 @@ public class VideoAnalysisService {
         videoAnalysisRepository.save(shot);
     }*/
 
-    public void save(Long contentId, ShotInfo shotInfo){
+    public void save(Long contentId, VideoTagDTO videoTagDTO){
+        List<ShotDTO> shotDTOs = new ArrayList<ShotDTO>();
+        List<TagDTO> tagDTOs = new ArrayList<TagDTO>();
+        for(ShotDTO shotDTO: videoTagDTO.getShots()){
+            shotDTOs.add(shotService.save(shotDTO));
+        }
 
-        Shot2 shot = new Shot2();
+        for(String str: videoTagDTO.getTags()) {
+            tagDTOs.add(tagService.save(str));
+        }
+        contentService.save(contentId, shotDTOs, tagDTOs);
+    }
 
-        shot.setContentId(contentId);
-        shot.setStartframeindex(shotInfo.getStartframeindex());
-        shot.setStarttimecode(shotInfo.getStarttimecode());
-        shot.setEndframeindex(shotInfo.getEndframeindex());
-        shot.setEndtimecode(shotInfo.getEndtimecode());
-        shot.setImage(shotInfo.getImage());
-        shot.setLocation(String.join(",",shotInfo.getLocation()) );
-        shot.setTags(String.join(",",shotInfo.getTags()));
+    public void save(Long contentId, ShotDTO shotDTO){
+
+        Shot shot = new Shot();
+
+        shot.setId(contentId);
+        shot.setStartframeindex(shotDTO.getStartframeindex());
+        shot.setStarttimecode(shotDTO.getStarttimecode());
+        shot.setEndframeindex(shotDTO.getEndframeindex());
+        shot.setEndtimecode(shotDTO.getEndtimecode());
+        shot.setImage(shotDTO.getImage());
+        shot.setLocation(shotDTO.getLocation());
+        shot.setObject(shotDTO.getObject());
+        //shot.setLocation(String.join(",",shotDTO.getLocation()) );
+        //shot.setTags(String.join(",",shotInfo.getTags()));
 
         videoAnalysisRepository.save(shot);
     }
 
+    public void save(ShotDTO shotDTO){
+
+        Shot shot = new Shot();
+
+        if(shotDTO.getId() != null){
+            shot.setId(shotDTO.getId());
+        }
+        shot.setStartframeindex(shotDTO.getStartframeindex());
+        shot.setStarttimecode(shotDTO.getStarttimecode());
+        shot.setEndframeindex(shotDTO.getEndframeindex());
+        shot.setEndtimecode(shotDTO.getEndtimecode());
+        shot.setImage(shotDTO.getImage());
+        shot.setLocation(shotDTO.getLocation());
+        shot.setObject(shotDTO.getObject());
+        //shot.setLocation(String.join(",",shotDTO.getLocation()) );
+        //shot.setTags(String.join(",",shotInfo.getTags()));
+
+        videoAnalysisRepository.save(shot);
+    }
 
 
     public void analyzeVideo(AssetsRequest assetsRequest){

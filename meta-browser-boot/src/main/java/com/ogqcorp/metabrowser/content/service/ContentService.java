@@ -2,10 +2,14 @@ package com.ogqcorp.metabrowser.content.service;
 
 import com.ogqcorp.metabrowser.account.dto.UserDTO;
 import com.ogqcorp.metabrowser.account.service.UserService;
+import com.ogqcorp.metabrowser.analysis.dto.VideoTagDTO;
+import com.ogqcorp.metabrowser.content.dto.ShotDTO;
+import com.ogqcorp.metabrowser.content.dto.TagDTO;
 import com.ogqcorp.metabrowser.content.dto.VideoDTO;
 import com.ogqcorp.metabrowser.content.repository.ContentRepository;
 import com.ogqcorp.metabrowser.domain.Content;
 import com.ogqcorp.metabrowser.domain.Shot;
+import com.ogqcorp.metabrowser.domain.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -88,6 +92,24 @@ public class ContentService {
         videoDTO.setRegisteredDate(content.getRegisteredDate());
         videoDTO.setId(content.getId());
         return videoDTO;
+
+
+    }
+
+
+    public void save(Long contentId, Collection<ShotDTO> shotDTOs, Collection<TagDTO> tagDTOs){
+
+        Content content = contentRepository.findById(contentId).get();
+
+
+        content.setShots(shotDTOs.stream().map(s -> new Shot(s)).collect(Collectors.toList()));
+        content.setTags(tagDTOs.stream().map(s -> new Tag(s)).collect(Collectors.toList()));
+
+
+
+
+        contentRepository.save(content);
+
 
 
     }

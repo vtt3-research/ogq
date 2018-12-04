@@ -1,37 +1,48 @@
 package com.ogqcorp.metabrowser.domain;
 
+import com.ogqcorp.metabrowser.content.dto.ShotDTO;
+import com.ogqcorp.metabrowser.content.dto.TagDTO;
 import lombok.Data;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Data
 @Entity
-@IdClass(ShotId.class)
 public class  Shot {
     @Id
-    private Long contentId;
-    @Id
-    private Double time;
-    private Long seekPos;
-    private String tags;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Integer startframeindex;
+    private String starttimecode;
+    private Integer endframeindex;
+    private String endtimecode;
+    private String image;
 
-    public Shot(Long contentId, Double time){
-        this.contentId = contentId;
-        this.time = time;
+    private String location;
+    private String object;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "shot_tag", joinColumns = @JoinColumn(name = "shot_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Collection<Tag> tags = new ArrayList<Tag>();
+
+    public Shot(){}
+
+    public Shot(ShotDTO shotDTO){
+        if(shotDTO.getId() != null){
+            this.id = shotDTO.getId();
+        }
+        this.startframeindex = shotDTO.getStartframeindex();
+        this.starttimecode = shotDTO.getStarttimecode();
+        this.endframeindex = shotDTO.getEndframeindex();
+        this.endtimecode = shotDTO.getEndtimecode();
+        this.image = shotDTO.getImage();
+        this.location = shotDTO.getLocation();
+        this.object = shotDTO.getObject();
+
+
+
     }
-    public Shot(){
-
-    }
-
-
-}
-
-@Data
-class ShotId implements Serializable{
-    private Long contentId;
-    private Double time;
 }
