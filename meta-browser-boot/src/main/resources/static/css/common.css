@@ -1228,7 +1228,11 @@ header{
 
 }
 .write label{
+    font-weight: bold;
+}
 
+.write .item{
+    padding-bottom:15px;
 }
 
 input[type=text], input[type=password], input[type=email], input[type=file] {
@@ -1323,7 +1327,7 @@ section{
 }
 
 
-.main-container .top .upload .btn{
+.main-container .top .upload .btn, .detail .button-area .btn{
     color: #ff6602;
     background-color: #fff;
     border-color: #ff6602;
@@ -1333,7 +1337,8 @@ section{
 }
 
 
-.main-container .top .upload .btn:hover{
+
+.main-container .top .upload .btn:hover, .detail .button-area .btn:hover{
     color: #fff;
     background-color: #ff6602;
     border-color: #ff6602

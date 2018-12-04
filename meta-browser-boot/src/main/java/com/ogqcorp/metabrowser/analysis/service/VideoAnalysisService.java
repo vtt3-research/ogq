@@ -3,8 +3,10 @@ package com.ogqcorp.metabrowser.analysis.service;
 import com.ogqcorp.metabrowser.analysis.dto.AssetsRequest;
 import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
 import com.ogqcorp.metabrowser.analysis.dto.ShotDTO;
+import com.ogqcorp.metabrowser.analysis.dto.ShotInfo;
 import com.ogqcorp.metabrowser.analysis.repository.VideoAnalysisRepository;
 import com.ogqcorp.metabrowser.domain.Shot;
+import com.ogqcorp.metabrowser.domain.Shot2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -29,10 +31,11 @@ public class VideoAnalysisService {
     public List<ShotDTO> findAllByContentId(Long id){
 
 
-        return StreamSupport.stream(videoAnalysisRepository.findAllByContentId(id).spliterator(),false).map(s -> new ShotDTO(s)).collect(Collectors.toList());
+        return null;
+        //return StreamSupport.stream(videoAnalysisRepository.findAllByContentId(id).spliterator(),false).map(s -> new ShotInfo(s)).collect(Collectors.toList());
     }
 
-    public void save(ShotDTO shotDTO){
+    /*public void save(ShotDTO shotDTO){
 
         Shot shot = new Shot();
 
@@ -42,7 +45,24 @@ public class VideoAnalysisService {
         shot.setTags(String.join(",",shotDTO.getTags()));
 
         videoAnalysisRepository.save(shot);
+    }*/
+
+    public void save(Long contentId, ShotInfo shotInfo){
+
+        Shot2 shot = new Shot2();
+
+        shot.setContentId(contentId);
+        shot.setStartframeindex(shotInfo.getStartframeindex());
+        shot.setStarttimecode(shotInfo.getStarttimecode());
+        shot.setEndframeindex(shotInfo.getEndframeindex());
+        shot.setEndtimecode(shotInfo.getEndtimecode());
+        shot.setImage(shotInfo.getImage());
+        shot.setLocation(String.join(",",shotInfo.getLocation()) );
+        shot.setTags(String.join(",",shotInfo.getTags()));
+
+        videoAnalysisRepository.save(shot);
     }
+
 
 
     public void analyzeVideo(AssetsRequest assetsRequest){

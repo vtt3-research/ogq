@@ -79,9 +79,23 @@
 
 <div th:fragment="videoWebzine" class="container">
 	<!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
+	<div class="list list-webzine">
+		<div class="row">
+			<div class="item-checkbox" style="padding-top:10px;">
+				<input type="checkbox" class="downloadCheck" id="downloadAllCheck" name="downloadAll">
+			</div>
+			<div  class="col-lg-1 col-md-1 col-sm-12 item-download">
+				<a href="#" id="downloadSelectBtn"><button class="btn btn-outline-dark">선택 다운로드</button></a>
+			</div>
+			<hr/>
+		</div>
+	</div>
 	<div class="list" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}">
-		<div class="row list-webzine">
 
+		<div class="row list-webzine">
+			<div class="item-checkbox">
+				<input type="checkbox" class="downloadCheck" name="downloadItem" th:data-download="${board.videoFileName}" th:data-href="${board.videoFileUrl}" th:value="${board.videoFileUrl}">
+			</div>
 			<div  class="col-lg-2 col-md-2 col-sm-12 item-thumbnail">
 				<a th:href="@{'videos/detail/' + ${board.id}}">
 						<video th:id="@{'v_'+${board.id}}" class="videoView" preload="metadata" width="100%" height="100%">
@@ -90,7 +104,7 @@
 						</video>
 				</a>
 			</div>
-			<div class="col-lg-9 col-md-9 col-sm-12 item-main">
+			<div class="col-lg-8 col-md-8 col-sm-12 item-main">
 				<div class="item-title">
 					<a
 							href=""
@@ -122,7 +136,7 @@
 	<div class="list" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}">
 		<div class="row list-webzine">
 			<div class="item-checkbox">
-				<input type="checkbox">
+				<input type="checkbox" class="removeCheck" name="delItem" th:value="${board.id}">
 			</div>
 			<div  class="col-lg-2 col-md-2 col-sm-12 item-thumbnail">
 				<a th:href="@{'videos/detail/' + ${board.id}}">
@@ -146,7 +160,7 @@
 				<br>
 				<!--<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
 			</div>
-			<div  class="col-lg-1 col-md-1 col-sm-12 item-delete">
+			<div  class="col-lg-1 col-md-1 col-sm-12 item-delete" th:data-id="${board.id}">
 				<a  th:id="@{'download_'+${board.id}}"><button class="btn btn-outline-dark">삭제</button></a>
 			</div>
 		</div>

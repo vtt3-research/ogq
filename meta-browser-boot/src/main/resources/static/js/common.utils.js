@@ -180,6 +180,30 @@ var WebUtilsInit = {
         }
 
         return str;
+    },
+    downloadAll : function (files) {
+
+        if(files.length == 0) return;
+        var file = files.pop();
+
+        $.ajax({
+            url: file.href,
+            method: 'GET',
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (data) {
+                var a = document.createElement('a');
+                var url = window.URL.createObjectURL(data);
+                a.href = url;
+                a.download = file.download;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            }
+        });
+
+        this.downloadAll(files);
+
     }
 };
 

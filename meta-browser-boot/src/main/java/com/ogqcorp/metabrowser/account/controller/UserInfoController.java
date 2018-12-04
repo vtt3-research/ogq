@@ -89,10 +89,11 @@ public class UserInfoController {
     @ResponseBody
     public ResponseEntity postPaasword(String userOldPassword, Integer id, String userPassword){
 
-        System.out.println(id);
+        System.out.println(userOldPassword);
 
         UserDTO userDTO = userService.findById(id);
-        if(!userDTO.getPassword().equals(bCryptPasswordEncoder.encode(userOldPassword))){
+
+        if(!bCryptPasswordEncoder.matches(userOldPassword, userDTO.getPassword())){
             return ResponseEntity.status(HttpStatus.NON_AUTHORITATIVE_INFORMATION).body(new ResponseResult(false,30002, null, ""));
         }
         userService.savePassword(id, userPassword);
@@ -181,4 +182,30 @@ public class UserInfoController {
 
         return "redirect:/content/videos/detail/"+id;
     }
+
+
+    @GetMapping("/authentications/users/{authKey}/autifications/{code}")
+    public String authentication(@PathVariable String authKey, @PathVariable String code) {
+
+        String email = new String(Base62.decode(authKey));
+        String authCode = new String(Base62.decode(code));
+        UserDTO userDTO = userService.findByEmail(email);
+
+
+        if(userDTO.getCertify().equals(authCode)){
+            userService.saveAuth(userDTO.getId(),"CERTIFIED");
+            return "redirect:/authentications?status=success";
+        }else if(userDTO.getCertify().equals("CERTIFIED")){
+            return "redirect:/authentications?status=expired";
+        }
+
+        return "redirect:/authentications?status=error";
+    }
+
+    @GetMapping("/authentications")
+    public String authentication() {
+        return "authentication";
+    }
+
+
 }

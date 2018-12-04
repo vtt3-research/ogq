@@ -76,6 +76,10 @@ public class ContentService {
         content.setVideoFileSize(videoDTO.getVideoFileSize());
         content.setVideoRunningTime(videoDTO.getVideoDuration());
         content.setStatus(videoDTO.getStatus());
+        content.setRegisteredDate(videoDTO.getRegisteredDate());
+        if(videoDTO.getRegisteredDate() == null){
+            content.setRegisteredDate(new Date());
+        }
         content.setLastUpdateDate(new Date());
 
 

@@ -183,16 +183,16 @@
     <!-- 삭제알림팝업 -->
     <div id="deleteModal" class="modal">
         <div class="modal-content">
-            <div class="modal-body download-complete">
+            <div class="modal-body download-complete change-user" >
                 <p class="p-h3">삭제</p>
                 <p>&nbsp;</p>
                 <p class="">선택한 <span id="delCount">1</span>개의 파일을 삭제하시겠습니까?</p>
             </div>
-            <div class="close-div modal-footer50" style="float:left;" id="removeConfirm">
-                <p>확인</p>
-            </div>
-            <div class="close-div modal-footer50" style="float:right;" onclick="hideModal()">
-                <p>취소</p>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom:10px;"z>
+                    <button type="submit" class="submit" value="변경하기" id="removeConfirm" style="width:45%; margin-left:10px;">확인</button>
+                    <button type="button" class="submit" onclick="hideModal()" style="width:45%; margin-left:15px;">취소</button>
+                </div>
             </div>
         </div>
     </div>
@@ -213,6 +213,7 @@
             $('#byteString1').text($('#institution').val().length+' / 64');
             $('#byteString2').text($('#userName').val().length+' / 32')
 
+/*
 
             var $videoTableHeadTr = $('#videoTable thead tr');
             $videoTableHeadTr.prepend("<th><input id='removeAll' type='checkbox'></th>");
@@ -220,8 +221,11 @@
             var $videoTableBodyTr = $('#videoTable tbody tr');
             $videoTableBodyTr.prepend("<td><input class='removeCheck' type='checkbox' name='id'></td>");
             $videoTableBodyTr.append("<td><button class='white-button removeButton' type='button' value='삭제'>삭제</button></td>");
+*/
 
-            updateVideoDuration($videoTableBodyTr);
+            updateVideoDuration($('.list'));
+            var $removeCheck = $('.list').find('input:checkbox');
+/*
 
             var $removeCheck = $videoTableBodyTr.find('input:checkbox');
             for(var i = 0; i < $removeCheck.length; i++){
@@ -229,26 +233,27 @@
                 var contentId = $($removeCheck[i]).parent().parent().data('id');
                 $($removeCheck[i]).prop('value',contentId);
 
-            }
+            }*/
             $('#updateMyAccountForm').on('submit',onSubmitMyAccount);
             $('#updatePWForm').on('submit',onSubmitChangePassword);
 
 
-            $('#removeAll').on("click", function() {
+           /* $('#removeAll').on("click", function() {
                 CheckBoxUtils.checkAll(this, '#videoTable tbody tr');
 
-            });
+            });*/
 
-            $removeCheck.on('click',function () {
+            /*$removeCheck.on('click',function () {
                 CheckBoxUtils.checkItem(this,'#videoTable', '#removeAll');
 
-            });
+            });*/
 
-            $('.removeButton').on('click',function (){
+            $('.item-delete .btn').on('click',function (){
                 $('#delCount').text(1);
                 showModal('deleteModal');
-                $('#removeAll').prop('checked',false);
+                //$('#removeAll').prop('checked',false);
                 $removeCheck.prop('checked', false);
+
                 $('#removeConfirm').off('click').on('click',confirmRemoveItem(getSelectItem,this));
 
             });

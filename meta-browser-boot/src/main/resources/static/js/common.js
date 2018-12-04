@@ -144,10 +144,8 @@ function updateVideoDuration($videoTableBodyTr){
 
 
                     var duration = durationFormat.getHours() + ":" + durationFormat.getMinutes() + ":" + durationFormat.getSeconds();//포맷변환
-                    var $tr = $(this).closest('tr');
-                    $tr.find('.runningTime').text(duration);
 
-                    putVideoDuration( $tr.data('id'), duration)
+                    putVideoDuration( $videoTableBodyTr.data('id'), duration)
 
                 });
             })($videoView.get(i));

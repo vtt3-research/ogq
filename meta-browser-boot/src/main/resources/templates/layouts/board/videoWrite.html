@@ -66,6 +66,8 @@
               $('#displayUserName').text(formData.userName);
               $('#displayInstitution').text(formData.institution);
               alert('정보 변경에 성공하였습니다.');
+              window.location.replace("/");
+
 
           },
           error: function(resp){

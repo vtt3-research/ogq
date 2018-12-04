@@ -34,28 +34,5 @@ public class HomeController {
         return "redirect:/home";
     }
 
-    @GetMapping("/authentications/users/{authKey}/autifications/{code}")
-    public String authentication(@PathVariable String authKey, @PathVariable String code) {
-
-        String email = new String(Base62.decode(authKey));
-        String authCode = new String(Base62.decode(code));
-        UserDTO userDTO = userService.findByEmail(email);
-
-
-        if(userDTO.getCertify().equals(authCode)){
-            userService.saveAuth(userDTO.getId(),"CERTIFIED");
-            return "redirect:/authentications?status=success";
-        }else if(userDTO.getCertify().equals("CERTIFIED")){
-            return "redirect:/authentications?status=expired";
-        }
-
-        return "redirect:/authentications?status=error";
-    }
-
-    @GetMapping("/authentications")
-    public String authentication() {
-        return "authentication";
-    }
-
 
 }

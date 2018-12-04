@@ -37,6 +37,8 @@ public class VideoDTO extends ContentDTO{
         this.videoFileUrl = StorageConstants.FILE_PATH + videoFileUrl;
         this.videoFileDisplaySize = FileUtils.byteCountToDisplaySize(content.getVideoFileSize());
         this.explanation = content.getExplanation();
+        this.registeredDate = content.getRegisteredDate();
+        this.lastUpdateDate = content.getLastUpdateDate();
     }
 
 

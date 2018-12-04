@@ -2,6 +2,7 @@ package com.ogqcorp.metabrowser.analysis.resourece;
 
 import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
 import com.ogqcorp.metabrowser.analysis.dto.ShotDTO;
+import com.ogqcorp.metabrowser.analysis.dto.ShotInfo;
 import com.ogqcorp.metabrowser.analysis.dto.VideoTagDTO;
 import com.ogqcorp.metabrowser.analysis.service.VideoAnalysisService;
 import com.ogqcorp.metabrowser.utils.Base62;
@@ -24,16 +25,18 @@ public class VideoAnalysisResource {
 
 
 
-    @PutMapping("/vtt/analysis/callback/{contentId}")
+    @PostMapping("/vtt/analysis/callback/{contentId}")
     public ResponseEntity callbackVideoAnalysis(@RequestBody VideoTagDTO videoTagDTO, @PathVariable String contentId){
 
         System.out.println("callback process start");
-        for(ShotDTO shotDTO: videoTagDTO.getShots()){
-            String decodeContentId =new String(Base62.decode(contentId));
-
-            shotDTO.setContentId(Long.parseLong(decodeContentId));
-            System.out.println("contentId = "+Long.parseLong(decodeContentId));
-            videoAnalysisService.save(shotDTO);
+        System.out.println(contentId);
+        for(ShotInfo shotInfo: videoTagDTO.getShots()){
+            System.out.println(shotInfo.getEndframeindex());
+            /*String decodeContentId =new String(Base62.decode(contentId));
+            shotDTO.setContentId(Long.parseLong(decodeContentId));*/
+            //System.out.println("contentId = "+Long.parseLong(decodeContentId));
+            //shotInfo.setId(Long.parseLong(contentId));
+            videoAnalysisService.save(Long.parseLong(contentId), shotInfo);
         }
         System.out.println("callback process finish");
         return ResponseEntity.ok(videoTagDTO);
@@ -74,7 +77,7 @@ public class VideoAnalysisResource {
         shotDTO.setTags(Arrays.asList(tagStringArr));
         shotDTOs.add(shotDTO);
 
-        videoTagDTO.setShots(shotDTOs);
+        //videoTagDTO.setShots(shotDTOs);
 
         System.out.println("Shot Add");
 
