@@ -7,9 +7,11 @@ import com.ogqcorp.metabrowser.content.dto.ShotDTO;
 import com.ogqcorp.metabrowser.analysis.dto.ShotInfo;
 import com.ogqcorp.metabrowser.analysis.repository.VideoAnalysisRepository;
 import com.ogqcorp.metabrowser.content.dto.TagDTO;
+import com.ogqcorp.metabrowser.content.repository.ContentRepository;
 import com.ogqcorp.metabrowser.content.service.ContentService;
 import com.ogqcorp.metabrowser.content.service.ShotService;
 import com.ogqcorp.metabrowser.content.service.TagService;
+import com.ogqcorp.metabrowser.domain.Content;
 import com.ogqcorp.metabrowser.domain.Shot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,12 +39,14 @@ public class VideoAnalysisService {
     @Autowired
     private ShotService shotService;
 
-
     @Autowired
     private TagService tagService;
 
     @Autowired
     private ContentService contentService;
+
+    @Autowired
+    private ContentRepository contentRepository;
 
     public List<ShotDTO> findAllByContentId(Long id){
 
@@ -64,15 +68,27 @@ public class VideoAnalysisService {
     }*/
 
     public void save(Long contentId, VideoTagDTO videoTagDTO){
+
+        Content content = contentRepository.findById(contentId).orElse(new Content());
+        if(content.getShots().size() >0 ){
+            System.out.println("Exist Shots");
+            return;
+        }
+
         List<ShotDTO> shotDTOs = new ArrayList<ShotDTO>();
         List<TagDTO> tagDTOs = new ArrayList<TagDTO>();
+        for(String str: videoTagDTO.getTags()) {
+            TagDTO tagDTO = tagService.save(str);
+            if(tagDTO != null){
+                tagDTOs.add(tagDTO);
+            }
+        }
+
         for(ShotDTO shotDTO: videoTagDTO.getShots()){
             shotDTOs.add(shotService.save(shotDTO));
         }
 
-        for(String str: videoTagDTO.getTags()) {
-            tagDTOs.add(tagService.save(str));
-        }
+
         contentService.save(contentId, shotDTOs, tagDTOs);
     }
 

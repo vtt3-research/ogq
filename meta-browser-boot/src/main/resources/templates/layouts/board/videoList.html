@@ -41,6 +41,12 @@
 
 		<div th:replace="fragments/board/list :: videoWebzine"></div>
 		<div th:replace="fragments/board/pagination :: basic"></div>
+        <div class="search-wrap">
+            <form method="get">
+                <input type="search" id="search" name="keyword" placeholder="검색어" th:value="${keyword}"/>
+                <button type="submit"><img src="/images/ic-search.png"></button>
+            </form>
+        </div>
 	</div>
 </div>
 <div layout:fragment="content">

@@ -4,6 +4,7 @@ import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
 import com.ogqcorp.metabrowser.analysis.dto.VideoTagDTO;
 import com.ogqcorp.metabrowser.analysis.service.VideoAnalysisService;
 import com.ogqcorp.metabrowser.content.dto.ShotDTO;
+import com.ogqcorp.metabrowser.content.dto.VideoDTO;
 import com.ogqcorp.metabrowser.content.service.ContentService;
 import com.ogqcorp.metabrowser.content.service.ShotService;
 import com.ogqcorp.metabrowser.utils.Base62;
@@ -94,6 +95,20 @@ public class VideoAnalysisResource {
 
         System.out.println("--Analysis Finish--");
         return ResponseEntity.ok(videoTagDTO);
+    }
+
+
+    @GetMapping("/vtt/content/videos/detail/{id}")
+    public VideoDTO getVideos(@PathVariable Long id){
+
+        return contentService.findById(id);
+    }
+
+
+    @GetMapping("/vtt/content/videos/tags/{tag}")
+    public List<VideoDTO> getVideos(@PathVariable String tag){
+
+        return null;
     }
 
 }

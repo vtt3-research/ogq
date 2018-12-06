@@ -17,16 +17,16 @@
 						startpage=${wholex-1}*${blocksize}, 
 						endpage=(${wholex}*${blocksize})+1">
 				<li class="page-item" th:classappend="*{page.first} ? 'disabled' : ''">
-					<a th:href="@{''(page=${page.number-1})}" class="page-link" data-th-attr="page=${page.number} - 1" aria-label="Previous">
+					<a th:href="@{''(page=${page.number-1},keyword=${keyword})}" class="page-link" data-th-attr="page=${page.number} - 1" aria-label="Previous">
 						<span aria-hidden="true">«</span>
 					</a>
 				</li>
  				<li class="page-item" th:each="i : ${#numbers.sequence(endpage-11, (endpage lt page.totalPages)? endpage-2 : page.totalPages-1)}" th:classappend="${page.number}==${i}?' active'">
- 					<a th:if="${page.number eq i}" class="page-link" th:href="@{''(page=${i})}" th:text="${i+1}"></a>
-					<a th:if="${not (page.number eq i)}" class="page-link" th:href="@{''(page=${i})}" th:text="${i+1}"></a>
+ 					<a th:if="${page.number eq i}" class="page-link" th:href="@{''(page=${i},keyword=${keyword})}" th:text="${i+1}"></a>
+					<a th:if="${not (page.number eq i)}" class="page-link" th:href="@{''(page=${i},keyword=${keyword})}" th:text="${i+1}"></a>
 				</li>
 				<li class="page-item" th:classappend="*{page.last} ? 'disabled' : ''">
-					<a th:href="@{''(page=${page.number+1})}" class="page-link" data-th-attr="page=${page.number} + 1" aria-label="Next">
+					<a th:href="@{''(page=${page.number+1},keyword=${keyword})}" class="page-link" data-th-attr="page=${page.number} + 1" aria-label="Next">
 						<span aria-hidden="true">»</span>
 					</a>
 				</li>
@@ -55,8 +55,8 @@
 					</a>
 				</li>
  				<li class="page-item" th:each="i : ${#numbers.sequence(endpage-11, (endpage lt page.totalPages)? endpage-2 : page.totalPages-1)}" th:classappend="${page.number}==${i}?' active'">
- 					<a th:if="${page.number eq i}" class="page-link" th:href="@{''(page=${i})}" th:text="${i+1}"></a>
-					<a th:if="${not (page.number eq i)}" class="page-link" th:href="@{''(page=${i})}" th:text="${i+1}"></a>
+ 					<a th:if="${page.number eq i}" class="page-link" th:href="@{''(page=${i},keyword=${keyword})}" th:text="${i+1}"></a>
+					<a th:if="${not (page.number eq i)}" class="page-link" th:href="@{''(page=${i},keyword=${keyword})}" th:text="${i+1}"></a>
 				</li>
 				<li class="page-item" th:classappend="*{page.last} ? 'disabled' : ''">
 					<a th:href="@{''(page=${page.number+1})}" class="page-link" data-th-attr="page=${page.number} + 1" aria-label="Next">

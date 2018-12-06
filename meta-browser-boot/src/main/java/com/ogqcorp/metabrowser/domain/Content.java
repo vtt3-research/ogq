@@ -26,11 +26,11 @@ public class Content {
     private Integer status;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "content_shot", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "shot_id"))
-    private Collection<Shot> shots = new ArrayList<Shot>();
+    private Collection<Shot> shots  = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinTable(name = "content_tag", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Collection<Tag> tags = new ArrayList<Tag>();;
+    private Collection<Tag> tags  = new HashSet<>();
 }

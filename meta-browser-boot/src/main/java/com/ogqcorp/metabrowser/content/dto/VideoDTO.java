@@ -1,18 +1,39 @@
 package com.ogqcorp.metabrowser.content.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ogqcorp.metabrowser.account.dto.UserDTO;
 import com.ogqcorp.metabrowser.StorageConstants;
 import com.ogqcorp.metabrowser.domain.Content;
+import com.ogqcorp.metabrowser.domain.Shot;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.io.FileUtils;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
 public class VideoDTO extends ContentDTO{
+
+    private String agreeYn;
+    private String entireTags;
+    private String explanation;
+    private Date lastUpdateDate;
+    private String metaFileUrl;
+    private String thumbnailUri;
+    private Date registeredDate;
+    private Long videoFileSize;
+    private String videoFileDisplaySize;
+    private String videoFileName;
+    private String videoFileUrl;
+    private String videoDuration;
+    private Integer status;
+
+    private List<?> shots  = new ArrayList<>();;
+
+//    private Map<String, ShotDTO> shot;
+    private List<String> tags = new ArrayList<>();
 
     public VideoDTO(){
         super();
@@ -39,21 +60,10 @@ public class VideoDTO extends ContentDTO{
         this.explanation = content.getExplanation();
         this.registeredDate = content.getRegisteredDate();
         this.lastUpdateDate = content.getLastUpdateDate();
+        this.shots = content.getShots().stream().map(s -> new ShotDTO(s) ).collect(Collectors.toList());
+        //this.shot = content.getShots().stream().collect(Collectors.toMap(s -> String.valueOf(s.getStartframeindex()),s -> new ShotDTO(s)));
+        this.tags = content.getTags().stream().map(s -> s.getStr()).collect(Collectors.toList());
     }
 
-
-    private String agreeYn;
-    private String entireTags;
-    private String explanation;
-    private Date lastUpdateDate;
-    private String metaFileUrl;
-    private String thumbnailUri;
-    private Date registeredDate;
-    private Long videoFileSize;
-    private String videoFileDisplaySize;
-    private String videoFileName;
-    private String videoFileUrl;
-    private String videoDuration;
-    private Integer status;
 
 }

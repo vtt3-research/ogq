@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TagRepository extends CrudRepository<Tag, Long> {
     Boolean existsByStr(String str);
+    Tag findByStr(String str);
 }

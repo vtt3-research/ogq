@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -24,9 +27,9 @@ public class  Shot {
     private String location;
     private String object;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.DETACH)
     @JoinTable(name = "shot_tag", joinColumns = @JoinColumn(name = "shot_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Collection<Tag> tags = new ArrayList<Tag>();
+    private Collection<Tag> tags  = new HashSet<>();
 
     public Shot(){}
 
@@ -34,6 +37,7 @@ public class  Shot {
         if(shotDTO.getId() != null){
             this.id = shotDTO.getId();
         }
+        System.out.println("shotId="+shotDTO.getId());
         this.startframeindex = shotDTO.getStartframeindex();
         this.starttimecode = shotDTO.getStarttimecode();
         this.endframeindex = shotDTO.getEndframeindex();
@@ -41,6 +45,7 @@ public class  Shot {
         this.image = shotDTO.getImage();
         this.location = shotDTO.getLocation();
         this.object = shotDTO.getObject();
+        this.tags = shotDTO.getTags().stream().map(s -> new Tag((TagDTO) s)).collect(Collectors.toSet());
 
 
 

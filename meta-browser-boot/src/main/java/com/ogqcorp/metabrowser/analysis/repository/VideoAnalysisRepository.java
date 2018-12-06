@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VideoAnalysisRepository extends CrudRepository<Shot, Long> {
 
-    Iterable<Shot> findAllBy(Long contentId);
 }

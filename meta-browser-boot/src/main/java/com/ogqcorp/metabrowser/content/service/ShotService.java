@@ -1,5 +1,6 @@
 package com.ogqcorp.metabrowser.content.service;
 
+import com.ogqcorp.metabrowser.analysis.dto.ShotInfo;
 import com.ogqcorp.metabrowser.content.dto.ShotDTO;
 import com.ogqcorp.metabrowser.content.dto.TagDTO;
 import com.ogqcorp.metabrowser.content.repository.ShotRepository;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ShotService {
@@ -21,11 +24,12 @@ public class ShotService {
     @Autowired
     private TagService tagService;
 
+
     public ShotDTO save(ShotDTO shotDTO){
 
         Shot shot = new Shot();
 
-        if(shot.getId() != null){
+        if(shotDTO.getId() != null){
             shot.setId(shotDTO.getId());
         }
 
@@ -39,16 +43,23 @@ public class ShotService {
 
 
 
-        List<Tag> tags = new ArrayList<Tag>();
+        List<TagDTO> tagsDTOs = new ArrayList<>();
 
-        for(String str : shotDTO.getTags()){
-            TagDTO tagDTO = tagService.save(str);
-            tags.add(new Tag(tagDTO.getId(), tagDTO.getStr()));
+        for(Object str : shotDTO.getTags()){
+            TagDTO tagDTO = tagService.save((String) str);
+            tagsDTOs.add(tagDTO);
+
+
         }
+        shot = shotRepository.save(shot);
 
-        shot.setTags(tags);
 
-        shotRepository.save(shot);
+        shotDTO.setTags(new ArrayList<TagDTO>());
+        shotDTO.setTags(tagsDTOs);
+
+//        shot.setTags(tagsDTOs.stream().map(s -> new Tag(s)).collect(Collectors.toSet()));
+//        shot = shotRepository.save(shot);
+        shotDTO.setId(shot.getId());
 
         return shotDTO;
     }

@@ -13,17 +13,23 @@ public class TagService {
     private TagRepository tagRepository;
 
 
+
+
     public TagDTO save(String str){
-        TagDTO tagDTO = new TagDTO();
-        if(!tagRepository.existsByStr(str)){
-            Tag tag = new Tag();
+        TagDTO tagDTO  = new TagDTO();
+
+        Tag tag = tagRepository.findByStr(str);
+        if(tag == null){
+            tag = new Tag();
+
             tag.setStr(str);
             tag = tagRepository.save(tag);
 
-            tagDTO.setId(tag.getId());
-            tagDTO.setStr(tag.getStr());
-            return tagDTO;
         }
+
+        tagDTO.setId(tag.getId());
+        tagDTO.setStr(tag.getStr());
+
         return tagDTO;
 
     }

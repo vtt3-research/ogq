@@ -56,14 +56,17 @@ public class ContentController {
     @Value("${vtt.ogq.server.api}")
     private String _OGQ_SERVER_API;
 
-   @GetMapping("/content/videos")
-    public String getVideos(Model model, @PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
-        Page<VideoDTO> videoDTOs= contentService.findAll(pageable);
+    @GetMapping("/content/videos")
+    public String getVideos(Model model, String keyword, @PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
+        Page<VideoDTO> videoDTOs= contentService.findAll(pageable, keyword);
 
+        model.addAttribute("keyword",keyword);
         model.addAttribute("page",videoDTOs);
 
         return "contents/videoList";
     }
+
+
 
     @GetMapping("/content/videos/detail/{id}")
     public String getVideos(Model model, @PathVariable Long id){

@@ -8,6 +8,7 @@ public class TagDTO {
     private String str;
 
     public TagDTO(Long id, String str){
+        System.out.println(id+"   "+str);
 
         this.id = id;
         this.str = str;

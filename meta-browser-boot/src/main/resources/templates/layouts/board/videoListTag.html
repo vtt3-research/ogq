@@ -9,7 +9,17 @@
   <th:block th:include="fragments/headInc :: headInc"></th:block>
   <th:block layout:fragment="css"></th:block> 
   <style type="text/css">
-
+  
+/*   body .modal-dialog { 
+    max-width: 100%;
+    width: auto !important;
+    display: inline-block;
+	} */
+	.modal-dialog{
+		width:auto;
+		height:auto;
+		max-height:100%;
+	}
   </style>
 
 </head>
@@ -18,9 +28,19 @@
 </script>
 <header th:replace="fragments/header :: header"></header>
 <div class="main-container"> 
-	<div class="container">
+	<div class="container" style="width:100%;">
 		<!--<section th:replace="fragments/board/common :: title"></section>-->
-		<div th:replace="fragments/board/read :: video"></div>
+        <div class="top">
+            <div class="menu-title"><p>비디오</p></div>
+            <div class="upload">
+                <a href="./videos/write">
+                    <button class="btn btn-outline-danger">비디오 업로드</button>
+                </a>
+            </div>
+        </div>
+
+		<div th:replace="fragments/board/list :: videoWebzine"></div>
+		<div th:replace="fragments/board/pagination :: basic"></div>
 	</div>
 </div>
 <div layout:fragment="content">
@@ -31,8 +51,6 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-
-
 
 	  //initNavbar();
 	  //ready();
@@ -59,6 +77,29 @@
 	    
 
 	    }); */
+
+      var $videoTableBodyTr = $('#videoTable tbody tr');
+      updateVideoDuration($videoTableBodyTr);
+
+      $('#downloadSelectBtn').on('click',function(){
+          //WebUtils.downloadAll();
+          var urls = [];
+          $('.downloadCheck:checked').each(function() {
+              urls.push({href:$(this).val(), download:$(this).data('download')});
+          });
+          console.log(urls);
+          WebUtils.downloadAll(urls);
+          return false;
+
+      });
+      var $downloadAllCheck = $('#downloadAllCheck');
+
+
+      $downloadAllCheck.on("click", function() {
+          CheckBoxUtils.checkAll(this, '.list .item-checkbox');
+
+      });
+
   });
   
   
@@ -170,75 +211,6 @@
 	   */
   }
   
-</script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-
-    var shots = /*[[${board.shots}]]*/ [];
-
-    console.log(shots);
-
-    /*]]>*/
-
-
-</script>
-<script>
-    function onTimeUpdate(){
-
-
-        //console.log($(this));
-        if(shots.length > 0) {
-            updateTags.apply(this);
-        }
-
-
-
-    }
-
-    var currentIndex = 0;
-    var shotLength = shots.length;
-    var $detailTags;
-    function updateTags(){
-        var currentTime = $(this)[0].currentTime;
-
-        if(!$detailTags){
-            $detailTags = $('#detailTags');
-        }
-
-
-        //console.log(currentTime);
-        for(var i = currentIndex; i < shotLength; i++){
-            if(shots[i].starttime <= currentTime && currentTime < shots[i].endtime ){
-                currentIndex++;
-                var element = '';
-                if(shots[i].tags.length > 0){
-                    element = '<li>#'+shots[i].tags.join('</li><li>#')+'</li>'
-                }else{
-                    element = '';
-                }
-
-                $detailTags.html(element);
-
-
-                break;
-            }
-        }
-
-        //var key = (currentTime+'').toHHmmssSSS();
-
-
-
-        //lastTime = currentTime;
-    }
-
-
-    function onSeeked(){
-        initTagInfo();
-    }
-
-    function initTagInfo(){
-        currentIndex = 0;
-    }
 </script>
 </body>
 </html>
