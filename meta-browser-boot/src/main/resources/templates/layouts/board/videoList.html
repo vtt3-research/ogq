@@ -5,7 +5,6 @@
  
 <head>
 <meta name="description" content="" layout:fragment="meta-desc" />
-  <title>Spring Boot and Thymeleaf - Thymeleaf Layout Dialect</title>
   <th:block th:include="fragments/headInc :: headInc"></th:block>
   <th:block layout:fragment="css"></th:block> 
   <style type="text/css">
@@ -93,13 +92,17 @@
           $('.downloadCheck:checked').each(function() {
               urls.push({href:$(this).val(), download:$(this).data('download')});
           });
-          console.log(urls);
           WebUtils.downloadAll(urls);
           return false;
 
       });
       var $downloadAllCheck = $('#downloadAllCheck');
 
+      $('.list-webzine .item-download .btn').on('click',function(){
+          var urls = [];
+          urls.push({href:$(this).data('href'), download:$(this).data('download')});
+          WebUtils.downloadAll(urls);
+      });
 
       $downloadAllCheck.on("click", function() {
           CheckBoxUtils.checkAll(this, '.list .item-checkbox');

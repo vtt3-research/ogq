@@ -79,7 +79,7 @@
 
 <div th:fragment="videoWebzine" class="container">
 	<!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
-	<div class="list list-header list-webzine">
+	<div class="list list-header">
 		<div class="row">
 			<div class="item-checkbox" style="padding-top:10px;">
 				<input type="checkbox" class="downloadCheck" id="downloadAllCheck" name="downloadAll">
@@ -94,7 +94,7 @@
 
 		<div class="row list-webzine">
 			<div class="item-checkbox">
-				<input type="checkbox" class="downloadCheck" name="downloadItem" th:data-download="${board.videoFileName}" th:data-href="${board.videoFileUrl}" th:value="${board.videoFileUrl}">
+				<input type="checkbox" class="downloadCheck" name="downloadItem" th:data-download="@{${board.title.replace(' ','_')}+'_'+${board.userDTO.userName}}" th:data-href="${board.videoFileUrl}" th:value="${board.videoFileUrl}">
 			</div>
 			<div  class="col-lg-2 col-md-2 col-sm-12 item-thumbnail">
 				<a th:href="@{'videos/detail/' + ${board.id}}">
@@ -119,11 +119,7 @@
 				<!--<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
 			</div>
 			<div  class="col-lg-1 col-md-1 col-sm-12 item-download">
-				<a
-				   th:id="@{'download_'+${board.id}}"
-				   th:href="${board.videoFileUrl}"
-				   target="_blank"
-				   th:download="${board.videoFileName}"><button class="btn btn-outline-dark">다운로드</button></a>
+				<button class="btn btn-outline-dark" th:data-href="${board.videoFileUrl}" th:data-download="@{${board.title.replace(' ','_')}+'_'+${board.userDTO.userName}}">다운로드</button>
 			</div>
 		</div>
 		<hr/>

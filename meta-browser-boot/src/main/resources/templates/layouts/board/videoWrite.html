@@ -44,28 +44,50 @@
 <th:block layout:fragment="script"></th:block> 
 
 <script type="text/javascript">
+    var ajax;
   $(document).ready(function(){
       $('form').on('submit',onSubmitForm);
+
+      $('#btnCancelXhr').on('click',function(){
+          ajax.abort();
+          alert('취소');
+          hideModal('#uploadingModal');
+      })
   });
 
   function onSubmitForm(){
+      if(!$('#agreeYn').is(':checked')){
+          alert('라이선스 규칙 준수에 동의하세요.');
+          $('#agreeYn').focus();
+          return;
+      }
       var formSelector = document.querySelector("form");
 
       var formData = new FormData(formSelector);
       console.log(formData);
-      $.ajax({
+      ajax = $.ajax({
           url: './',
           data: formData,
           type: 'POST',
           dataType: 'json',
           contentType:false,
           processData:false,
+          xhr: function() {
+              var myXhr = $.ajaxSettings.xhr();
+              if(myXhr.upload){
+                  myXhr.upload.addEventListener('progress',WebUtils.xhrProgress, false);
+              }
+
+              return myXhr;
+          },
           beforeSend: function (x) {
+              showModal('uploadingModal');
           },
           success: function (data) {
               $('#displayUserName').text(formData.userName);
               $('#displayInstitution').text(formData.institution);
-              alert('정보 변경에 성공하였습니다.');
+              hideModal('#uploadingModal');
+              alert('파일 업로드에 성공하였습니다.');
               window.location.replace("/");
 
 
@@ -76,6 +98,7 @@
 
       return false;
   }
+
 </script>
 </body>
 </html>

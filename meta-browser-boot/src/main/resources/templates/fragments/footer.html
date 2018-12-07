@@ -5,6 +5,37 @@
         <div>
 
         </div>
+
+        <div id="uploadingModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button onclick="move()" style="display: none">Click Me to test.</button>
+                    <p class="p-h3">동영상을 업로드 중 입니다.</p>
+                    <div id="myProgress">
+                        <div id="myBar" style="width:0%;"></div>
+                    </div>
+                    <p class="p-grey"><span id="progressPercent">0 %</span> &nbsp;(<span id="uploadPosition">0</span> / <span id="uploadTotal">0</span> MB)</p>
+                </div>
+                <div class="close-div modal-footer" style="display:inline;">
+                    <p id="btnCancelXhr">취소</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Modal -->
+        <div id="uploadCompleteModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-body download-complete">
+                    <p class="p-h3">업로드 완료</p>
+                    <p>&nbsp;</p>
+                    <p class="">업로드된 동영상은 수분 후 목록에 보여집니다.</p>
+                </div>
+                <div class="close-div modal-footer ">
+                    <p>확인</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
 </html>

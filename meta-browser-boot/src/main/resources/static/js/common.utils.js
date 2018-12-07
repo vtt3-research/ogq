@@ -230,7 +230,23 @@ var WebUtilsInit = {
 
         this.downloadAll(files);
 
+    }, xhrProgress : function(event){
+        var percent = 0;
+        var position = event.loaded || event.position;
+        /*event.position is deprecated*/
+        var total = event.total;
+        if (event.lengthComputable) {
+            percent = Math.ceil(position / total * 100);
+        }
+        WebUtils.renderProgress(event, position, total, percent)
+    },renderProgress: function (event, position, total, percent){
+        console.log(percent);
+        $("#uploadPosition").text(("" + position / 1024 / 1024).split('.')[0]);
+        $("#uploadTotal").text(("" + total / 1024 / 1024).split('.')[0]);
+        $("#myBar").css("width", (percent) + "%");
+        $('#progressPercent').text((percent) + " %");
     }
+
 };
 
 

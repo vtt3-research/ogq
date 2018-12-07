@@ -33,6 +33,7 @@
   $(document).ready(function(){
 
 
+      $('.item-download .btn').on('click',downloadContent);
 
 	  //initNavbar();
 	  //ready();
@@ -60,6 +61,12 @@
 
 	    }); */
   });
+
+  function downloadContent(){
+      var urls = [];
+      urls.push({href:$(this).data('href'), download:$(this).data('download')});
+      WebUtils.downloadAll(urls);
+  }
   
   
   function initNavbar(){

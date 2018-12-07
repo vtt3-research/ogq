@@ -26,7 +26,7 @@
 	<br/>
 	<div class="container detail">
 		<div class="video-area row">
-			<video preload="metadata" width="100%" height="100%" id="video1" ontimeupdate="onTimeUpdate.apply(this)" onseeked="onSeeked.apply(this)" controls>
+			<video preload="metadata" width="100%" height="100%" id="video1" ontimeupdate="onTimeUpdate.apply(this)" onseeked="onSeeked.apply(this)" controls controlsList="nodownload">
 				// Replace these with your own video files.
 				<source th:src="${board.videoFileUrl}"
 						type="video/mp4"/>
@@ -43,11 +43,10 @@
 					<p  th:text="${'등록일 : '+#dates.format(board.registeredDate, 'yyyy.MM.dd HH:mm:ss') + ' / 수정일 : '+#dates.format(board.lastUpdateDate, 'yyyy.MM.dd HH:mm:ss')}"></p>
 				</div>
 				<div class="explanation" th:text="${board.explanation}"></div>
-				<div class="button-area"><a class="btn btn-outline-danger"
+				<div class="button-area item-download"><button class="btn btn-outline-danger"
 											 th:id="@{'download_'+${board.id}}"
-											 th:href="${board.videoFileUrl}"
-											 target="_blank"
-											 th:download="${board.videoFileName}">다운로드</a></div>
+											 th:data-href="${board.videoFileUrl}"
+											 th:data-download="@{${board.title.replace(' ','_')}+'_'+${board.userDTO.userName}}">다운로드</button></div>
 
 
 				<div class="content-tag-area">
