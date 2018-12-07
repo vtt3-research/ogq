@@ -52,7 +52,7 @@ public class VideoAnalysisResource {
 
 
         System.out.println("--Analysis Start--");
-        System.out.println(konanVideoRequestDTO.getRequestId()+ " "+ konanVideoRequestDTO.getCallbackUrl() + " " + konanVideoRequestDTO.getVideoUrl());
+        System.out.println(konanVideoRequestDTO.getRequest_id()+ " "+ konanVideoRequestDTO.getCallback_url() + " " + konanVideoRequestDTO.getVideo_url());
 
 
         String[] tagStringArr = {"recreation","fireworks","event","caribbean","sea","bay","resort"};
@@ -85,11 +85,11 @@ public class VideoAnalysisResource {
         System.out.println("Shot Add");
 
         RestTemplate restTemplate = new RestTemplate();
-        URI uri = URI.create("http://localhost:8080/vtt/analysis/callback/"+konanVideoRequestDTO.getRequestId());
+        URI uri = URI.create("http://localhost:8080/vtt/analysis/callback/"+konanVideoRequestDTO.getRequest_id());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<KonanVideoRequestDTO> entity = new HttpEntity(videoTagDTO,headers);
-        System.out.println("Send Callback Data : " + "/vtt/analysis/callback/"+konanVideoRequestDTO.getRequestId());
+        System.out.println("Send Callback Data : " + "/vtt/analysis/callback/"+konanVideoRequestDTO.getRequest_id());
         ResponseEntity resonseEntity = restTemplate.exchange(uri,HttpMethod.PUT, entity,VideoTagDTO.class);
         System.out.println(resonseEntity.getStatusCode());
 

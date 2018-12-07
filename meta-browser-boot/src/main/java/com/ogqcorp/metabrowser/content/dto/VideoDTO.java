@@ -29,6 +29,7 @@ public class VideoDTO extends ContentDTO{
     private String videoFileUrl;
     private String videoDuration;
     private Integer status;
+    private Long taggingId;
 
     private List<?> shots  = new ArrayList<>();;
 

@@ -3,8 +3,8 @@ package com.ogqcorp.metabrowser.analysis.dto;
 import lombok.Data;
 
 @Data
-public class KonanVideoRequestDTO {
-    private String request_id;
-    private String video_url;
+public class KonanVideoResponseDTO {
     private String callback_url;
+    private Long uuid;
+    private String check_url;
 }

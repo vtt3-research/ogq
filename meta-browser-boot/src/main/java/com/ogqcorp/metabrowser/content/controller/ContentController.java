@@ -5,6 +5,7 @@ import com.ogqcorp.metabrowser.account.dto.UserDTO;
 import com.ogqcorp.metabrowser.account.service.UserService;
 import com.ogqcorp.metabrowser.analysis.dto.AssetsRequest;
 import com.ogqcorp.metabrowser.analysis.dto.KonanVideoRequestDTO;
+import com.ogqcorp.metabrowser.analysis.dto.KonanVideoResponseDTO;
 import com.ogqcorp.metabrowser.analysis.service.VideoAnalysisService;
 import com.ogqcorp.metabrowser.common.ResponseResult;
 import com.ogqcorp.metabrowser.content.dto.VideoDTO;
@@ -175,11 +176,14 @@ public class ContentController {
         Thread videoUploadThread = new Thread(() -> {
             awsS3Service.store(videoFilePath,videoDTO.getVideoFileUrl(), path ->
             {
-                resultVideoDTO.setStatus(200);
-                contentService.save(resultVideoDTO);
+
+
                 //videoAnalysisService.analyzeVideoTest(konanVideoRequestDTO);
                 //videoAnalysisService.analyzeVideo(konanVideoRequestDTO);
-                videoAnalysisService.analyzeVideo(assetsRequest);
+                ResponseEntity<KonanVideoResponseDTO> responseEntity = videoAnalysisService.analyzeVideo(assetsRequest);
+                resultVideoDTO.setStatus(200);
+                resultVideoDTO.setTaggingId(responseEntity.getBody().getUuid());
+                contentService.save(resultVideoDTO);
                 return storageService.delete(path);
             });
 

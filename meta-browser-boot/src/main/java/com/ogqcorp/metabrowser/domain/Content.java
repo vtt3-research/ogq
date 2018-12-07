@@ -24,6 +24,7 @@ public class Content {
     private String videoFileUrl;
     private String videoRunningTime;
     private Integer status;
+    private Long taggingId;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

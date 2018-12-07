@@ -46,6 +46,13 @@ public class ShotDTO {
         this.location = shot.getLocation();
         this.object = shot.getObject();
 
+        if(this.starttimecode.length() <= 10){
+            this.starttimecode += 0;
+        }
+
+        if(this.endtimecode.length() <= 10){
+            this.endtimecode += 0;
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss;SS");
         LocalTime localStarttime = LocalTime.parse(this.starttimecode, formatter);
         LocalTime localEndttime = LocalTime.parse(this.endtimecode, formatter);
