@@ -161,8 +161,10 @@ public class ContentController {
         //String callbackId = Base62.encode(String.format("%018d",resultVideoDTO.getId()).getBytes());
         String callbackId = String.valueOf(resultVideoDTO.getId());
 
+/*
         System.out.println("test="+Base62.encode(String.format("%018d",18).getBytes()));
         System.out.println(resultVideoDTO.getId() + "  " +callbackId + " " + (new String(Base62.decode(callbackId))));
+*/
 
         AssetsRequest assetsRequest = new AssetsRequest();
         assetsRequest.setCallback_url(_OGQ_SERVER_API+"/vtt/analysis/callback/"+callbackId);

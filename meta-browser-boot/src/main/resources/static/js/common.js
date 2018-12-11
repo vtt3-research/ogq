@@ -158,6 +158,7 @@ function putVideoDuration(id,duration){
     $.ajax({
         url:'/content/videos/'+id+'/duration/'+duration,
         type:'PUT',
+        cache:false,
 
         beforeSend: function (x) {
         },
