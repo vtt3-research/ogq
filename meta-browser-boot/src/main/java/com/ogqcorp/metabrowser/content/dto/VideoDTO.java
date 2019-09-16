@@ -5,6 +5,7 @@ import com.ogqcorp.metabrowser.account.dto.UserDTO;
 import com.ogqcorp.metabrowser.StorageConstants;
 import com.ogqcorp.metabrowser.domain.Content;
 import com.ogqcorp.metabrowser.domain.Shot;
+import com.ogqcorp.metabrowser.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.io.FileUtils;
@@ -42,9 +43,9 @@ public class VideoDTO extends ContentDTO{
     }
 
 
-    public VideoDTO(Content content, Map<String, UserDTO> usersMap){
+    public VideoDTO(Content content, User user){
 
-        super(content.getId(),content.getUserId(), content.getTitle(), content.getExplanation(), usersMap.get(String.valueOf(content.getUserId())) );
+        super(content.getId(),content.getUserId(), content.getTitle(), content.getExplanation(), new UserDTO(user));
 
         this.videoFileSize = content.getVideoFileSize();
 

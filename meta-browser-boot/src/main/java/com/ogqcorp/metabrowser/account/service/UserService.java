@@ -99,6 +99,10 @@ public class UserService {
         }).orElse(new UserDTO());
     }
 
+    public User findUserById(Integer id){
+
+        return userRepository.findById(id).orElse(new User());
+    }
 
     public UserDTO findByEmail(String email){
         return userRepository.findByEmail(email).map(s -> new UserDTO(s)).orElse(new UserDTO());

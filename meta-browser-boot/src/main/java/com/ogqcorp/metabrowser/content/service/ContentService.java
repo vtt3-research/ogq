@@ -49,9 +49,10 @@ public class ContentService {
 
         List<Content> contents = page.getContent();
         int totalElements = (int) page.getTotalElements();
-        Map<String, UserDTO> usersMap = userService.getUsersMap();
+
+        //Map<String, UserDTO> usersMap = userService.getUsersMap();
         //List<VideoDTO> videoDTOs = page.stream().map(s -> new VideoDTO(s)).collect(Page<Contents>);
-        return new PageImpl<VideoDTO>(contents.stream().map(s -> new VideoDTO(s, usersMap)).collect(Collectors.toList()), pageable, totalElements);
+        return new PageImpl<VideoDTO>(contents.stream().map(s -> new VideoDTO(s, userService.findUserById(s.getUserId()))).collect(Collectors.toList()), pageable, totalElements);
     }
 
     public Page<VideoDTO> findAllByUserId(Pageable pageable, Integer userId) {
@@ -60,9 +61,9 @@ public class ContentService {
 
         List<Content> contents = page.getContent();
         int totalElements = (int) page.getTotalElements();
-        Map<String, UserDTO> usersMap = userService.getUsersMap();
+
         //List<VideoDTO> videoDTOs = page.stream().map(s -> new VideoDTO(s)).collect(Page<Contents>);
-        return new PageImpl<VideoDTO>(contents.stream().map(s -> new VideoDTO(s, usersMap)).collect(Collectors.toList()), pageable, totalElements);
+        return new PageImpl<VideoDTO>(contents.stream().map(s -> new VideoDTO(s, userService.findUserById(s.getUserId()))).collect(Collectors.toList()), pageable, totalElements);
     }
 
     public VideoDTO findById(Long id) {
@@ -70,8 +71,7 @@ public class ContentService {
 
         Optional<Content> optional = contentRepository.findById(id);
 
-        Map<String, UserDTO> usersMap = userService.getUsersMap();
-        VideoDTO videoDTO = optional.map(s -> new VideoDTO(s,usersMap)).orElse(new VideoDTO());
+        VideoDTO videoDTO = optional.map(s -> new VideoDTO(s,userService.findUserById(s.getUserId()))).orElse(new VideoDTO());
 
         return videoDTO;
     }
