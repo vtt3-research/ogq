@@ -20,7 +20,6 @@ public class AWSS3Service {
     @Async
     public String store(Path path, String staticDir) {
         amazonS3Client.putObject(new PutObjectRequest(bucket, staticDir, path.toFile()).withCannedAcl(CannedAccessControlList.PublicRead));
-        System.out.println("end");
         return amazonS3Client.getUrl(bucket, staticDir).toString();
     }
 

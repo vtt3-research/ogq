@@ -10,6 +10,7 @@ import com.ogqcorp.metabrowser.content.service.ShotService;
 import com.ogqcorp.metabrowser.content.service.TagService;
 import com.ogqcorp.metabrowser.domain.Content;
 import com.ogqcorp.metabrowser.domain.Shot;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Slf4j
 @Service
 public class VideoAnalysisService {
 
@@ -101,8 +103,6 @@ public class VideoAnalysisService {
         shot.setImage(shotDTO.getImage());
         shot.setLocation(shotDTO.getLocation());
         shot.setObject(shotDTO.getObject());
-        //shot.setLocation(String.join(",",shotDTO.getLocation()) );
-        //shot.setTags(String.join(",",shotInfo.getTags()));
 
         videoAnalysisRepository.save(shot);
     }
@@ -121,8 +121,6 @@ public class VideoAnalysisService {
         shot.setImage(shotDTO.getImage());
         shot.setLocation(shotDTO.getLocation());
         shot.setObject(shotDTO.getObject());
-        //shot.setLocation(String.join(",",shotDTO.getLocation()) );
-        //shot.setTags(String.join(",",shotInfo.getTags()));
 
         videoAnalysisRepository.save(shot);
     }
@@ -139,9 +137,8 @@ public class VideoAnalysisService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<KonanVideoRequestDTO> entity = new HttpEntity(assetsRequest,headers);
         ResponseEntity<KonanVideoResponseDTO> responseEntity = restTemplate.exchange(uri, HttpMethod.PUT, entity, KonanVideoResponseDTO.class);
-        System.out.println(responseEntity.getStatusCode());
+        log.info("RESPONSE CODE = {}",responseEntity.getStatusCode());
 
-        //restTemplate.put(_VIDEO_TAGGING_URL, konanVideoRequestDTO);
 
         return responseEntity;
 
@@ -158,7 +155,7 @@ public class VideoAnalysisService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<KonanVideoRequestDTO> entity = new HttpEntity(konanVideoRequestDTO,headers);
         ResponseEntity<KonanVideoRequestDTO> responseEntity = restTemplate.exchange(uri, HttpMethod.PUT, entity, KonanVideoRequestDTO.class);
-        System.out.println(responseEntity.getStatusCode());
+        log.info("RESPONSE CODE = {}",responseEntity.getStatusCode());
 
         //restTemplate.put(_VIDEO_TAGGING_URL, konanVideoRequestDTO);
 
@@ -175,7 +172,7 @@ public class VideoAnalysisService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<KonanVideoRequestDTO> entity = new HttpEntity(konanVideoRequestDTO,headers);
         ResponseEntity responseEntity = restTemplate.exchange(uri, HttpMethod.PUT, entity, KonanVideoRequestDTO.class);
-        System.out.println(responseEntity.getStatusCode());
+        log.info("RESPONSE CODE = {}",responseEntity.getStatusCode());
     }
 
 }

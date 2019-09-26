@@ -1,8 +1,6 @@
 package com.ogqcorp.metabrowser.content.service;
 
-import com.ogqcorp.metabrowser.account.dto.UserDTO;
 import com.ogqcorp.metabrowser.account.service.UserService;
-import com.ogqcorp.metabrowser.analysis.dto.VideoTagDTO;
 import com.ogqcorp.metabrowser.common.SearchCriteria;
 import com.ogqcorp.metabrowser.content.dto.ShotDTO;
 import com.ogqcorp.metabrowser.content.dto.TagDTO;
@@ -13,6 +11,7 @@ import com.ogqcorp.metabrowser.content.specification.ContentSpecification;
 import com.ogqcorp.metabrowser.domain.Content;
 import com.ogqcorp.metabrowser.domain.Shot;
 import com.ogqcorp.metabrowser.domain.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ContentService {
 
@@ -50,13 +50,10 @@ public class ContentService {
         List<Content> contents = page.getContent();
         int totalElements = (int) page.getTotalElements();
 
-        //Map<String, UserDTO> usersMap = userService.getUsersMap();
-        //List<VideoDTO> videoDTOs = page.stream().map(s -> new VideoDTO(s)).collect(Page<Contents>);
         return new PageImpl<VideoDTO>(contents.stream().map(s -> new VideoDTO(s, userService.findUserById(s.getUserId()))).collect(Collectors.toList()), pageable, totalElements);
     }
 
     public Page<VideoDTO> findAllByUserId(Pageable pageable, Integer userId) {
-        //List<Contents> contents = contentRepository.findAll(pageable).getContent();
         Page<Content> page = contentRepository.findAllByUserId(pageable, userId);
 
         List<Content> contents = page.getContent();

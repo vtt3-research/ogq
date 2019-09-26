@@ -88,9 +88,7 @@ public class UserInfoController {
     @PostMapping("/account/users/detail/password")
     @ResponseBody
     public ResponseEntity postPaasword(String userOldPassword, Integer id, String userPassword){
-
-        System.out.println(userOldPassword);
-
+        
         UserDTO userDTO = userService.findById(id);
 
         if(!bCryptPasswordEncoder.matches(userOldPassword, userDTO.getPassword())){
