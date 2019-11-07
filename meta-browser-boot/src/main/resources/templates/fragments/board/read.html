@@ -26,15 +26,17 @@
 	<br/>
 	<div class="container detail">
 		<div class="video-area row">
-			<video preload="metadata" width="100%" height="100%" id="video1" ontimeupdate="onTimeUpdate.apply(this)" onseeked="onSeeked.apply(this)" controls controlsList="nodownload">
-				// Replace these with your own video files.
-				<source th:src="${board.videoFileUrl}"
-						type="video/mp4"/>
-				HTML5 Video is required for this example.
-				<a th:href="${board.videoFileUrl}"
-				   download="${board.videoFileUrl}">Download the video</a> file.
-			</video>
-
+			<div id="videoWrapper">
+				<video preload="metadata" width="100%" height="100%" id="video1" ontimeupdate="onTimeUpdate.apply(this)" onseeked="onSeeked.apply(this)" controls controlsList="nodownload">
+					// Replace these with your own video files.
+					<source th:src="${board.videoFileUrl}"
+							type="video/mp4"/>
+					HTML5 Video is required for this example.
+					<a th:href="${board.videoFileUrl}"
+					   download="${board.videoFileUrl}">Download the video</a> file.
+				</video>
+			</div>
+			<canvas class="video-canvas" id="videoWrapper"></canvas>
 		</div>
 		<div class="row">
 			<div class="description col-lg-9 col-md-12 col-sm-12">

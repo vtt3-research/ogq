@@ -33,6 +33,31 @@
   $(document).ready(function(){
 
 
+      var canvas = document.getElementById('videoWrapper');
+      var ctx = canvas.getContext('2d');
+      var video = document.getElementById('video1');
+
+      video.addEventListener('loadedmetadata', function() {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+      });
+
+
+      canvas.addEventListener('click', function() {
+          $('#videoWrapper').css('display','inline');
+      });
+
+      video.addEventListener('play', function() {
+          var $this = this; //cache
+          $('#videoWrapper').css('display','none');
+          (function loop() {
+              if (!$this.paused && !$this.ended) {
+                  ctx.drawImage($this, 0, 0);
+                  setTimeout(loop, 1000 / 30); // drawing at 30fps
+              }
+          })();
+      }, 0);
+
       $('.item-download .btn').on('click',downloadContent);
 
 	  //initNavbar();
