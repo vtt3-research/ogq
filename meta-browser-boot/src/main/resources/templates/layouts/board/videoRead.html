@@ -31,6 +31,20 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+      var desMobile = function (){
+          var width_size = $(window).width();
+          if (width_size <= 640) {
+              //// Mobile
+              $(".searchdown_wrap").after($(".search_wrap"));
+
+          } else {
+              //// PC
+              $(".search_wrap").prependTo(".searchdown_wrap");
+
+          };
+      };
+      $(window).resize(desMobile);
+      desMobile();
 
 /*
       var canvas = document.getElementById('videoWrapper');

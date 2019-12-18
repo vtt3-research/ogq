@@ -80,18 +80,18 @@
 					<p class="tit">내용</p>
 					<input type="text" id="description" name="description" placeholder="내용을 입력해주세요.">
 				</div>
-				<div class="input_item necessary">
+				<!--<div class="input_item necessary">
 					<p class="tit">태그</p>
 					<div class="upload_content_tag">
-						<div class="input_tag_wrap"><span class="hashtag">#</span><input type="text" placeholder="태그는 최소 3개 이상 입력해주세요."></div>
+						<div class="input_tag_wrap"><span class="hashtag">#</span><input type="text" name="tags" placeholder="태그는 최소 3개 이상 입력해주세요."></div>
 					</div>
-				</div>
+				</div>-->
 				<div class="input_item agree">
-					<label><input type="checkbox" name=""><p>해당 비디오는 CC0 라이선스 규칙을 준수합니다.</p></label>
+					<label><input type="checkbox" name="agreeYn" value="Y"><p>해당 비디오는 CC0 라이선스 규칙을 준수합니다.</p></label>
 					<button type="button">자세히보기</button>
 				</div>
 			</div>
-			<button type="button" class="btn_cta">등록하기</button>
+			<button type="submit" name="submit" class="btn_cta">등록하기</button>
 		</div>
 <!--		<div class="row">
 

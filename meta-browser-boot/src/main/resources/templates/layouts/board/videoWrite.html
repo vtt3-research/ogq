@@ -43,6 +43,21 @@
 <script type="text/javascript">
     var ajax;
   $(document).ready(function(){
+      var desMobile = function (){
+          var width_size = $(window).width();
+          if (width_size <= 640) {
+              //// Mobile
+              $(".searchdown_wrap").after($(".search_wrap"));
+
+          } else {
+              //// PC
+              $(".search_wrap").prependTo(".searchdown_wrap");
+
+          };
+      };
+      $(window).resize(desMobile);
+      desMobile();
+
       $('form').on('submit',onSubmitForm);
 
       $('#btnCancelXhr').on('click',function(){
