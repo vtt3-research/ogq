@@ -6,55 +6,7 @@
 </head>
 <body>
 <section layout:fragment="content" class="login">
-    <div class="container">
-        <div class="logo_ogq_for_box"><img src="/images/logo_ogq_signin.png"></div>
-        <div class="main_box">
-            <div class="head_wrap">
-                <p class="head_tit">video tagging service에 오신것을 환영합니다!</p>
-            </div>
-            <p class="fs_14 gray2">로그인이 필요한 서비스입니다.<br>기존에 사용하시는 계정으로 간단하게 로그인/회원가입 하세요.</p>
-            <div class="login_btns">
-                <button type="button" class="btn_login naver">
-                    <div class="img_social_logo"><img src="/images/ic_login_naver.png"></div>
-                    <p class="tit">네이버 계정으로 로그인</p>
-                </button>
-                <button type="button" class="btn_login facebook">
-                    <div class="img_social_logo"><img src="/images/ic_login_facebook.png"></div>
-                    <p class="tit">페이스북 계정으로 로그인</p>
-                </button>
-                <button type="button" class="btn_login google">
-                    <div class="img_social_logo"><img src="/images/ic_login_google.png"></div>
-                    <p class="tit">구글 계정으로 로그인</p>
-                </button>
-                <button type="button" class="btn_login google" onclick="onClickPrevLogin()">
-                    <div class="img_social_logo"></div>
-                    <p class="tit" style="border-left-width: 0px;">이전 사용자 로그인</p>
-                </button>
-                <div id="prevLogin" class="login-container none">
-                    <form th:action="@{/login}" method="post" class="form-signin">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <input type="email" id="email" name="email" placeholder="아이디(이메일)"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <input type="password" id="password" name="password" placeholder="비밀번호"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <button name="Submit" type="Submit" text="로그인">로그인</button>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
-<!--    <div class="login-container container">
+    <div class="login-container container">
         <form th:action="@{/login}" method="post" class="form-signin">
             <div class="row">
                 <div class="p-h2">환영합니다!</div>
@@ -79,12 +31,17 @@
         <b><a href="/registration">회원가입</a></b> |
         &lt;!&ndash;<a onclick="showModal('findID');">아이디 찾기</a> |&ndash;&gt;
         <a onclick="goFindPW()">비밀번호 찾기</a>
-    </div>-->
+    </div>
 </section>
 
 
 <th:block layout:fragment="css">
     <style th:inline="text">
+
+        .login{
+            padding:10%;
+            background-color:#f7f6f5;
+        }
 
         .login-container{
             margin: auto;
@@ -121,16 +78,12 @@
         .login-container button[type=submit] {
             width: 100%;
         }
-
     </style>
 </th:block>
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        function onClickPrevLogin(){
-            $('.btn_login').addClass('none')
-            $('#prevLogin').removeClass('none')
-        }
+
     </script>
 </th:block>
 

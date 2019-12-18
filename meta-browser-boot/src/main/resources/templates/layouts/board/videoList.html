@@ -29,23 +29,23 @@
 <div class="main-container"> 
 	<div class="container" style="width:100%;">
 		<!--<section th:replace="fragments/board/common :: title"></section>-->
-        <div class="top">
+<!--        <div class="top">
             <div class="menu-title"><p>전체 비디오</p></div>
             <div class="upload">
                 <a href="./videos/write">
                     <button class="btn btn-outline-danger">비디오 업로드</button>
                 </a>
             </div>
-        </div>
+        </div>-->
 
 		<div th:replace="fragments/board/list :: videoWebzine"></div>
 		<div th:replace="fragments/board/pagination :: basic"></div>
-        <div class="search-wrap">
+<!--        <div class="search-wrap">
             <form method="get">
                 <input type="search" id="search" name="keyword" placeholder="검색어" th:value="${keyword}"/>
                 <button type="submit"><img src="/images/ic-search.png"></button>
             </form>
-        </div>
+        </div>-->
 	</div>
 </div>
 <div layout:fragment="content">
@@ -56,6 +56,13 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+      $(".btn_select_video input[type='checkbox']").click(function() {
+          if ($(this).is(":checked")) {
+              $(this).siblings("img").attr("src","/images/btn_select_video_ed.png")
+          } else {
+              $(this).siblings("img").attr("src","/images/btn_select_video_un.png")
+          };
+      });
 
 	  //initNavbar();
 	  //ready();

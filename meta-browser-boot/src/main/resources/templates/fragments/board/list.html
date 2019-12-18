@@ -79,7 +79,7 @@
 
 <div th:fragment="videoWebzine" class="container">
 	<!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
-	<div class="list list-header">
+<!--	<div class="list list-header">
 		<div class="row">
 			<div class="item-checkbox" style="padding-top:10px;">
 				<input type="checkbox" class="downloadCheck" id="downloadAllCheck" name="downloadAll">
@@ -89,10 +89,47 @@
 			</div>
 			<hr/>
 		</div>
+	</div>-->
+	<div class="headline">
+		<div class="count_wrap">
+			<p class="count_sum" th:text="${page.totalElements}">3,140,371</p>
+			<p class="count_txt">Videos</p>
+		</div>
+		<div class="searchdown_wrap"><div class="search_wrap">
+			<form method="get">
+				<input type="search" id="search" name="keyword" placeholder="검색어" th:value="${keyword}"/>
+				<button type="submit" class="btn_search"><img src="/images/ic_search.png"></button>
+			</form>
+		</div>
+			<button class="btn_select_for_download" type="button" id="downloadSelectBtn">선택 다운로드</button>
+		</div>
 	</div>
-	<div class="list" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}">
-
-		<div class="row list-webzine">
+	<div class="list_content">
+		<a class="item" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}" th:href="@{'videos/detail/' + ${board.id}}">
+			<div class="thumb_wrap">
+				<span class="runtime" th:text="${board.videoDuration}">00:20:47</span>
+				<video class="img_thumb" th:id="@{'v_'+${board.id}}" preload="metadata" width="100%" height="100%">
+					<source th:src="@{${board.videoFileUrl}+'#=0.1'}"
+							type="video/mp4"/>
+				</video>
+				<label class="btn_select_video">
+					<input type="checkbox" class="downloadCheck" name="downloadItem" th:data-download="@{${board.title.replace(' ','_')}+'_'+${board.userDTO.userName}}" th:data-href="${board.videoFileUrl}" th:value="${board.videoFileUrl}">
+					<img src="/images/btn_select_video_un.png">
+				</label>
+			</div>
+			<div class="meta_wrap">
+				<div class="main">
+					<p class="tit" th:text="${board.title}"></p>
+					<p class="write" th:text="${board.userDTO.userName}"></p>
+				</div>
+				<div class="sub">
+					<p class="filesize" th:text="${board.videoFileDisplaySize}">250Mb</p>
+					<span class="hr"></span>
+					<p class="date" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2019.09.19</p>
+				</div>
+			</div>
+		</a>
+<!--		<div class="row list-webzine">
 			<div class="item-checkbox">
 				<input type="checkbox" class="downloadCheck" name="downloadItem" th:data-download="@{${board.title.replace(' ','_')}+'_'+${board.userDTO.userName}}" th:data-href="${board.videoFileUrl}" th:value="${board.videoFileUrl}">
 			</div>
@@ -116,51 +153,40 @@
 
 				</div>
 				<br>
-				<!--<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
+				&lt;!&ndash;<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>&ndash;&gt;
 			</div>
 			<div  class="col-lg-1 col-md-1 col-sm-12 item-download">
 				<button class="btn btn-outline-dark" th:data-href="${board.videoFileUrl}" th:data-download="@{${board.title.replace(' ','_')}+'_'+${board.userDTO.userName}}">다운로드</button>
 			</div>
-		</div>
-		<hr/>
+		</div>-->
 	</div>
 </div>
 
 
 <div th:fragment="myProfileWebzine">
 	<!-- 	<div th:if="${not #lists.isEmpty(page.content)}"  class="text-center" > -->
-	<div class="list" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}">
-		<div class="row list-webzine">
-			<div class="item-checkbox">
-				<input type="checkbox" class="removeCheck" name="delItem" th:value="${board.id}">
+	<div class="list_content">
+		<a class="item" th:if="${page.totalElements} > 0" th:each="board : ${page.content}" th:data-id="${board.id}" th:href="@{'videos/detail/' + ${board.id}}">
+			<div class="thumb_wrap">
+				<span class="runtime" th:text="${board.videoDuration}">00:20:47</span>
+				<video class="img_thumb" th:id="@{'v_'+${board.id}}" preload="metadata" width="100%" height="100%">
+					<source th:src="@{${board.videoFileUrl}+'#=0.1'}"
+							type="video/mp4"/>
+				</video>
+				<button class="btn_download" type="button"><img src="/images/btn_del_video.png"></button>
 			</div>
-			<div  class="col-lg-2 col-md-2 col-sm-12 item-thumbnail">
-				<a th:href="@{'videos/detail/' + ${board.id}}">
-					<video th:id="@{'v_'+${board.id}}" class="videoView" preload="metadata" width="100%" height="100%">
-						<source th:src="@{${board.videoFileUrl}+'#=0.1'}"
-								type="video/mp4"/>
-					</video>
-				</a>
-			</div>
-			<div class="col-lg-8 col-md-8 col-sm-12 item-main">
-				<div class="item-title">
-					<a
-							href=""
-							th:href="@{'videos/detail/' + ${board.id}}"
-							th:text="${board.title}">
-					</a>
+			<div class="meta_wrap">
+				<div class="main">
+					<p class="tit" th:text="${board.title}"></p>
+					<p class="write" th:text="${board.userDTO.userName}"></p>
 				</div>
-				<div class="item-info" th:text="${board.userDTO.userName +' / ' + board.videoFileDisplaySize +  ' / ' +#dates.format(board.registeredDate, 'yyyy.MM.dd')}">
-
+				<div class="sub">
+					<p class="filesize" th:text="${board.videoFileDisplaySize}">250Mb</p>
+					<span class="hr"></span>
+					<p class="date" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2019.09.19</p>
 				</div>
-				<br>
-				<!--<div class="list-title-date-s" style="position:absolute; bottom:0px;" th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd')}">2015-10-30 01:09</div>-->
 			</div>
-			<div  class="col-lg-1 col-md-1 col-sm-12 item-delete" th:data-id="${board.id}">
-				<a  th:id="@{'download_'+${board.id}}"><button class="btn btn-outline-dark">삭제</button></a>
-			</div>
-		</div>
-		<hr/>
+		</a>
 	</div>
 </div>
 
@@ -236,9 +262,7 @@
 						</a>
 					</div>
 					<div class="list-title-date-s"  th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}" style="padding-left:10px;">2015-10-30 01:09</div>
-				</div>	
-
-					
+				</div>
 			</div>
 		</div>
 </section>

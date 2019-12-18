@@ -61,7 +61,39 @@
 <section th:fragment="video">
 
 	<form class="container write" id="needs-validation" th:action="@{./write}" enctype="multipart/form-data" method="post">
-		<div class="row">
+		<div class="main_box">
+			<div class="head_wrap">
+				<p class="head_tit">비디오 업로드</p>
+			</div>
+			<div class="input_group">
+				<div class="input_item necessary">
+					<p class="tit">동영상 파일</p>
+					<div class="file_upload_wrap">
+						<input type="file" id="videoFile" name="videoFile" class="form-control-file" placeholder="AVI, FLV, WMV, MP4, MOV 파일" accept=".avi, .flv, .wmv, .mp4, .mov" required>
+					</div>
+				</div>
+				<div class="input_item necessary">
+					<p class="tit">제목</p>
+					<input type="text"  id="title" name="title" placeholder="제목을 입력해주세요.">
+				</div>
+				<div class="input_item">
+					<p class="tit">내용</p>
+					<input type="text" id="description" name="description" placeholder="내용을 입력해주세요.">
+				</div>
+				<div class="input_item necessary">
+					<p class="tit">태그</p>
+					<div class="upload_content_tag">
+						<div class="input_tag_wrap"><span class="hashtag">#</span><input type="text" placeholder="태그는 최소 3개 이상 입력해주세요."></div>
+					</div>
+				</div>
+				<div class="input_item agree">
+					<label><input type="checkbox" name=""><p>해당 비디오는 CC0 라이선스 규칙을 준수합니다.</p></label>
+					<button type="button">자세히보기</button>
+				</div>
+			</div>
+			<button type="button" class="btn_cta">등록하기</button>
+		</div>
+<!--		<div class="row">
 
 			<div class="col-lg-6 col-md-6  col-sm-12 item">
 				<label for="file">동영상</label>
@@ -95,8 +127,8 @@
 		<div class="text-center">
 			<button name="submit" type="submit">등록하기</button>
 
-			<!--<a class="btn btn-outline-success" th:href="@{./list}" role="button">목록</a>-->
-		</div>
+			&lt;!&ndash;<a class="btn btn-outline-success" th:href="@{./list}" role="button">목록</a>&ndash;&gt;
+		</div>-->
 	</form>
 
 </section>

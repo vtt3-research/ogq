@@ -2,11 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     <footer th:fragment="footer" class="footer" id="mainFooter">
-        <div>
-
+        <div class="container">
+            <div class="info_symbol">
+                <img class="logo_ogq_gray" src="/images/logo_ogq_footer.png">
+                <p class="copyright">© OGQ Corp.</p>
+            </div>
+            <div class="info_txt">
+                <div class="item">
+                    <p class="tit">대표이사</p>
+                    <p class="desc">신철호</p>
+                </div>
+                <div class="item">
+                    <p class="tit">주소</p>
+                    <p class="desc">서울특별시 강남구 논현로 164 10F</p>
+                </div>
+                <div class="item">
+                    <p class="tit">사업자등록번호</p>
+                    <p class="desc">220-86-76113</p>
+                </div>
+                <div class="item">
+                    <p class="tit">이메일</p>
+                    <p class="desc">ogq_vtt@ogqcorp.com</p>
+                </div>
+                <div class="item">
+                    <p class="tit">통신판매업신고번호</p>
+                    <p class="desc">제 2018-서울강남-03954호</p>
+                </div>
+            </div>
         </div>
 
-        <div id="uploadingModal" class="modal">
+        <div id="uploadingModal" class="modal none">
             <!-- Modal content -->
             <div class="modal-content">
                 <div class="modal-body">
@@ -24,7 +49,7 @@
         </div>
 
         <!-- The Modal -->
-        <div id="uploadCompleteModal" class="modal">
+        <div id="uploadCompleteModal" class="modal none">
             <div class="modal-content">
                 <div class="modal-body download-complete">
                     <p class="p-h3">업로드 완료</p>

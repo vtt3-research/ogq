@@ -5,6 +5,32 @@
 </head>
 
 <div th:fragment="basic">
+	<div class="pagination">
+		<button class="btn_move_page prev" type="button"
+				th:classappend="*{page.first} ? 'disabled' : ''"
+				th:href="@{''(page=${page.number-1},keyword=${keyword})}"
+				data-th-attr="page=${page.number} - 1"><img src="/images/ic_arrow_prev.png"></button>
+		<ul	th:with="elementsperpage=2, blocksize=5,
+						pages=${page.number+1}/${elementsperpage},
+						wholepages=${T(Math).ceil(pages)},
+						whole=(${page.number+1}/${blocksize})+1,
+						wholex=${T(Math).ceil(whole)},
+						startnlockpage=${wholepages}*${blocksize+1},
+						endblockpage=${wholepages}*${blocksize+1},
+						startpage=${wholex-1}*${blocksize},
+						endpage=(${wholex}*${blocksize})+1">
+			<li th:each="i : ${#numbers.sequence(endpage-11, (endpage lt page.totalPages)? endpage-2 : page.totalPages-1)}" th:classappend="${page.number}==${i}?' on'">
+				<a th:if="${page.number eq i}" class="page-link" th:href="@{''(page=${i},keyword=${keyword})}" th:text="${i+1}">1</a>
+				<a th:if="${not (page.number eq i)}" class="page-link" th:href="@{''(page=${i},keyword=${keyword})}" th:text="${i+1}">1</a>
+			</li>
+		</ul>
+		<button class="btn_move_page next" type="button" th:classappend="*{page.last} ? 'disabled' : ''"
+				th:href="@{''(page=${page.number+1},keyword=${keyword})}"  data-th-attr="page=${page.number} + 1">
+			<img src="/images/ic_arrow_next.png">
+		</button>
+	</div>
+<!--
+
 		<div class="text-center" aria-label="Page navigation" th:if="${page.totalPages>0}">
 			<ul class="pagination d-inline-flex" 
 				th:with="elementsperpage=2, blocksize=5, 
@@ -33,6 +59,7 @@
 	
 			</ul>
 		</div>
+-->
 
 
 </div>

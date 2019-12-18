@@ -9,8 +9,33 @@
 
 
     <div class="container">
-        <br/>
-        <div class="row profile">
+        <div class="headline">
+            <div class="myprofile_wrap">
+                <div class="item">
+                    <div class="tit">
+                        <img src="/images/ic_mail.png">
+                        <p>이름</p>
+                    </div>
+                    <p class="desc" th:text="${user.userName}"></p>
+                </div>
+                <div class="item">
+                    <div class="tit">
+                        <img src="/images/ic_address.png">
+                        <p>소속</p>
+                    </div>
+                    <p class="desc" th:if="${user.institution} != ''" th:text="${user.institution}">주식회사 OGQ</p>
+                </div>
+                <div class="item">
+                    <div class="tit">
+                        <img src="/images/ic_mypage.png">
+                        <p>이메일</p>
+                    </div>
+                    <p class="desc" th:text="${user.email}"></p>
+                </div>
+            </div>
+            <button class="btn_edit_profile" type="button" onclick="openUserInfoLayer();">정보변경</button>
+        </div>
+<!--        <div class="row profile">
             <div class="col-lg-2 col-md-12 col-sm-12">
                 <p><b>소속</b> : <span id="displayInstitution" th:if="${user.institution} != ''" th:text="${user.institution}"></span></p>
             </div>
@@ -24,175 +49,44 @@
                 <span><button class="white-button" onclick="showModal('myInfoUpdateModal');">정보 변경</button></span>
                 <span><button class="white-button" onclick="showModal('passwordUpdateModal');">비밀번호 변경</button></span>
             </div>
-        </div>
-        <br/>
+        </div>-->
 
-        <button class="white-button" id="removeCheckBox">선택 삭제</button>&nbsp;&nbsp;
+        <!--<button class="white-button" id="removeCheckBox">선택 삭제</button>&nbsp;&nbsp;-->
         <!--<section th:replace="fragments/board/common :: title"></section>-->
         <div th:replace="fragments/board/list :: myProfileWebzine"></div>
         <div th:replace="fragments/board/pagination :: basic"></div>
     </div>
 
 
+    <div class="popup_show none" id="changeUserInfo">
 
-    <div id="myInfoUpdateModal" class="modal">
-        <!-- Modal content -->
-        <div class="wide-modal-content">
-            <div class="modal-body change-user">
-                <p class="p-h3">정보 변경</p>
-                <br>
+        <div class="overlay_dim">
+
+            <div class="main_box">
                 <form id="updateMyAccountForm">
+                    <div class="head_wrap">
+                        <p class="head_tit">개인정보 변경</p>
+                    </div>
                     <input type="hidden" name="id" id="id" th:value="${user.id}">
-                    <div class="row item">
-                        <div class="col-lg-2 col-md-2 col-sm-12 item-label">
-                            <label>소속</label>
+                    <div class="input_group">
+                        <div class="input_item">
+                            <p class="tit">소속</p>
+                            <input type="text" id="institution" name="institution" th:value="${user.institution}" maxlength="64">
                         </div>
-                        <div class="col-lg-10 col-md-10 col-sm-12">
-                            <input type="text" id="institution" name="institution"
-                                   th:value="${user.institution}"
-                                   placeholder="소속 기관 또는 회사명(선택입력)" maxlength="64"
-                                   onkeyup='valChecker($(this),64, $("#byteString1"));'>
-                            <div id="byteString1" class="input-length"></div>
-
+                        <div class="input_item">
+                            <p class="tit">이름</p>
+                            <input type="text" id="userName" name="userName" th:value="${user.userName}" placeholder="홍길동" maxlength="32">
                         </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-lg-2 col-md-2 col-sm-12 item-label">
-                            <label>이름</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-12">
-                            <div class="wrap_inp">
-                                <input type="text" id="userName" name="userName"
-                                       th:value="${user.userName}" placeholder="홍길동" maxlength="32"
-                                       onkeyup='valChecker($(this),32, $("#byteString2"));'>
-                                <p ID="caution1" class="txt_message3">* 미 입력시 이메일 주소의 일부가 이름으로 사용됩니다.</p>
-                                <div id="byteString2"
-                                           class="input-length"></div>
-                            </div>
+                        <div class="input_item">
+                            <p class="tit">이메일주소</p>
+                            <input type="text" name="e" th:value="${user.email}" readonly="true" disabled="true">
                         </div>
                     </div>
-                    <div class="row item">
-                        <div class="col-lg-2 col-md-2 col-sm-12 item-label">
-                            <label>이메일</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-12">
-                            <p th:text="${user.email}">
-                            </p>
-                        </div>
-                    </div>
-                    <div style="margin: 10px;">
-                        <!--
-                        <button class="large-button" onclick="goUpdateMyAccount()">변경하기</button>
-                        -->
-                        <input type="submit" class="large-button" value="변경하기">
+                    <div class="btns_for_popup two">
+                        <button type="button" class="btn_cta cancel" onclick="closeUserInfoLayer()">취소</button>
+                        <button type="submit" class="btn_cta ok green">변경하기</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="passwordUpdateModal" class="modal">
-        <!-- Modal content -->
-        <div class="wide-modal-content">
-            <div class="modal-body change-user">
-                <p class="p-h3">비밀번호 변경</p>
-                <br>
-
-
-                <form id="updatePWForm">
-                    <!--
-                    //todo: /account/updatePWOK
-                    //TODO: 비번 변경
-
-                    -->
-
-                    <div class="row item">
-                        <div class="col-lg-3 col-md-3 col-sm-12 item-label">
-                            <label>현재 비밀번호</label>
-                        </div>
-                        <div class="col-lg-9 col-md-9 col-sm-12">
-                            <input class="input-general" type="password" id="oldPassword" name="oldPassword"
-                                   placeholder="현재 비밀번호를 입력해주세요.">
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-lg-3 col-md-3 col-sm-12 item-label">
-                            <label>새 비밀번호</label>
-                        </div>
-                        <div class="col-lg-9 col-md-9 col-sm-12">
-                            <input class="input-general" type="password" id="password1" name="password1" minlength="8"
-                                   onchange="form.password2.pattern = this.value;"
-                                   placeholder="변경할 비밀번호를 입력해주세요.">
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-lg-3 col-md-3 col-sm-12 item-label">
-                            <label>새 비밀번호 확인</label>
-                        </div>
-                        <div class="col-lg-9 col-md-9 col-sm-12">
-                            <input class="input-general" type="password" id="password2" name="password2" minlength="8"
-                                   title="비밀번호가 일치하지 않습니다."
-                                   placeholder="확인을 위해 동일한 비밀번호를 다시 한번 입력해주세요.">
-                        </div>
-                    </div>
-
-                    <p id="caution2" class="txt_message"></p>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <input type="submit" class="submit" value="변경하기"/>
-                            <input type="button" class="submit" onclick="hideModal()" value="취소하기"/>
-                        </div>
-                    </div>
-                </form>
-
-                <script>
-                    function goUpdatePassword() {
-                        if (checkPWForm()) $('#updatePWForm').submit();
-                    }
-
-
-                    function checkPWForm() {
-                        str0 = "";
-
-                        str4 = "* 비밀번호를 입력해주세요.";
-                        str5 = "* 비밀번호가 일치하지 않습니다.";
-                        str6 = "* 최소 8자리 이상 입력해주세요.";
-
-                        var reg = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
-
-
-                        var oldPassword = $("#oldPassword").val();
-                        var password1 = $("#password1").val();
-                        var password2 = $("#password2").val();
-
-                        if (oldPassword == null || oldPassword.length == 0) str0 = str4;//
-                        else if (password1 == null || password1.length < 8 || password2 == null || password2.length < 8) str0 = str6;//
-                        else if (password1 != password2) str0 = str5;//
-                        else return true;
-
-                        $("#caution2").text(str0);
-                        return false;
-
-                    }
-                </script>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- 삭제알림팝업 -->
-    <div id="deleteModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-body download-complete change-user" >
-                <p class="p-h3">삭제</p>
-                <p>&nbsp;</p>
-                <p class="">선택한 <span id="delCount">1</span>개의 파일을 삭제하시겠습니까?</p>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom:10px;"z>
-                    <button type="submit" class="submit" value="변경하기" id="removeConfirm" style="width:45%; margin-left:10px;">확인</button>
-                    <button type="button" class="submit" onclick="hideModal()" style="width:45%; margin-left:15px;">취소</button>
-                </div>
             </div>
         </div>
     </div>
@@ -205,6 +99,14 @@
 </th:block>
 <th:block layout:fragment="script">
     <script th:inline="javascript">
+        function openUserInfoLayer() {
+            $('#changeUserInfo').removeClass('none');
+        }
+
+        function closeUserInfoLayer() {
+            $('#changeUserInfo').addClass('none');
+        }
+
         $(document).ready(function(){
 
 
@@ -288,6 +190,7 @@
                         $('#displayUserName').text(formData.userName);
                         $('#displayInstitution').text(formData.institution);
                         alert('정보 변경에 성공하였습니다.');
+                        closeUserInfoLayer();
 
                     },
                     error: function(resp){

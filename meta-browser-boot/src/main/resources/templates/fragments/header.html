@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <header th:fragment="header">
-        <p class="Video-Tagging-Servic" onclick="location.href='/content/videos'">VIDEO TAGGING SERVICE</p>
-        <div></div>
-        <div sec:authorize="isAuthenticated()" class="header-right-container">
-            <button class="header-button" onclick="location.href='/account/users/detail'"><p>
-                마이페이지</p></button>
-            <button class="header-button"
-                 onclick="alert('로그아웃 되었습니다.');setTimeout(function() {location.href='/logout';}, 1000);">
-                <p>로그아웃</p></button>
+    <header th:fragment="header" class="gnb">
+        <div class="container">
+            <a href="/content/videos" class="gnb_logo_wrap">
+                <img class="logo_vtt" src="/images/logo_vtt_gnb.png">
+            </a>
+            <ul sec:authorize="isAuthenticated()" class="menu_wrap">
+                <li class="on"><a href="./videos/write"><img src="/images/ic_upload.png"><span>비디오 업로드</span></a></li>
+                <li><a href="/account/users/detail"><img src="/images/ic_mypage.png"><span>마이페이지</span></a></li>
+                <li>
+                    <a href="#" onclick="alert('로그아웃 되었습니다.');setTimeout(function() {location.href='/logout';}, 1000); return false;">
+                        <img src="/images/ic_logout.png"><span>로그아웃</span>
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <!-- 일반모달 -->

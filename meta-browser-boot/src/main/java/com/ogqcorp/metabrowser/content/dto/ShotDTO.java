@@ -25,7 +25,6 @@ public class ShotDTO {
 
     private String location;
 
-    @JsonIgnore
     private String object;
 
 

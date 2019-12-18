@@ -21,62 +21,65 @@
 </section>
 
 <section th:fragment="video">
-
-	<br/>
-	<br/>
-	<div class="container detail">
-		<div class="video-area row">
-			<div id="videoWrapper">
-				<video preload="metadata" width="100%" height="100%" id="video1" ontimeupdate="onTimeUpdate.apply(this)" onseeked="onSeeked.apply(this)" controls controlsList="nodownload">
-					// Replace these with your own video files.
-					<source th:src="${board.videoFileUrl}"
-							type="video/mp4"/>
-					HTML5 Video is required for this example.
-					<a th:href="${board.videoFileUrl}"
-					   download="${board.videoFileUrl}">Download the video</a> file.
-				</video>
-			</div>
-			<canvas class="video-canvas" id="videoWrapper"></canvas>
-		</div>
-		<div class="row">
-			<div class="description col-lg-9 col-md-12 col-sm-12">
-				<div class="title"><p th:text="${board.title}"></p></div>
-				<div class="date-info">
-					<p  th:text="${'등록일 : '+#dates.format(board.registeredDate, 'yyyy.MM.dd HH:mm:ss') + ' / 수정일 : '+#dates.format(board.lastUpdateDate, 'yyyy.MM.dd HH:mm:ss')}"></p>
+	<div class="headline">
+		<div class="meta_wrap">
+			<div class="main_wrap">
+				<div class="txt">
+					<p class="tit" th:text="${board.title}">Portland</p>
+					<p class="write" th:text="${board.userDTO.userName}">by Sunstra Maneerattana</p>
 				</div>
-				<div class="explanation" th:text="${board.explanation}"></div>
-				<div class="button-area item-download"><button class="btn btn-outline-danger"
-											 th:id="@{'download_'+${board.id}}"
-											 th:data-href="${board.videoFileUrl}"
-											 th:data-download="@{${board.title.replace(' ','_')}+'_'+${board.userDTO.userName}}">다운로드</button></div>
-
-
-				<div class="content-tag-area">
-					<ul class="hashtag content-tag" >
-						<li th:each="tag : ${board.tags}">
-							<a th:href="@{'/content/videos?tag='+${tag}}" th:text="@{'#'+${tag}}"></a>
-						</li>
-					</ul>
-				</div>
-				<hr/>
-				<div class="info">
-					<div><b>등록자</b> : <span th:text="${board.userDTO.userName}"></span>  <span th:text="@{'('+${board.userDTO.institution}+')'}"></span><span class="sp">&nbsp; &nbsp; | &nbsp; &nbsp;</span></div>
-					<div><b>파일명</b> : <span th:text="${board.videoFileName}"></span><span class="sp">&nbsp; &nbsp; | &nbsp; &nbsp;</span></div>
-					<div><b>파일크기</b> : <span th:text="${board.videoFileDisplaySize}"></span><span class="sp">&nbsp; &nbsp; | &nbsp; &nbsp;</span></div>
-					<div><b>재생시간</b> : <span id="runtime" th:text="${board.videoDuration}"></span></div>
-				</div>
-			</div>
-			<div class="meta-tag-area col-lg-3 col-md-12 col-sm-12">
-				<div class="title"><p>Scene Tags</p></div>
-				<ul class="hashtag detail-tag" id="detailTags"></ul>
+				<div class="btns button-area item-download"><button class="btn btn_download_video"
+															   th:id="@{'download_'+${board.id}}"
+															   th:data-href="${board.videoFileUrl}"
+															   th:data-download="@{${board.title.replace(' ','_')}+'_'+${board.userDTO.userName}}">다운로드</button></div>
 
 			</div>
+
+
+			<div class="spec_wrap">
+				<div class="f_left">
+					<div class="item"><span class="tit">재생시간</span><span class="desc" th:text="${board.videoDuration}">49:30:10</span></div>
+					<span class="hr"></span>
+					<div class="item"><span class="tit">파일크기</span><span class="desc" th:text="${board.videoFileDisplaySize}">364Mb</span></div>
+				</div>
+				<div class="f_right">
+					<div class="item"><span class="tit">등록일</span><span class="desc"  th:text="${#dates.format(board.registeredDate, 'yyyy.MM.dd HH:mm:ss')}">2019.01.24</span></div>
+					<span class="hr"></span>
+					<div class="item"><span class="tit">최종수정일</span><span class="desc" th:text="${#dates.format(board.lastUpdateDate, 'yyyy.MM.dd HH:mm:ss')}">2019.12.04</span></div>
+				</div>
+			</div>
+
+			<pre class="video_desc" th:text="${board.explanation}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</pre>
+
 		</div>
 
 	</div>
-
-
-
+	<div class="video_play_wrap">
+		<div class="player">
+			<video preload="metadata" width="100%" height="100%" id="video1" ontimeupdate="onTimeUpdate.apply(this)" onseeked="onSeeked.apply(this)" controls controlsList="nodownload">
+				// Replace these with your own video files.
+				<source th:src="${board.videoFileUrl}"
+						type="video/mp4"/>
+				HTML5 Video is required for this example.
+				<a th:href="${board.videoFileUrl}"
+				   download="${board.videoFileUrl}">Download the video</a> file.
+			</video>
+		</div>
+		<div class="tags_wrap screen">
+			<p class="tit">Screen Tags</p>
+			<div class="list" id="detailTags">
+				<div class="item_tag"></div>
+			</div>
+		</div>
+	</div>
+	<div class="tags_wrap all">
+		<p class="tit">All Tags</p>
+		<div class="list">
+			<div class="item_tag" th:each="tag : ${board.tags}">
+				<a th:href="@{'/content/videos?tag='+${tag}}" th:text="@{'#'+${tag}}"></a>
+			</div>
+		</div>
+	</div>
 
 </section>
 

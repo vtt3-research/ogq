@@ -32,7 +32,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
 
-
+/*
       var canvas = document.getElementById('videoWrapper');
       var ctx = canvas.getContext('2d');
       var video = document.getElementById('video1');
@@ -56,7 +56,7 @@
                   setTimeout(loop, 1000 / 30); // drawing at 30fps
               }
           })();
-      }, 0);
+      }, 0);*/
 
       $('.item-download .btn').on('click',downloadContent);
 
@@ -244,7 +244,7 @@
                 currentIndex++;
                 var element = '';
                 if(shots[i].tags.length > 0){
-                    element = '<li>#'+shots[i].tags.join('</li><li>#')+'</li>'
+                    element = '<div class="item_tag">#'+shots[i].tags.join('</div><div class="item_tag">#')+'</div>'
                 }else{
                     element = '';
                 }
